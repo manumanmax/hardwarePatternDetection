@@ -56,6 +56,9 @@ void multipleModels(int argc, char** argv) {
 	double dist;
 	double max_dist[numberOfModels];
 	double min_dist[numberOfModels];
+	Mat H[numberOfModels];
+	std::vector<Point2f> obj_corners(4);
+	std::vector<Point2f> scene_corners(4);
 	std::vector<Point2f> obj[numberOfModels];
 	std::vector<Point2f> scene[numberOfModels];
 	std::vector<KeyPoint> keypoints_object[numberOfModels], keypoints_scene;
@@ -64,7 +67,7 @@ void multipleModels(int argc, char** argv) {
 	FlannBasedMatcher matcher;
 	//BFMatcher matcher(NORM_L1);
 	std::vector<DMatch> good_matches[numberOfModels];
-	Mat img_matches[numberOfModels];
+	Mat img_matches;
 
 	//-- Step 1: Detect the keypoints using SURF Detector
 	int minHessian = 1500;
@@ -109,8 +112,8 @@ void multipleModels(int argc, char** argv) {
 		}
 
 		drawMatches(img_object[i], keypoints_object[i], img_scene,
-				keypoints_scene, good_matches[i], img_matches[i],
-				Scalar::all(-1), Scalar::all(-1), vector<char>(),
+				keypoints_scene, good_matches[i], img_matches, Scalar::all(-1),
+				Scalar::all(-1), vector<char>(),
 				DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
 		//-- Localize the object
@@ -126,38 +129,38 @@ void multipleModels(int argc, char** argv) {
 		std::cout << "size of scene_list " << scene[i].size() << std::endl;
 		if (obj[i].empty())
 			continue;
-		//std::cout << "object empty" << std::endl;
-		Mat H = findHomography(obj[i], scene[i], CV_RANSAC);
 
-		 //-- Get the corners from the image_1 ( the object to be "detected" )
-		 std::vector<Point2f> obj_corners(4);
-		 obj_corners[0] = cvPoint(0, 0);
-		 obj_corners[1] = cvPoint(img_object[i].cols, 0);
-		 obj_corners[2] = cvPoint(img_object[i].cols, img_object[i].rows);
-		 obj_corners[3] = cvPoint(0, img_object[i].rows);
-		 std::vector<Point2f> scene_corners(4);
+		//homography
+		H[i] = findHomography(obj[i], scene[i], CV_RANSAC);
+		//std::vector<Point2f> obj_corners(4);
+		//-- Get the corners from the image_1 ( the object to be "detected" )
 
-		 perspectiveTransform(obj_corners, scene_corners, H);
+		obj_corners[0] = cvPoint(0, 0);
+		obj_corners[1] = cvPoint(img_object[i].cols, 0);
+		obj_corners[2] = cvPoint(img_object[i].cols, img_object[i].rows);
+		obj_corners[3] = cvPoint(0, img_object[i].rows);
 
-		 //-- Draw lines between the corners (the mapped object in the scene - image_2 )
-		 line(img_matches[i], scene_corners[0] + Point2f(img_object[i].cols, 0),
-		 scene_corners[1] + Point2f(img_object[i].cols, 0),
-		 Scalar(255, 255, 255), 4);
-		 line(img_matches[i], scene_corners[1] + Point2f(img_object[i].cols, 0),
-		 scene_corners[2] + Point2f(img_object[i].cols, 0),
-		 Scalar(255, 255, 255), 4);
-		 line(img_matches[i], scene_corners[2] + Point2f(img_object[i].cols, 0),
-		 scene_corners[3] + Point2f(img_object[i].cols, 0),
-		 Scalar(255, 255, 255), 4);
-		 line(img_matches[i], scene_corners[3] + Point2f(img_object[i].cols, 0),
-		 scene_corners[0] + Point2f(img_object[i].cols, 0),
-		 Scalar(255, 255, 255), 4);
 
-		 //-- Show detected matches
-		 string finish_Name = "Good Matches & Object detection number " + std::to_string(i);
-		 imshow(finish_Name, img_matches[i]);
+		perspectiveTransform(obj_corners, scene_corners, H[i]);
 
+		//-- Draw lines between the corners (the mapped object in the scene - image_2 )
+		line(img_matches, scene_corners[0] + Point2f(img_object[i].cols, 0),
+				scene_corners[1] + Point2f(img_object[i].cols, 0),
+				Scalar(255, 255, 255), 4);
+		line(img_matches, scene_corners[1] + Point2f(img_object[i].cols, 0),
+				scene_corners[2] + Point2f(img_object[i].cols, 0),
+				Scalar(255, 255, 255), 4);
+		line(img_matches, scene_corners[2] + Point2f(img_object[i].cols, 0),
+				scene_corners[3] + Point2f(img_object[i].cols, 0),
+				Scalar(255, 255, 255), 4);
+		line(img_matches, scene_corners[3] + Point2f(img_object[i].cols, 0),
+				scene_corners[0] + Point2f(img_object[i].cols, 0),
+				Scalar(255, 255, 255), 4);
 	}
+	//-- Show detected matches
+	string finish_Name = "Good Matches & Object detection number "; //+ std::to_string(i);
+	imshow(finish_Name, img_matches);
+
 	waitKey(0);
 }
 
