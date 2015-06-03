@@ -7,7 +7,7 @@
  */
 
 #include <string>
-
+#include "Trainer.h"
 #include <cv.h>
 #include <highgui.h>
 #include <opencv2/nonfree/features2d.hpp>
@@ -16,10 +16,11 @@ using namespace cv;
 
 void readme();
 void multipleModels(int argc, char** argv);
-void multipleScene(int argc, char** argv);
 
 int main(int argc, char** argv) {
-	multipleModels(argc, argv);
+	//multipleModels(argc, argv);
+
+	Trainer trainer();
 
 	return 0;
 }
