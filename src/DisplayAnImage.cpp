@@ -6,24 +6,59 @@
  *      Author: manu
  */
 
-#include <string>
 #include "Trainer.h"
 #include <cv.h>
 #include <highgui.h>
 #include <opencv2/nonfree/features2d.hpp>
 
 using namespace cv;
+int minHessian = 1500;
+SurfFeatureDetector detector(minHessian);
+SurfDescriptorExtractor extractor;
+
 
 void readme();
 void multipleModels(int argc, char** argv);
 
+std::vector<cv::KeyPoint> extractKeypoints(cv::Mat matrix){
+
+	std::vector<KeyPoint> keypoints;
+
+	//-- Step 2: Calculate descriptors (feature vectors)
+	detector.detect(matrix, keypoints);
+
+	return keypoints;
+}
+
+cv::Mat extractDescriptor(cv::Mat matrix, std::vector<KeyPoint>& keypoints){
+	cv::Mat descriptors_object;
+	extractor.compute(matrix, keypoints, descriptors_object);
+	return descriptors_object;
+}
+
 int main(int argc, char** argv) {
 	//multipleModels(argc, argv);
 
-	Trainer trainer();
-
+	Trainer trainer;
+	if (argc < 2) {
+		readme();
+	} else {
+		Mat img_model = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+		if(img_model.data){
+			imshow("model", img_model);
+			//std::cout << extractKeypoints(img_model).size() << std::endl;
+			string s = "../Ressources/trainningSets/item/_one.yml";
+			trainer.save(extractKeypoints(img_model),img_model,s);
+		}else{
+			return 0;
+		}
+	}
+	waitKey(0);
 	return 0;
 }
+
+
+
 
 void multipleModels(int argc, char** argv) {
 	Mat image;
@@ -40,7 +75,7 @@ void multipleModels(int argc, char** argv) {
 	// init phase
 	Mat img_object[numberOfModels];
 	Mat img_scene = imread(argv[2], CV_LOAD_IMAGE_COLOR);
-	imshow("scene to analyse", img_scene);
+	//imshow("scene to analyse", img_scene);
 	int i = numberOfModels;
 	while (i-- > 0) {
 		img_object[i] = imread(argv[3 + i], CV_LOAD_IMAGE_COLOR);
@@ -58,10 +93,10 @@ void multipleModels(int argc, char** argv) {
 	i = numberOfModels;
 	int width = 0;
 	while (i-- > 0) {
-		if(img_object[i].size().width > width)
+		if (img_object[i].size().width > width)
 			width = img_object[i].size().width;
 	}
-	Size size( width + img_scene.size().width, img_scene.size().height );
+	Size size(width + img_scene.size().width, img_scene.size().height);
 	std::cout << "maximum object size : " << width << std::endl;
 	// initialization
 	double dist;
@@ -83,24 +118,20 @@ void multipleModels(int argc, char** argv) {
 	//BFMatcher matcher(NORM_L1);
 	std::vector<DMatch> good_matches[numberOfModels];
 	Mat img_matches;
-	img_matches.create( size, CV_MAKETYPE(img_scene.depth(), 3) );
+	img_matches.create(size, CV_MAKETYPE(img_scene.depth(), 3));
 
-	cv::Rect roi( cv::Point( img_matches.size().width-img_scene.size().width, 0 ), img_scene.size() );
+	cv::Rect roi(
+			cv::Point(img_matches.size().width - img_scene.size().width, 0),
+			img_scene.size());
 	std::cout << img_matches.channels() << std::endl;
 	std::cout << img_scene.channels() << std::endl;
 
-	img_scene.copyTo( img_matches( roi ) );
-
+	img_scene.copyTo(img_matches(roi));
 
 	std::cout << "size of the output image : " << img_matches.size()
 			<< std::endl;
 
 	//-- Step 1: Detect the keypoints using SURF Detector
-	int minHessian = 1500;
-
-	SurfFeatureDetector detector(minHessian);
-	SurfDescriptorExtractor extractor;
-
 	//-- Step 2: Calculate descriptors (feature vectors)
 	detector.detect(img_scene, keypoints_scene);
 	extractor.compute(img_scene, keypoints_scene, descriptors_scene);
@@ -143,13 +174,12 @@ void multipleModels(int argc, char** argv) {
 				<< std::endl;
 
 		/*drawMatches(img_object[i], keypoints_object[i], img_scene,
-				keypoints_scene, good_matches[i], img_matches, Scalar::all(-1),
-				Scalar::all(-1), vector<char>(),
-				DrawMatchesFlags::DRAW_OVER_OUTIMG);*/
+		 keypoints_scene, good_matches[i], img_matches, Scalar::all(-1),
+		 Scalar::all(-1), vector<char>(),
+		 DrawMatchesFlags::DRAW_OVER_OUTIMG);*/
 
 		//-- Localize the object
-
-		for (int j = 0; j < good_matches[i].size(); j++) {
+		for (unsigned int j = 0; j < good_matches[i].size(); j++) {
 			//-- Get the keypoints from the good matches
 			obj[i].push_back(
 					keypoints_object[i][good_matches[i][j].queryIdx].pt);

@@ -11,7 +11,6 @@
 #include "opencv2/core/core.hpp"
 #include <cv.h>
 #include <opencv2/highgui/highgui.hpp>
-#include <vector>
 #include <string>
 
 class Trainer{
@@ -20,8 +19,8 @@ private:
 
 public:
 	Trainer();
-	void load(std::vector<cv::KeyPoint>& keypoints, cv::Mat& descriptors, std::string);
-	void save(std::vector<cv::KeyPoint>& keypoints, cv::Mat& descriptors, std::string);
+	void load(std::vector<cv::KeyPoint> keypoints, cv::Mat& descriptors, std::string);
+	void save(std::vector<cv::KeyPoint> keypoints, cv::Mat& descriptors, std::string);
 	void train();
 };
 
