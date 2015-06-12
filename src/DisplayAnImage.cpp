@@ -7,34 +7,16 @@
  */
 
 #include "Trainer.h"
-#include <cv.h>
-#include <highgui.h>
-#include <opencv2/nonfree/features2d.hpp>
+#include "DirectoryHandler.h"
+
 
 using namespace cv;
-int minHessian = 1500;
-SurfFeatureDetector detector(minHessian);
-SurfDescriptorExtractor extractor;
-
 
 void readme();
 void multipleModels(int argc, char** argv);
-
-std::vector<cv::KeyPoint> extractKeypoints(cv::Mat matrix){
-
-	std::vector<KeyPoint> keypoints;
-
-	//-- Step 2: Calculate descriptors (feature vectors)
-	detector.detect(matrix, keypoints);
-
-	return keypoints;
-}
-
-cv::Mat extractDescriptor(cv::Mat matrix, std::vector<KeyPoint>& keypoints){
-	cv::Mat descriptors_object;
-	extractor.compute(matrix, keypoints, descriptors_object);
-	return descriptors_object;
-}
+int minHessian = 1500;
+SurfFeatureDetector detector(minHessian);
+SurfDescriptorExtractor extractor;
 
 int main(int argc, char** argv) {
 	//multipleModels(argc, argv);
@@ -44,21 +26,23 @@ int main(int argc, char** argv) {
 		readme();
 	} else {
 		Mat img_model = imread(argv[1], CV_LOAD_IMAGE_COLOR);
-		if(img_model.data){
-			imshow("model", img_model);
+		if (img_model.data) {
+			//imshow("model", img_model);
 			//std::cout << extractKeypoints(img_model).size() << std::endl;
-			string s = "../Ressources/trainningSets/item/_one.yml";
-			trainer.save(extractKeypoints(img_model),img_model,s);
-		}else{
+			//string s = "../Ressources/trainningSets/item/_one.yml";
+			//trainer.save(trainer.extractKeypoints(img_model), img_model, s);
+			const fs::path root = "../Ressources/models";
+			DirectoryHandler* dh = new DirectoryHandler();
+			dh->get_paths(root);
+			std::cout << "Directories found :" << std::endl;
+			dh->printPaths();
+		} else {
 			return 0;
 		}
 	}
 	waitKey(0);
 	return 0;
 }
-
-
-
 
 void multipleModels(int argc, char** argv) {
 	Mat image;
