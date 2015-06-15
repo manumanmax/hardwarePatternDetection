@@ -8,7 +8,7 @@
 
 #include <string>
 #define SMALL_THRESHOLD 0.1
-#define HIGH_THRESHOLD 100
+#define HIGH_THRESHOLD 2300
 #include <cv.h>
 #include <highgui.h>
 #include <opencv2/nonfree/features2d.hpp>
@@ -114,16 +114,17 @@ void multipleModels(int argc, char** argv) {
 		extractor.compute(img_object[i], keypoints_object[i],
 				descriptors_object[i]);
 		//-- Step 3: Matching descriptor vectors using FLANN matcher
-		matcher.knnMatch(descriptors_scene, descriptors_object[i], matches[i],
-				3);
+		matcher.knnMatch(descriptors_object[i] ,descriptors_scene, matches[i],
+				15);
 
-		vector<DMatch> filtered_matches;
 
+		// filtering matches for better recognition
 		for (unsigned int j = 0; j < matches[i].size(); j++) {
 			for (int k = 0; k < descriptors_object[i].rows; k++) {
 				if (matches[i][j][k].distance > SMALL_THRESHOLD
-						&& matches[i][j][k].distance < HIGH_THRESHOLD) {
-					filtered_matches.push_back(matches[i][j][k]);
+						&& matches[i][j][k].distance < HIGH_THRESHOLD
+						) {
+					good_matches[i].push_back(matches[i][j][k]);
 					std::cout << "distance : " << matches[i][j][k].distance
 							<< std::endl;
 				}
@@ -131,44 +132,14 @@ void multipleModels(int argc, char** argv) {
 		}
 		Mat img_matches;
 		drawMatches(img_object[i], keypoints_object[i], img_scene,
-				keypoints_scene,/* filtered */matches[i][0], img_matches); //filtered_matches
-		imshow("matching 1", img_matches);
-		drawMatches(img_object[i], keypoints_object[i], img_scene,
-				keypoints_scene,/* filtered */matches[i][1], img_matches); //filtered_matches
-		imshow("matching 2", img_matches);
-		drawMatches(img_object[i], keypoints_object[i], img_scene,
-				keypoints_scene,/* filtered */matches[i][2], img_matches); //filtered_matches
-		imshow("matching 3", img_matches);
-		//-- Quick calculation of max and min distances between keypoints
-		/*max_dist[i] = 0.0;
-		 min_dist[i] = 100.0;
-		 for (int j = 0; j < descriptors_object[i].rows; j++) {
-		 dist = matches[i][j].distance;
-
-		 if (dist < min_dist[i])
-		 min_dist[i] = dist;
-		 if (dist > max_dist[i])
-		 max_dist[i] = dist;
-		 }
-
-		 printf("-- Max dist[%d] : %f \n", i, max_dist[i]);
-		 printf("-- Min dist[%d] : %f \n-------------------------\n", i,
-		 min_dist[i]);
-
-		 //-- Draw only "good" matches (i.e. whose distance is less than 3*min_dist )
-		 for (int j = 0; j < descriptors_object[i].rows; j++) {
-		 if (matches[i][j].distance < 5 * min_dist[i]) {
-		 good_matches[i].push_back(matches[i][j]);
-		 }
-		 }
-
+				keypoints_scene, good_matches[i], img_matches);
 
 
 
 		 std::cout << "size of the scene image : " << img_scene.size()
 		 << std::endl;
 		 std::cout << "size of the model image : " << img_object[i].size()
-		 << std::endl;*/
+		 << std::endl;
 
 		/*drawMatches(img_object[i], keypoints_object[i], img_scene,
 		 keypoints_scene, good_matches[i], img_matches, Scalar::all(-1),
@@ -176,8 +147,8 @@ void multipleModels(int argc, char** argv) {
 		 DrawMatchesFlags::DRAW_OVER_OUTIMG);*/
 
 		//-- Localize the object
-		/*
-		 for (int j = 0; j < good_matches[i].size(); j++) {
+
+		 for (unsigned int j = 0; j < good_matches[i].size(); j++) {
 		 //-- Get the keypoints from the good matches
 		 obj[i].push_back(
 		 keypoints_object[i][good_matches[i][j].queryIdx].pt);
@@ -213,7 +184,7 @@ void multipleModels(int argc, char** argv) {
 		 Scalar(0, 0, 255), 4);
 		 line(img_matches, scene_corners[3] + Point2f(img_object[i].cols, 0),
 		 scene_corners[0] + Point2f(img_object[i].cols, 0),
-		 Scalar(0, 0, 255), 4);*/
+		 Scalar(0, 0, 255), 4);
 	}
 	//-- Show detected matches
 	string finish_Name = "Good Matches & Object detection number "
