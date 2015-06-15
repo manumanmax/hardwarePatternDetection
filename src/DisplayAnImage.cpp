@@ -79,8 +79,8 @@ void multipleModels(int argc, char** argv) {
 	std::vector<KeyPoint> keypoints_object[numberOfModels], keypoints_scene;
 	Mat descriptors_object[numberOfModels], descriptors_scene;
 	std::vector<std::vector<DMatch>> matches[numberOfModels];
-	FlannBasedMatcher matcher;
-	//BFMatcher matcher(NORM_L1);
+	//FlannBasedMatcher matcher;
+	BFMatcher matcher(NORM_L1);
 	std::vector<DMatch> good_matches[numberOfModels];
 	Mat img_matches;
 	img_matches.create(size, CV_MAKETYPE(img_scene.depth(), 3));
