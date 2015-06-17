@@ -16,8 +16,11 @@
 using namespace cv;
 
 void readme();
+std::string describe(DMatch);
 void multipleModels(int argc, char** argv);
 void multipleScene(int argc, char** argv);
+std::vector<std::vector<DMatch>> sortMatches(std::vector<DMatch>);
+std::vector<DMatch> selectDMatchByIndex(std::vector<DMatch> good_matches, unsigned int index);
 
 int main(int argc, char** argv) {
 	multipleModels(argc, argv);
@@ -32,7 +35,7 @@ void multipleModels(int argc, char** argv) {
 	if (argc < 4) {
 		readme();
 		return;
-	} else if (argc != numberOfModels + 3) {
+	} else if (argc != numberOfModels + 4) {
 		readme();
 		return;
 	}
@@ -114,32 +117,29 @@ void multipleModels(int argc, char** argv) {
 		extractor.compute(img_object[i], keypoints_object[i],
 				descriptors_object[i]);
 		//-- Step 3: Matching descriptor vectors using FLANN matcher
-		matcher.knnMatch(descriptors_object[i] ,descriptors_scene, matches[i],
+		matcher.knnMatch(descriptors_object[i], descriptors_scene, matches[i],
 				15);
-
 
 		// filtering matches for better recognition
 		for (unsigned int j = 0; j < matches[i].size(); j++) {
 			for (int k = 0; k < descriptors_object[i].rows; k++) {
 				if (matches[i][j][k].distance > SMALL_THRESHOLD
-						&& matches[i][j][k].distance < HIGH_THRESHOLD
-						) {
+						&& matches[i][j][k].distance < HIGH_THRESHOLD) {
 					good_matches[i].push_back(matches[i][j][k]);
-					std::cout << "distance : " << matches[i][j][k].distance
-							<< std::endl;
+					//std::cout << discribe(matches[i][j][k]) << std::endl;
 				}
 			}
 		}
+
+		sortMatches(good_matches[i]);
+		good_matches[i] = selectDMatchByIndex(good_matches[i],atoi(argv[4]));
+
+
 		Mat img_matches;
 		drawMatches(img_object[i], keypoints_object[i], img_scene,
 				keypoints_scene, good_matches[i], img_matches);
+		imshow("img", img_matches);
 
-
-
-		 std::cout << "size of the scene image : " << img_scene.size()
-		 << std::endl;
-		 std::cout << "size of the model image : " << img_object[i].size()
-		 << std::endl;
 
 		/*drawMatches(img_object[i], keypoints_object[i], img_scene,
 		 keypoints_scene, good_matches[i], img_matches, Scalar::all(-1),
@@ -147,8 +147,7 @@ void multipleModels(int argc, char** argv) {
 		 DrawMatchesFlags::DRAW_OVER_OUTIMG);*/
 
 		//-- Localize the object
-
-		 for (unsigned int j = 0; j < good_matches[i].size(); j++) {
+		/*for (unsigned int j = 0; j < good_matches[i].size(); j++) {
 		 //-- Get the keypoints from the good matches
 		 obj[i].push_back(
 		 keypoints_object[i][good_matches[i][j].queryIdx].pt);
@@ -162,6 +161,7 @@ void multipleModels(int argc, char** argv) {
 
 		 //homography
 		 H[i] = findHomography(obj[i], scene[i], CV_RANSAC);
+		 //imshow("homography", H[i]);
 		 //std::vector<Point2f> obj_corners(4);
 		 //-- Get the corners from the image_1 ( the object to be "detected" )
 
@@ -184,7 +184,7 @@ void multipleModels(int argc, char** argv) {
 		 Scalar(0, 0, 255), 4);
 		 line(img_matches, scene_corners[3] + Point2f(img_object[i].cols, 0),
 		 scene_corners[0] + Point2f(img_object[i].cols, 0),
-		 Scalar(0, 0, 255), 4);
+		 Scalar(0, 0, 255), 4);*/
 	}
 	//-- Show detected matches
 	string finish_Name = "Good Matches & Object detection number "
@@ -192,6 +192,56 @@ void multipleModels(int argc, char** argv) {
 	//imshow(finish_Name, img_matches);
 
 	waitKey(0);
+}
+
+std::vector<std::vector<DMatch>> sortMatches(std::vector<DMatch> good_matches) {
+	std::vector<std::vector<DMatch>> filtred;
+	int max_simultaneus_matches = 0;
+	for (unsigned int i = 0; i < good_matches.size(); i++) {
+		int current_max_matches = 0;
+		std::vector<DMatch> current_class;
+		DMatch current_match = good_matches[i];
+		for (unsigned int j = 0; j < good_matches.size(); j++) {
+			if (j == i)
+				continue;
+
+			if (good_matches[j].queryIdx == good_matches[i].queryIdx) {
+				current_max_matches++;
+			}
+		}
+		//std::cout << "current_max_matches : "  << current_max_matches << std::endl;
+		if (current_max_matches > max_simultaneus_matches) {
+			max_simultaneus_matches = current_max_matches;
+		}
+	}
+	std::cout << "max_simultaneus_matches : " << max_simultaneus_matches
+			<< std::endl;
+	return filtred;
+}
+
+std::vector<DMatch> selectDMatchByIndex(std::vector<DMatch> good_matches, unsigned int index) {
+	std::vector<DMatch> filtred;
+	index = good_matches[index].queryIdx;
+	int distance = good_matches[index].distance;
+	std::cout << "Analyse of match :" << std::endl;
+	describe(good_matches[index]);
+	for (unsigned int j = 0; j < good_matches.size(); j++) {
+		if (good_matches[j].queryIdx == index && good_matches[j].distance == distance) {
+			describe(good_matches[j]);
+			filtred.push_back(good_matches[j]);
+		}
+	}
+
+	return filtred;
+}
+
+std::string describe(DMatch match) {
+	std::string string = "match found:\n";
+	std::cout << "Distance : " << match.distance << "\n";
+	std::cout << "Image index : " << match.imgIdx << "\n";
+	std::cout << "Query index : " << match.queryIdx << "\n";
+	std::cout << "Train index : " << match.trainIdx << "\n";
+	return string;
 }
 
 /** @function readme */
