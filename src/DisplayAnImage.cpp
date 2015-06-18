@@ -115,6 +115,7 @@ int main(int argc, char* argv[]) {
 // matching descriptors
 	matcher.match(descriptors1, descriptors2, matches);
 // reduce the number of matches
+	print_matches(matches);
 	std::vector<DMatch> good_matches = filter(matches);
 // drawing the results
 	draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
