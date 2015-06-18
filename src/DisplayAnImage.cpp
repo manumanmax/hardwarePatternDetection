@@ -20,7 +20,7 @@ std::string describe(DMatch);
 void multipleModels(int argc, char** argv);
 void multipleScene(int argc, char** argv);
 std::vector<std::vector<DMatch>> sortMatches(std::vector<DMatch>);
-std::vector<DMatch> selectDMatchByIndex(std::vector<DMatch> good_matches, unsigned int index);
+std::vector<DMatch> selectDMatchByIndex(std::vector<DMatch> good_matches, int index);
 
 int main(int argc, char** argv) {
 	multipleModels(argc, argv);
@@ -100,7 +100,7 @@ void multipleModels(int argc, char** argv) {
 			<< std::endl;
 
 	//-- Step 1: Detect the keypoints using SURF Detector
-	int minHessian = 100;
+	int minHessian = 400;
 
 	SurfFeatureDetector detector(minHessian);
 	SiftDescriptorExtractor extractor;
@@ -131,8 +131,12 @@ void multipleModels(int argc, char** argv) {
 			}
 		}
 
-		sortMatches(good_matches[i]);
+		//sortMatches(good_matches[i]);
 		good_matches[i] = selectDMatchByIndex(good_matches[i],atoi(argv[4]));
+		std::cout << "good matches after fonction : " << std::endl;
+		for(unsigned int j = 0; j < good_matches[i].size(); j++){
+				describe(good_matches[i][j]);
+			}
 		for(int j = 0; j < good_matches[j].size(); j++){
 			describe(good_matches[i][j]);
 		}
@@ -150,7 +154,7 @@ void multipleModels(int argc, char** argv) {
 		 DrawMatchesFlags::DRAW_OVER_OUTIMG);*/
 
 		//-- Localize the object
-		for (unsigned int j = 0; j < good_matches[i].size(); j++) {
+		/*for (unsigned int j = 0; j < good_matches[i].size(); j++) {
 		 //-- Get the keypoints from the good matches
 		 obj[i].push_back(
 		 keypoints_object[i][good_matches[i][j].queryIdx].pt);
@@ -186,7 +190,7 @@ void multipleModels(int argc, char** argv) {
 		 Scalar(0, 0, 255), 4);
 		 line(img_matches, scene_corners[3] + Point2f(img_object[i].cols, 0),
 		 scene_corners[0] + Point2f(img_object[i].cols, 0),
-		 Scalar(0, 0, 255), 4);
+		 Scalar(0, 0, 255), 4);*/
 	}
 	//-- Show detected matches
 	string finish_Name = "Good Matches & Object detection number "
@@ -198,6 +202,7 @@ void multipleModels(int argc, char** argv) {
 
 std::vector<std::vector<DMatch>> sortMatches(std::vector<DMatch> good_matches) {
 	std::vector<std::vector<DMatch>> filtred;
+
 	int max_simultaneus_matches = 0;
 	for (unsigned int i = 0; i < good_matches.size(); i++) {
 		int current_max_matches = 0;
@@ -222,20 +227,25 @@ std::vector<std::vector<DMatch>> sortMatches(std::vector<DMatch> good_matches) {
 	return filtred;
 }
 
-std::vector<DMatch> selectDMatchByIndex(std::vector<DMatch> good_matches, unsigned int index) {
-	std::vector<DMatch> filtred;
+std::vector<DMatch> selectDMatchByIndex(std::vector<DMatch> good_matches, int index) {
+	std::set<DMatch> good_matches_set;
 	index = good_matches[index].queryIdx;
-	int distance = good_matches[index].distance;
+	//unsigned int distance = good_matches[index].distance;
 	std::cout << "Analyse of match :" << std::endl;
 	describe(good_matches[index]);
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
 		if (good_matches[j].queryIdx == index){//&& good_matches[j].distance == distance) {
-			describe(good_matches[j]);
-			filtred.push_back(good_matches[j]);
+			good_matches_set.insert(good_matches_set.end(),good_matches[j]);
 		}
 	}
+	good_matches.clear();
+	std::copy(good_matches_set.begin(), good_matches_set.end(), std::back_inserter(good_matches));
+	std::cout << "good matches after copy : " << std::endl;
 
-	return filtred;
+	for(unsigned int i = 0; i < good_matches.size(); i++){
+		describe(good_matches[i]);
+	}
+	return good_matches;
 }
 
 std::string describe(DMatch match) {
