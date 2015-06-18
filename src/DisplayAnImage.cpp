@@ -7,7 +7,7 @@
  */
 
 #include <string>
-#define SMALL_THRESHOLD 0.1
+#define SMALL_THRESHOLD 0.001
 #define HIGH_THRESHOLD 2300
 #include <cv.h>
 #include <highgui.h>
@@ -100,7 +100,7 @@ void multipleModels(int argc, char** argv) {
 			<< std::endl;
 
 	//-- Step 1: Detect the keypoints using SURF Detector
-	int minHessian = 400;
+	int minHessian = 100;
 
 	SurfFeatureDetector detector(minHessian);
 	SiftDescriptorExtractor extractor;
@@ -133,6 +133,9 @@ void multipleModels(int argc, char** argv) {
 
 		sortMatches(good_matches[i]);
 		good_matches[i] = selectDMatchByIndex(good_matches[i],atoi(argv[4]));
+		for(int j = 0; j < good_matches[j].size(); j++){
+			describe(good_matches[i][j]);
+		}
 
 
 		Mat img_matches;
@@ -147,7 +150,7 @@ void multipleModels(int argc, char** argv) {
 		 DrawMatchesFlags::DRAW_OVER_OUTIMG);*/
 
 		//-- Localize the object
-		/*for (unsigned int j = 0; j < good_matches[i].size(); j++) {
+		for (unsigned int j = 0; j < good_matches[i].size(); j++) {
 		 //-- Get the keypoints from the good matches
 		 obj[i].push_back(
 		 keypoints_object[i][good_matches[i][j].queryIdx].pt);
@@ -162,7 +165,6 @@ void multipleModels(int argc, char** argv) {
 		 //homography
 		 H[i] = findHomography(obj[i], scene[i], CV_RANSAC);
 		 //imshow("homography", H[i]);
-		 //std::vector<Point2f> obj_corners(4);
 		 //-- Get the corners from the image_1 ( the object to be "detected" )
 
 		 obj_corners[i][0] = cvPoint(0, 0);
@@ -184,7 +186,7 @@ void multipleModels(int argc, char** argv) {
 		 Scalar(0, 0, 255), 4);
 		 line(img_matches, scene_corners[3] + Point2f(img_object[i].cols, 0),
 		 scene_corners[0] + Point2f(img_object[i].cols, 0),
-		 Scalar(0, 0, 255), 4);*/
+		 Scalar(0, 0, 255), 4);
 	}
 	//-- Show detected matches
 	string finish_Name = "Good Matches & Object detection number "
@@ -207,6 +209,7 @@ std::vector<std::vector<DMatch>> sortMatches(std::vector<DMatch> good_matches) {
 
 			if (good_matches[j].queryIdx == good_matches[i].queryIdx) {
 				current_max_matches++;
+				good_matches[j] = DMatch();
 			}
 		}
 		//std::cout << "current_max_matches : "  << current_max_matches << std::endl;
@@ -226,7 +229,7 @@ std::vector<DMatch> selectDMatchByIndex(std::vector<DMatch> good_matches, unsign
 	std::cout << "Analyse of match :" << std::endl;
 	describe(good_matches[index]);
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
-		if (good_matches[j].queryIdx == index && good_matches[j].distance == distance) {
+		if (good_matches[j].queryIdx == index){//&& good_matches[j].distance == distance) {
 			describe(good_matches[j]);
 			filtred.push_back(good_matches[j]);
 		}
