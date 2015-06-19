@@ -247,12 +247,10 @@ int main(int argc, char* argv[]) {
 			scene_corners, img_matches, index);
 	removePointsOfObjectFound(corners, scene, obj, keypoints2,
 			scene_keypoints);
-	draw(img1, img2, keypoints1, scene_keypoints, good_matches, img_matches);
+	draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 
 	corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
 			img_matches, index);
 
 	waitKey(0);
-
 }
-
