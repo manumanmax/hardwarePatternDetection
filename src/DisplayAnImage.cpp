@@ -72,7 +72,8 @@ void detect_corners(std::vector<Point2f>& obj_corners, const Mat& img_object) {
 }
 
 Corners draw_final_image(Mat& img_matches,
-		const std::vector<Point2f>& scene_corners, const Mat& img_object) {
+		const std::vector<Point2f>& scene_corners, const Mat& img_object,
+		const int& index) {
 	Corners corners;
 	corners.top_left = scene_corners[0] + Point2f(img_object.cols, 0);
 	corners.top_right = scene_corners[1] + Point2f(img_object.cols, 0);
@@ -86,16 +87,13 @@ Corners draw_final_image(Mat& img_matches,
 	line(img_matches, corners.bot_right, corners.bot_left, Scalar(0, 0, 255),
 			4);
 	line(img_matches, corners.bot_left, corners.top_left, Scalar(0, 0, 255), 4);
-
-	imshow("final image", img_matches);
+	string name = "final image " + std::to_string(index);
+	imshow(name, img_matches);
 	return corners;
 }
 
-
 /******************************************************************************************************/
 //------------------------------------------------ ANNEXE FUNCTIONS ------------------------------------
-
-
 void fulfil(vector<DMatch>& matches,
 		const vector<vector<DMatch>>& matches_knnVector) {
 	for (unsigned int i = 0; i < matches_knnVector.size(); i++) {
@@ -120,6 +118,18 @@ void print_corners(Corners corners) {
 			<< std::endl;
 }
 
+void print_points2f(std::vector<Point2f> points) {
+	std::cout << "Points 2f :" << std::endl;
+	for (unsigned int i = 0; i < points.size(); i++) {
+		if (!(i % 3))
+			std::cout << i << " : [ " << points[i].x << " , " << points[i].y
+					<< " ]" << std::endl;
+		else
+			std::cout << i << " : [ " << points[i].x << " , " << points[i].y
+					<< " ]        ";
+	}
+}
+
 void print_knnmatches(vector<vector<DMatch>> matches) {
 	for (unsigned int i = 0; i < matches.size(); i++) {
 		for (unsigned int j = 0; j < matches.size(); j++) {
@@ -138,16 +148,21 @@ bool is_in(Corners corners, Point2d point) {
 	return true;
 }
 
-void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene, vector<Point2f>& obj) {
+void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene,
+		vector<Point2f>& obj, vector<KeyPoint> & keypoints2,
+		vector<KeyPoint> & scene_keypoints) {
 	// we have to remove both the scene and object indices because they are pushed back together
+	int index = 0;
 	auto it_obj = obj.begin();
-	for (auto it = scene.begin(); it != scene.end();) {
-		if (is_in(corners, *it)) {
-			it = scene.erase(it);
+	for (auto it_scene = scene.begin(); it_scene != scene.end();) {
+		if (is_in(corners, *it_scene)) {
+			it_scene = scene.erase(it_scene);
 			it_obj = obj.erase(it_obj);
+			scene_keypoints.erase(scene_keypoints.begin() + index);
 		} else {
-			it++;
+			it_scene++;
 			it_obj++;
+			index++;
 		}
 	}
 
@@ -155,8 +170,10 @@ void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene, ve
 
 Corners find_object(Mat& H, std::vector<Point2f> obj,
 		const std::vector<Point2f>& scene, std::vector<Point2f>& obj_corners,
-		const Mat& img1, std::vector<Point2f> scene_corners, Mat& img_matches) {
+		const Mat& img1, std::vector<Point2f> scene_corners, Mat& img_matches,
+		unsigned int& index) {
 	//Homography
+	print_points2f(obj);
 	H = findHomography(obj, scene, CV_RANSAC);
 
 	//Detect corners
@@ -165,16 +182,13 @@ Corners find_object(Mat& H, std::vector<Point2f> obj,
 	perspectiveTransform(obj_corners, scene_corners, H);
 
 	//-- Draw lines between the corners (the mapped object in the scene - image_2 )
-	Corners corners = draw_final_image(img_matches, scene_corners, img1);
-
+	Corners corners = draw_final_image(img_matches, scene_corners, img1, index);
+	index++;
 	return corners;
 }
 
-
 /************************************************************************************************************/
 // ----------------------------------------------- MAIN --------------------------------------------------- //
-
-
 int main(int argc, char* argv[]) {
 
 // Initialisati
@@ -202,7 +216,6 @@ int main(int argc, char* argv[]) {
 	fulfil(matches, matches_knnVector);
 // reduce the number of matches
 	std::vector<DMatch> good_matches = filter(matches);
-	print_matches(good_matches);
 // drawing the results
 	draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 
@@ -210,27 +223,34 @@ int main(int argc, char* argv[]) {
 
 //Initialisation
 	Mat H;
+	unsigned int index = 1;
 	std::vector<Point2f> obj_corners_unit(4);
 	std::vector<Point2f> obj_corners(4);
 	std::vector<Point2f> scene_corners(4);
 	std::vector<Point2f> obj;
 	std::vector<Point2f> scene;
+	std::vector<KeyPoint> obj_keypoints;
+	std::vector<KeyPoint> scene_keypoints;
 
 //filling object and scene matrix
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
 		//-- Get the keypoints from the good matches
 		obj.push_back(keypoints1[good_matches[j].queryIdx].pt);
 		scene.push_back(keypoints2[good_matches[j].trainIdx].pt);
+		obj_keypoints.push_back(keypoints1[good_matches[j].queryIdx]);
+		scene_keypoints.push_back(keypoints2[good_matches[j].trainIdx]);
 	}
 
 //find an object on the scene
 
 	Corners corners = find_object(H, obj, scene, obj_corners, img1,
-			scene_corners, img_matches);
-	print_corners(corners);
-	removePointsOfObjectFound(corners, scene, obj);
-	corners = find_object(H, obj, scene, obj_corners, img1,
-				scene_corners, img_matches);
+			scene_corners, img_matches, index);
+	removePointsOfObjectFound(corners, scene, obj, keypoints2,
+			scene_keypoints);
+	draw(img1, img2, keypoints1, scene_keypoints, good_matches, img_matches);
+
+	corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
+			img_matches, index);
 
 	waitKey(0);
 
