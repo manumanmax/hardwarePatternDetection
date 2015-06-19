@@ -221,7 +221,6 @@ int main(int argc, char* argv[]) {
 
 //Initialisation
 	Mat H;
-	unsigned int index = 1;
 	std::vector<Point2f> obj_corners_unit(4);
 	std::vector<Point2f> obj_corners(4);
 	std::vector<Point2f> scene_corners(4);
