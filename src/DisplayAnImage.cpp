@@ -149,8 +149,7 @@ bool is_in(Corners corners, Point2d point) {
 }
 
 void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene,
-		vector<Point2f>& obj, vector<KeyPoint> & keypoints2,
-		vector<KeyPoint> & scene_keypoints) {
+		vector<Point2f>& obj, vector<DMatch> & good_matches) {
 	// we have to remove both the scene and object indices because they are pushed back together
 	int index = 0;
 	auto it_obj = obj.begin();
@@ -158,7 +157,7 @@ void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene,
 		if (is_in(corners, *it_scene)) {
 			it_scene = scene.erase(it_scene);
 			it_obj = obj.erase(it_obj);
-			scene_keypoints.erase(scene_keypoints.begin() + index);
+			good_matches.erase(good_matches.begin() + index);
 		} else {
 			it_scene++;
 			it_obj++;
@@ -229,24 +228,20 @@ int main(int argc, char* argv[]) {
 	std::vector<Point2f> scene_corners(4);
 	std::vector<Point2f> obj;
 	std::vector<Point2f> scene;
-	std::vector<KeyPoint> obj_keypoints;
-	std::vector<KeyPoint> scene_keypoints;
+
 
 //filling object and scene matrix
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
 		//-- Get the keypoints from the good matches
 		obj.push_back(keypoints1[good_matches[j].queryIdx].pt);
 		scene.push_back(keypoints2[good_matches[j].trainIdx].pt);
-		obj_keypoints.push_back(keypoints1[good_matches[j].queryIdx]);
-		scene_keypoints.push_back(keypoints2[good_matches[j].trainIdx]);
 	}
 
 //find an object on the scene
 
 	Corners corners = find_object(H, obj, scene, obj_corners, img1,
 			scene_corners, img_matches, index);
-	removePointsOfObjectFound(corners, scene, obj, keypoints2,
-			scene_keypoints);
+	removePointsOfObjectFound(corners, scene, obj, good_matches);
 	draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 
 	corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
