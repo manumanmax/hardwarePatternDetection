@@ -75,18 +75,20 @@ Corners draw_final_image(Mat& img_matches,
 		const std::vector<Point2f>& scene_corners, const Mat& img_object,
 		const int& index) {
 	Corners corners;
-	corners.top_left = scene_corners[0] + Point2f(img_object.cols, 0);
-	corners.top_right = scene_corners[1] + Point2f(img_object.cols, 0);
-	corners.bot_right = scene_corners[2] + Point2f(img_object.cols, 0);
-	corners.bot_left = scene_corners[3] + Point2f(img_object.cols, 0);
+	Point2f right_sift = Point2f(img_object.cols, 0);
+	corners.top_left = scene_corners[0];
+	corners.top_right = scene_corners[1];
+	corners.bot_right = scene_corners[2];
+	corners.bot_left = scene_corners[3];
 
-	line(img_matches, corners.top_left, corners.top_right, Scalar(0, 0, 255),
-			4);
-	line(img_matches, corners.top_right, corners.bot_right, Scalar(0, 0, 255),
-			4);
-	line(img_matches, corners.bot_right, corners.bot_left, Scalar(0, 0, 255),
-			4);
-	line(img_matches, corners.bot_left, corners.top_left, Scalar(0, 0, 255), 4);
+	line(img_matches, corners.top_left + right_sift,
+			corners.top_right + right_sift, Scalar(0, 0, 255), 4);
+	line(img_matches, corners.top_right + right_sift,
+			corners.bot_right + right_sift, Scalar(0, 0, 255), 4);
+	line(img_matches, corners.bot_right + right_sift,
+			corners.bot_left + right_sift, Scalar(0, 0, 255), 4);
+	line(img_matches, corners.bot_left + right_sift,
+			corners.top_left + right_sift, Scalar(0, 0, 255), 4);
 	string name = "final image " + std::to_string(index);
 	imshow(name, img_matches);
 	return corners;
@@ -191,8 +193,8 @@ Corners find_object(Mat& H, std::vector<Point2f> obj,
 int main(int argc, char* argv[]) {
 
 // Initialisati
-	Mat img1 = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
-	Mat img2 = imread(argv[2], CV_LOAD_IMAGE_GRAYSCALE);
+	Mat img1 = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+	Mat img2 = imread(argv[2], CV_LOAD_IMAGE_COLOR);
 	Mat img_matches;
 	vector<KeyPoint> keypoints1, keypoints2;
 	Mat descriptors1, descriptors2;
@@ -228,7 +230,8 @@ int main(int argc, char* argv[]) {
 	std::vector<Point2f> scene_corners(4);
 	std::vector<Point2f> obj;
 	std::vector<Point2f> scene;
-
+	Size size( img1.cols + img2.cols, img2.rows );
+	img_matches.create(size, CV_MAKETYPE(img1.depth(), 3));
 
 //filling object and scene matrix
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
@@ -241,11 +244,15 @@ int main(int argc, char* argv[]) {
 
 	Corners corners = find_object(H, obj, scene, obj_corners, img1,
 			scene_corners, img_matches, index);
-	removePointsOfObjectFound(corners, scene, obj, good_matches);
-	draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 
-	corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
-			img_matches, index);
+	removePointsOfObjectFound(corners, scene, obj, good_matches);
+
+	while (good_matches.size() > 20) {
+		//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
+		corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
+				img_matches, index);
+		removePointsOfObjectFound(corners, scene, obj, good_matches);
+	}
 
 	waitKey(0);
 }
