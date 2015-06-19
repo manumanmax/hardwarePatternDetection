@@ -185,6 +185,18 @@ Corners find_object(Mat& H, std::vector<Point2f> obj,
 	return corners;
 }
 
+// second image copyed insite the output image
+void init_an_image(Mat& img_matches, const Mat& img1, const Mat& img2) {
+	Size size(img1.cols + img2.cols, img2.rows);
+	img_matches.create(size, CV_MAKETYPE(img1.depth(), 3));
+	cv::Rect roi(cv::Point(img_matches.size().width - img2.cols, 0),
+			img2.size());
+	std::cout << img_matches.channels() << std::endl;
+	std::cout << img2.channels() << std::endl;
+
+	img2.copyTo(img_matches(roi));
+}
+
 /************************************************************************************************************/
 // ----------------------------------------------- MAIN --------------------------------------------------- //
 int main(int argc, char* argv[]) {
@@ -226,14 +238,8 @@ int main(int argc, char* argv[]) {
 	std::vector<Point2f> scene_corners(4);
 	std::vector<Point2f> obj;
 	std::vector<Point2f> scene;
-	Size size(img1.cols + img2.cols, img2.rows);
-	img_matches.create(size, CV_MAKETYPE(img1.depth(), 3));
-	cv::Rect roi(cv::Point(img_matches.size().width - img2.cols, 0),
-			img2.size());
-	std::cout << img_matches.channels() << std::endl;
-	std::cout << img2.channels() << std::endl;
 
-	img2.copyTo(img_matches(roi));
+	init_an_image(img_matches, img1, img2);
 
 //filling object and scene matrix
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
