@@ -138,12 +138,16 @@ bool is_in(Corners corners, Point2d point) {
 	return true;
 }
 
-void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene) {
+void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene, vector<Point2f>& obj) {
+	// we have to remove both the scene and object indices because they are pushed back together
+	auto it_obj = obj.begin();
 	for (auto it = scene.begin(); it != scene.end();) {
 		if (is_in(corners, *it)) {
 			it = scene.erase(it);
+			it_obj = obj.erase(it_obj);
 		} else {
 			it++;
+			it_obj++;
 		}
 	}
 
@@ -224,7 +228,7 @@ int main(int argc, char* argv[]) {
 	Corners corners = find_object(H, obj, scene, obj_corners, img1,
 			scene_corners, img_matches);
 	print_corners(corners);
-	removePointsOfObjectFound(corners, scene);
+	removePointsOfObjectFound(corners, scene, obj);
 	corners = find_object(H, obj, scene, obj_corners, img1,
 				scene_corners, img_matches);
 
