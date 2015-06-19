@@ -215,7 +215,7 @@ int main(int argc, char* argv[]) {
 // reduce the number of matches
 	std::vector<DMatch> good_matches = filter(matches);
 // drawing the results
-	draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
+	//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 
 //------- SECOND PART - DETECT PATTERNS ---------------//
 
