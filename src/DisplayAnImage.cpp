@@ -72,8 +72,7 @@ void detect_corners(std::vector<Point2f>& obj_corners, const Mat& img_object) {
 }
 
 Corners draw_final_image(Mat& img_matches,
-		const std::vector<Point2f>& scene_corners, const Mat& img_object,
-		const int& index) {
+		const std::vector<Point2f>& scene_corners, const Mat& img_object) {
 	Corners corners;
 	Point2f right_sift = Point2f(img_object.cols, 0);
 	corners.top_left = scene_corners[0];
@@ -89,8 +88,7 @@ Corners draw_final_image(Mat& img_matches,
 			corners.bot_left + right_sift, Scalar(0, 0, 255), 4);
 	line(img_matches, corners.bot_left + right_sift,
 			corners.top_left + right_sift, Scalar(0, 0, 255), 4);
-	string name = "final image " + std::to_string(index);
-	imshow(name, img_matches);
+	imshow("final image ", img_matches);
 	return corners;
 }
 
@@ -171,8 +169,7 @@ void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene,
 
 Corners find_object(Mat& H, std::vector<Point2f> obj,
 		const std::vector<Point2f>& scene, std::vector<Point2f>& obj_corners,
-		const Mat& img1, std::vector<Point2f> scene_corners, Mat& img_matches,
-		unsigned int& index) {
+		const Mat& img1, std::vector<Point2f> scene_corners, Mat& img_matches) {
 	//Homography
 	print_points2f(obj);
 	H = findHomography(obj, scene, CV_RANSAC);
@@ -183,8 +180,8 @@ Corners find_object(Mat& H, std::vector<Point2f> obj,
 	perspectiveTransform(obj_corners, scene_corners, H);
 
 	//-- Draw lines between the corners (the mapped object in the scene - image_2 )
-	Corners corners = draw_final_image(img_matches, scene_corners, img1, index);
-	index++;
+	Corners corners = draw_final_image(img_matches, scene_corners, img1);
+
 	return corners;
 }
 
@@ -230,7 +227,7 @@ int main(int argc, char* argv[]) {
 	std::vector<Point2f> scene_corners(4);
 	std::vector<Point2f> obj;
 	std::vector<Point2f> scene;
-	Size size( img1.cols + img2.cols, img2.rows );
+	Size size(img1.cols + img2.cols, img2.rows);
 	img_matches.create(size, CV_MAKETYPE(img1.depth(), 3));
 
 //filling object and scene matrix
@@ -243,14 +240,14 @@ int main(int argc, char* argv[]) {
 //find an object on the scene
 
 	Corners corners = find_object(H, obj, scene, obj_corners, img1,
-			scene_corners, img_matches, index);
+			scene_corners, img_matches);
 
 	removePointsOfObjectFound(corners, scene, obj, good_matches);
 
 	while (good_matches.size() > 20) {
 		//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 		corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
-				img_matches, index);
+				img_matches);
 		removePointsOfObjectFound(corners, scene, obj, good_matches);
 	}
 
