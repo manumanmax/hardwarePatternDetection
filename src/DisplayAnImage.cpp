@@ -228,6 +228,12 @@ int main(int argc, char* argv[]) {
 	std::vector<Point2f> scene;
 	Size size(img1.cols + img2.cols, img2.rows);
 	img_matches.create(size, CV_MAKETYPE(img1.depth(), 3));
+	cv::Rect roi(cv::Point(img_matches.size().width - img2.cols, 0),
+			img2.size());
+	std::cout << img_matches.channels() << std::endl;
+	std::cout << img2.channels() << std::endl;
+
+	img2.copyTo(img_matches(roi));
 
 //filling object and scene matrix
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
