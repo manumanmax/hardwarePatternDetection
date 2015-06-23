@@ -8,7 +8,8 @@
 
 #include <string>
 #define SMALL_THRESHOLD 0.001
-#define HIGH_THRESHOLD 250
+#define HIGH_THRESHOLD  235 // 212 highLight // 235 easyLowLight
+#define MAX_NUMBER_OF_PATTERN 10
 
 #include <stdio.h>
 #include <iostream>
@@ -31,7 +32,7 @@ public:
 
 void detect(const Mat& img1, const Mat& img2, vector<KeyPoint>& keypoints1,
 		vector<KeyPoint>& keypoints2) {
-	SiftFeatureDetector detector(4000);
+	SiftFeatureDetector detector(1000000000);
 	detector.detect(img1, keypoints1);
 	detector.detect(img2, keypoints2);
 }
@@ -47,6 +48,14 @@ std::vector<DMatch> filter(const std::vector<DMatch> matches) {
 	vector<DMatch> good_matches;
 	for (unsigned int i = 0; i < matches.size(); i++) {
 		if (matches[i].distance < HIGH_THRESHOLD)
+			good_matches.push_back(matches[i]);
+	}
+	return good_matches;
+}
+std::vector<DMatch> filter_thresholded(const std::vector<DMatch> matches, unsigned int threshold) {
+	vector<DMatch> good_matches;
+	for (unsigned int i = 0; i < matches.size(); i++) {
+		if (matches[i].distance < threshold)
 			good_matches.push_back(matches[i]);
 	}
 	return good_matches;
@@ -148,6 +157,7 @@ bool is_in(Corners corners, Point2d point) {
 	return true;
 }
 
+/* TODO: make a return value if less than a certain number of points are deleted */
 void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene,
 		vector<Point2f>& obj, vector<DMatch> & good_matches) {
 	// we have to remove both the scene and object indices because they are pushed back together
@@ -170,8 +180,9 @@ void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene,
 Corners find_object(Mat& H, std::vector<Point2f> obj,
 		const std::vector<Point2f>& scene, std::vector<Point2f>& obj_corners,
 		const Mat& img1, std::vector<Point2f> scene_corners, Mat& img_matches) {
+
 	//Homography
-	print_points2f(obj);
+	//print_points2f(obj);
 	H = findHomography(obj, scene, CV_RANSAC);
 
 	//Detect corners
@@ -204,6 +215,7 @@ int main(int argc, char* argv[]) {
 // Initialisati
 	Mat img1 = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	Mat img2 = imread(argv[2], CV_LOAD_IMAGE_COLOR);
+	int threshold = atoi(argv[3]);
 	Mat img_matches;
 	vector<KeyPoint> keypoints1, keypoints2;
 	Mat descriptors1, descriptors2;
@@ -221,11 +233,11 @@ int main(int argc, char* argv[]) {
 // computing descriptors
 	compute(img1, img2, keypoints1, keypoints2, descriptors1, descriptors2);
 // matching descriptors
-	matcher.knnMatch(descriptors1, descriptors2, matches_knnVector, 5);
+	matcher.radiusMatch(descriptors1, descriptors2, matches_knnVector, threshold);
 	//print_knnmatches(matches_knnVector);
 	fulfil(matches, matches_knnVector);
 // reduce the number of matches
-	std::vector<DMatch> good_matches = filter(matches);
+	std::vector<DMatch> good_matches = matches; //filter(matches);
 // drawing the results
 	//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 
@@ -254,9 +266,9 @@ int main(int argc, char* argv[]) {
 			scene_corners, img_matches);
 
 	removePointsOfObjectFound(corners, scene, obj, good_matches);
-
-	while (good_matches.size() > 20) {
-		//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
+	int i = 0;
+	while (i++ < MAX_NUMBER_OF_PATTERN && good_matches.size() > 10){
+		draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 		corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
 				img_matches);
 		removePointsOfObjectFound(corners, scene, obj, good_matches);
