@@ -27,3 +27,5 @@
 *.out
 *.app
 /Debug/
+/Ressources/trainingSets/
+/Ressources/views/
