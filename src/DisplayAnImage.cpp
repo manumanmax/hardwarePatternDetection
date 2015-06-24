@@ -52,7 +52,8 @@ std::vector<DMatch> filter(const std::vector<DMatch> matches) {
 	}
 	return good_matches;
 }
-std::vector<DMatch> filter_thresholded(const std::vector<DMatch> matches, unsigned int threshold) {
+std::vector<DMatch> filter_thresholded(const std::vector<DMatch> matches,
+		unsigned int threshold) {
 	vector<DMatch> good_matches;
 	for (unsigned int i = 0; i < matches.size(); i++) {
 		if (matches[i].distance < threshold)
@@ -199,7 +200,7 @@ Corners find_object(Mat& H, std::vector<Point2f> obj,
 // second image copyed insite the output image
 void init_an_image(Mat& img_matches, const Mat& img1, const Mat& img2) {
 	Size size(img1.cols + img2.cols, img2.rows);
-	img_matches.create(size, CV_MAKETYPE(img1.depth(), 3));
+	img_matches.create(size, CV_MAKETYPE(img1.depth(), img1.channels()));
 	cv::Rect roi(cv::Point(img_matches.size().width - img2.cols, 0),
 			img2.size());
 	std::cout << img_matches.channels() << std::endl;
@@ -213,8 +214,9 @@ void init_an_image(Mat& img_matches, const Mat& img1, const Mat& img2) {
 int main(int argc, char* argv[]) {
 
 // Initialisati
-	Mat img1 = imread(argv[1], CV_LOAD_IMAGE_COLOR);
-	Mat img2 = imread(argv[2], CV_LOAD_IMAGE_COLOR);
+	Mat img1 = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
+	Mat img2 = imread(argv[2], CV_LOAD_IMAGE_GRAYSCALE);
+
 	int threshold = atoi(argv[3]);
 	Mat img_matches;
 	vector<KeyPoint> keypoints1, keypoints2;
@@ -228,12 +230,18 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
+
+// equalisation of the images
+	cv::equalizeHist(img1, img1);
+	cv::equalizeHist(img2, img2);
+
 // detecting keypoints
 	detect(img1, img2, keypoints1, keypoints2);
 // computing descriptors
 	compute(img1, img2, keypoints1, keypoints2, descriptors1, descriptors2);
 // matching descriptors
-	matcher.radiusMatch(descriptors1, descriptors2, matches_knnVector, threshold);
+	matcher.radiusMatch(descriptors1, descriptors2, matches_knnVector,
+			threshold);
 	//print_knnmatches(matches_knnVector);
 	fulfil(matches, matches_knnVector);
 // reduce the number of matches
@@ -267,8 +275,8 @@ int main(int argc, char* argv[]) {
 
 	removePointsOfObjectFound(corners, scene, obj, good_matches);
 	int i = 0;
-	while (i++ < MAX_NUMBER_OF_PATTERN && good_matches.size() > 10){
-		draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
+	while (i++ < MAX_NUMBER_OF_PATTERN && good_matches.size() > 10) {
+		//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 		corners = find_object(H, obj, scene, obj_corners, img1, scene_corners,
 				img_matches);
 		removePointsOfObjectFound(corners, scene, obj, good_matches);
