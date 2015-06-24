@@ -4,13 +4,25 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/DisplayAnImage.cpp 
+../src/Composant.cpp \
+../src/Corners.cpp \
+../src/DisplayAnImage.cpp \
+../src/Launcher.cpp \
+../src/Pattern.cpp 
 
 OBJS += \
-./src/DisplayAnImage.o 
+./src/Composant.o \
+./src/Corners.o \
+./src/DisplayAnImage.o \
+./src/Launcher.o \
+./src/Pattern.o 
 
 CPP_DEPS += \
-./src/DisplayAnImage.d 
+./src/Composant.d \
+./src/Corners.d \
+./src/DisplayAnImage.d \
+./src/Launcher.d \
+./src/Pattern.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

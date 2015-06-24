@@ -6,15 +6,17 @@
  *      Author: manu
  */
 
-#include <string>
+
 #define SMALL_THRESHOLD 0.001
 #define HIGH_THRESHOLD  235 // 212 highLight // 235 easyLowLight
 #define MAX_NUMBER_OF_PATTERN 10
 
+#include <string>
 #include <stdio.h>
 #include <iostream>
 #include <cv.hpp>
 #include "opencv2/core/core.hpp"
+#include "Corners.h"
 #include "opencv2/features2d/features2d.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/nonfree/features2d.hpp"
@@ -22,13 +24,6 @@
 
 using namespace cv;
 
-class Corners {
-public:
-	Point2f top_left;
-	Point2f top_right;
-	Point2f bot_right;
-	Point2f bot_left;
-};
 
 void detect(const Mat& img1, const Mat& img2, vector<KeyPoint>& keypoints1,
 		vector<KeyPoint>& keypoints2) {
@@ -84,21 +79,16 @@ void detect_corners(std::vector<Point2f>& obj_corners, const Mat& img_object) {
 
 Corners draw_final_image(Mat& img_matches,
 		const std::vector<Point2f>& scene_corners, const Mat& img_object) {
-	Corners corners;
+	Corners corners(scene_corners[0],scene_corners[1],scene_corners[2],scene_corners[3]);
 	Point2f right_sift = Point2f(img_object.cols, 0);
-	corners.top_left = scene_corners[0];
-	corners.top_right = scene_corners[1];
-	corners.bot_right = scene_corners[2];
-	corners.bot_left = scene_corners[3];
-
-	line(img_matches, corners.top_left + right_sift,
-			corners.top_right + right_sift, Scalar(0, 0, 255), 4);
-	line(img_matches, corners.top_right + right_sift,
-			corners.bot_right + right_sift, Scalar(0, 0, 255), 4);
-	line(img_matches, corners.bot_right + right_sift,
-			corners.bot_left + right_sift, Scalar(0, 0, 255), 4);
-	line(img_matches, corners.bot_left + right_sift,
-			corners.top_left + right_sift, Scalar(0, 0, 255), 4);
+	line(img_matches, corners.top_left_shift(right_sift),
+			corners.top_right_shift(right_sift), Scalar(0, 0, 255), 4);
+	line(img_matches, corners.top_right_shift(right_sift),
+			corners.bot_right_shift(right_sift), Scalar(0, 0, 255), 4);
+	line(img_matches, corners.bot_right_shift(right_sift),
+			corners.bot_left_shift(right_sift), Scalar(0, 0, 255), 4);
+	line(img_matches, corners.bot_left_shift(right_sift),
+			corners.top_left_shift(right_sift), Scalar(0, 0, 255), 4);
 	imshow("final image ", img_matches);
 	return corners;
 }
@@ -120,14 +110,7 @@ void print_matches(std::vector<DMatch> matches) {
 	}
 }
 
-void print_corners(Corners corners) {
-	std::cout << "Corners : " << std::endl << "(" << corners.top_left.x << ","
-			<< corners.top_left.y << ")" << " - (" << corners.top_right.x << ","
-			<< corners.top_right.y << ")" << std::endl << "("
-			<< corners.bot_left.x << "," << corners.bot_left.y << ")" << " - ("
-			<< corners.bot_right.x << "," << corners.bot_right.y << ")"
-			<< std::endl;
-}
+
 
 void print_points2f(std::vector<Point2f> points) {
 	std::cout << "Points 2f :" << std::endl;
@@ -150,23 +133,16 @@ void print_knnmatches(vector<vector<DMatch>> matches) {
 	}
 }
 
-bool is_in(Corners corners, Point2d point) {
-	if (point.x < corners.top_left.x || point.x > corners.top_right.x)
-		return false;
-	if (point.y < corners.top_left.y || point.y > corners.bot_right.y)
-		return false;
 
-	return true;
-}
 
 /* TODO: make a return value if less than a certain number of points are deleted */
-void removePointsOfObjectFound(const Corners corners, vector<Point2f>& scene,
+void removePointsOfObjectFound(Corners corners, vector<Point2f>& scene,
 		vector<Point2f>& obj, vector<DMatch> & good_matches) {
 	// we have to remove both the scene and object indices because they are pushed back together
 	int index = 0;
 	auto it_obj = obj.begin();
 	for (auto it_scene = scene.begin(); it_scene != scene.end();) {
-		if (is_in(corners, *it_scene)) {
+		if (corners.is_in(*it_scene)) {
 			it_scene = scene.erase(it_scene);
 			it_obj = obj.erase(it_obj);
 			good_matches.erase(good_matches.begin() + index);
