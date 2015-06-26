@@ -10,16 +10,18 @@
 
 
 #include <string>
+#include "Corners.h"
 
 using namespace std;
 
 class Composant {
 public:
+	Composant();
 	Composant(string name):name(name){}
 	virtual ~Composant();
 private:
 	string name;
-	Corners
+	Corners corners;
 
 };
 

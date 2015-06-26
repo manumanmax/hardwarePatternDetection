@@ -16,3 +16,16 @@ Pattern::~Pattern() {
 	// TODO Auto-generated destructor stub
 }
 
+Pattern::Pattern(string location) {
+
+	img = imread(location, CV_LOAD_IMAGE_GRAYSCALE);
+	if (img.empty()) {
+		printf("Can't read one of the images\n");
+	} else {
+		cv::equalizeHist(img, img);
+		SiftFeatureDetector detector(1000000000);
+		detector.detect(img, keypoints);
+		cv::SiftDescriptorExtractor extractor;
+		extractor.compute(img, keypoints, descriptors);
+	}
+}

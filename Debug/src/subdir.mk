@@ -8,21 +8,24 @@ CPP_SRCS += \
 ../src/Corners.cpp \
 ../src/DisplayAnImage.cpp \
 ../src/Launcher.cpp \
-../src/Pattern.cpp 
+../src/Pattern.cpp \
+../src/Scene.cpp 
 
 OBJS += \
 ./src/Composant.o \
 ./src/Corners.o \
 ./src/DisplayAnImage.o \
 ./src/Launcher.o \
-./src/Pattern.o 
+./src/Pattern.o \
+./src/Scene.o 
 
 CPP_DEPS += \
 ./src/Composant.d \
 ./src/Corners.d \
 ./src/DisplayAnImage.d \
 ./src/Launcher.d \
-./src/Pattern.d 
+./src/Pattern.d \
+./src/Scene.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

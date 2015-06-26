@@ -16,11 +16,15 @@
 #include <iostream>
 #include <cv.hpp>
 #include "opencv2/core/core.hpp"
-#include "Corners.h"
 #include "opencv2/features2d/features2d.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/nonfree/features2d.hpp"
 #include <highgui.h>
+
+// local includes
+#include "Corners.h"
+#include "Scene.h"
+#include "Pattern.h"
 
 using namespace cv;
 
@@ -47,6 +51,7 @@ std::vector<DMatch> filter(const std::vector<DMatch> matches) {
 	}
 	return good_matches;
 }
+
 std::vector<DMatch> filter_thresholded(const std::vector<DMatch> matches,
 		unsigned int threshold) {
 	vector<DMatch> good_matches;
@@ -152,7 +157,6 @@ void removePointsOfObjectFound(Corners corners, vector<Point2f>& scene,
 			index++;
 		}
 	}
-
 }
 
 Corners find_object(Mat& H, std::vector<Point2f> obj,
@@ -170,7 +174,6 @@ Corners find_object(Mat& H, std::vector<Point2f> obj,
 
 	//-- Draw lines between the corners (the mapped object in the scene - image_2 )
 	Corners corners = draw_final_image(img_matches, scene_corners, img1);
-
 	return corners;
 }
 
@@ -190,12 +193,25 @@ void init_an_image(Mat& img_matches, const Mat& img1, const Mat& img2) {
 // ----------------------------------------------- MAIN --------------------------------------------------- //
 int main(int argc, char* argv[]) {
 
+	vector<Pattern> patterns;
+	patterns.push_back(Pattern(argv[1]));
+	Scene scene1(argv[2]);
+	Corners corner;
+	Mat final_img = scene1.init_an_image(patterns[0]);
+	scene1.matche_scene(patterns[0]);
+	scene1.init_before_search(patterns[0]);
+	std::cout << "pattern found : " << scene1.searchPattern(final_img, corner, patterns[0]) << std::endl;
+
+	imshow("final image",final_img);
+
+
+
+/*
 // Initialisati
 	Mat img1 = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
 	Mat img2 = imread(argv[2], CV_LOAD_IMAGE_GRAYSCALE);
 
 	int threshold = atoi(argv[3]);
-	Mat img_matches;
 	vector<KeyPoint> keypoints1, keypoints2;
 	Mat descriptors1, descriptors2;
 	FlannBasedMatcher matcher;
@@ -219,7 +235,7 @@ int main(int argc, char* argv[]) {
 // matching descriptors
 	matcher.radiusMatch(descriptors1, descriptors2, matches_knnVector,
 			threshold);
-	//print_knnmatches(matches_knnVector);
+//print_knnmatches(matches_knnVector);
 	fulfil(matches, matches_knnVector);
 // reduce the number of matches
 	std::vector<DMatch> good_matches = matches; //filter(matches);
@@ -230,6 +246,7 @@ int main(int argc, char* argv[]) {
 
 //Initialisation
 	Mat H;
+	Mat img_matches;
 	std::vector<Point2f> obj_corners_unit(4);
 	std::vector<Point2f> obj_corners(4);
 	std::vector<Point2f> scene_corners(4);
@@ -258,6 +275,6 @@ int main(int argc, char* argv[]) {
 				img_matches);
 		removePointsOfObjectFound(corners, scene, obj, good_matches);
 	}
-
+*/
 	waitKey(0);
 }
