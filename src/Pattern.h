@@ -23,10 +23,12 @@ class Pattern {
 public:
 	Pattern();
 	Pattern(string location);
+	string getFileName(const string& location);
 	virtual ~Pattern();
 	Mat img;
 	vector<KeyPoint> keypoints;
 	Mat descriptors;
+	string name;
 private:
 
 };

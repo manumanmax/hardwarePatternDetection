@@ -16,3 +16,8 @@ Composant::~Composant() {
 	// TODO Auto-generated destructor stub
 }
 
+void Composant::printComponent(){
+	std::cout << "composant : " << name << std::endl;
+	corners.print_corners();
+}
+

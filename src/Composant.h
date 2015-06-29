@@ -17,7 +17,8 @@ using namespace std;
 class Composant {
 public:
 	Composant();
-	Composant(string name):name(name){}
+	Composant(string name,Corners corners):name(name),corners(corners){}
+	void printComponent();
 	virtual ~Composant();
 private:
 	string name;

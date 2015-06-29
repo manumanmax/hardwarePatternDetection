@@ -16,16 +16,33 @@ Pattern::~Pattern() {
 	// TODO Auto-generated destructor stub
 }
 
+string Pattern::getFileName(const string& s) {
+
+	char sep = '/';
+
+#ifdef _WIN32
+	sep = '\\';
+#endif
+
+	size_t i = s.rfind(sep, s.length());
+	if (i != string::npos) {
+		return (s.substr(i + 1, s.length() - i));
+	}
+
+	return ("");
+}
+
 Pattern::Pattern(string location) {
 
 	img = imread(location, CV_LOAD_IMAGE_GRAYSCALE);
 	if (img.empty()) {
-		printf("Can't read one of the images\n");
+		std::cout << "can't read pattern image : " << location << std::endl;
 	} else {
 		cv::equalizeHist(img, img);
 		SiftFeatureDetector detector(1000000000);
 		detector.detect(img, keypoints);
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);
+		name = getFileName(location);
 	}
 }

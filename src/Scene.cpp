@@ -17,17 +17,21 @@ bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pat
 		std::cout << "pattern not initialised" << std::endl;
 		return false;
 	}
-	if (good_matches.size() < 10) {
+	if (good_matches.size() <= 15) {
 		std::cout << "too few matches" << std::endl;
 		return false;
 	}
 	//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 	corners = find_object(img_matches, pattern);
 	int numberOfPointRemoved = removePointsOfObjectFound(corners);
-	if (numberOfPointRemoved > 10)
+	if (numberOfPointRemoved > 15){
+		add_component(pattern,corners);
 		return true;
+	}
 	return false;
 }
+
+
 
 Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
 
@@ -36,7 +40,7 @@ Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
 	H = findHomography(obj, scene, CV_RANSAC);
 
 	//Detect corners
-	detect_corners(img);
+	detect_corners(pattern.img);
 
 	perspectiveTransform(obj_corners, scene_corners, H);
 
@@ -46,8 +50,10 @@ Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
 	return corners;
 }
 
-void Scene::init_before_search(Pattern pattern) {
-	matche_scene(pattern);
+
+
+void Scene::init_before_search(Pattern& pattern, const int treshold) {
+	matche_scene(pattern, treshold);
 //Initialisation
 	patternInitialised = true;
 //filling object and scene matrix
@@ -61,7 +67,7 @@ void Scene::init_before_search(Pattern pattern) {
 // ----------------------------- ANNEXES FUNCTIONS -------------------------------------
 /***************************************************************************************/
 
-Mat Scene::init_an_image(Pattern pattern) {
+Mat Scene::init_an_image(Pattern& pattern) {
 	Mat img_matches;
 	Size size(pattern.img.cols + img.cols, img.rows);
 	img_matches.create(size,
@@ -73,10 +79,12 @@ Mat Scene::init_an_image(Pattern pattern) {
 	return img_matches;
 }
 
-void Scene::matche_scene(Pattern pattern) {
+
+
+void Scene::matche_scene(Pattern& pattern, const int treshold) {
 	vector<vector<DMatch>> matches;
 
-	matcher.radiusMatch(pattern.descriptors, descriptors, matches, 228);
+	matcher.radiusMatch(pattern.descriptors, descriptors, matches, treshold);
 	fulfil(good_matches, matches);
 	//print_matches(good_matches);
 }
@@ -103,6 +111,8 @@ int Scene::removePointsOfObjectFound(Corners corners) {
 	}
 	return numberOfPointsRemoved;
 }
+
+
 void Scene::detect_corners(const Mat& img_object) {
 	obj_corners.push_back(cvPoint(0, 0));
 	obj_corners.push_back(cvPoint(img_object.cols, 0));
@@ -113,6 +123,8 @@ void Scene::detect_corners(const Mat& img_object) {
 	 << "," << obj_corners[i].y << std::endl;
 	 }*/
 }
+
+
 Corners Scene::draw_final_image(Mat& img_matches, const Pattern& pattern) {
 	Corners corners(scene_corners[0],scene_corners[1],scene_corners[2],scene_corners[3]);
 	Point2f right_sift = Point2f(pattern.img.cols, 0);
@@ -136,6 +148,8 @@ void Scene::print_matches(std::vector<DMatch> matches) {
 				<< matches[i].queryIdx << std::endl;
 	}
 }
+
+
 void Scene::fulfil(vector<DMatch>& matches,
 		const vector<vector<DMatch>>& matches_knnVector) {
 	for (unsigned int i = 0; i < matches_knnVector.size(); i++) {
@@ -145,6 +159,11 @@ void Scene::fulfil(vector<DMatch>& matches,
 	}
 }
 
+void Scene::show_matches(const Pattern& pattern, Mat& img_matches){
+	drawMatches(pattern.img, pattern.keypoints, img, keypoints, good_matches, img_matches);
+}
+
+
 
 // -------------------------------- CONSTRUCTOR - DESTRUCTOR --------------------------------------
 
@@ -153,17 +172,27 @@ void Scene::fulfil(vector<DMatch>& matches,
 Scene::Scene(string location) {
 	img = imread(location, CV_LOAD_IMAGE_GRAYSCALE);
 	if (img.empty()) {
-		printf("Can't read one of the images\n");
+		std::cout << "can't read scene image : " << location << std::endl;
 	} else {
+		patterns = std::vector<Composant>();
 		patternInitialised = false;
 		cv::equalizeHist(img, img);
-		SiftFeatureDetector detector(1000000000);
+		SiftFeatureDetector detector(1500);
 		detector.detect(img, keypoints);
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);
 	}
 }
-Scene::~Scene() {
 
+void Scene::add_component(const Pattern& pattern,const Corners& corners){
+	patterns.push_back(Composant(pattern.name,corners));
+}
+
+Scene::~Scene() {
+	//obj_corners_unit.clear();
+	//obj_corners.clear();
+	//scene_corners.clear();
+	//obj.clear();
+	//scene.clear();
 }
 

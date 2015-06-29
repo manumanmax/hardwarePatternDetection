@@ -25,12 +25,13 @@ public:
 	Scene(string location);
 	bool searchPattern(Mat& img_matches, Corners& corners,
 			const Pattern& pattern);
-	Mat init_an_image(Pattern pattern);
-	void matche_scene(Pattern pattern);
-	void init_before_search(Pattern pattern);
+	Mat init_an_image(Pattern& pattern);
+	void matche_scene(Pattern& pattern, const int treshold);
+	void init_before_search(Pattern& pattern, const int treshold);
+	void show_matches(const Pattern& pattern, Mat& img_matches);
 	virtual ~Scene();
 	void Scan();
-
+	vector<Composant> patterns;
 private:
 	void fulfil(vector<DMatch>& matches,
 			const vector<vector<DMatch>>& matches_knnVector);
@@ -39,6 +40,8 @@ private:
 	void detect_corners(const Mat& img_object);
 	Corners draw_final_image(Mat& img_matches, const Pattern& pattern);
 	void print_matches(std::vector<DMatch> matches);
+	void add_component(const Pattern& pattern,const Corners& corners);
+
 	bool patternInitialised;
 
 	Mat img;
@@ -46,7 +49,7 @@ private:
 	Mat descriptors;
 	FlannBasedMatcher matcher;
 	vector<DMatch> good_matches;
-	vector<Composant> patterns;
+
 	Mat H;
 	std::vector<Point2f> obj_corners_unit;
 	std::vector<Point2f> obj_corners;
