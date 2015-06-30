@@ -54,6 +54,7 @@ Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
 
 void Scene::init_before_search(Pattern& pattern, const int treshold) {
 	matche_scene(pattern, treshold);
+	pattern.printPattern();
 //Initialisation
 	patternInitialised = true;
 //filling object and scene matrix
@@ -67,7 +68,7 @@ void Scene::init_before_search(Pattern& pattern, const int treshold) {
 // ----------------------------- ANNEXES FUNCTIONS -------------------------------------
 /***************************************************************************************/
 
-Mat Scene::init_an_image(Pattern& pattern) {
+Mat Scene::init_an_image(const Pattern& pattern) {
 	Mat img_matches;
 	Size size(pattern.img.cols + img.cols, img.rows);
 	img_matches.create(size,
@@ -81,7 +82,7 @@ Mat Scene::init_an_image(Pattern& pattern) {
 
 
 
-void Scene::matche_scene(Pattern& pattern, const int treshold) {
+void Scene::matche_scene(const Pattern& pattern, const int treshold) {
 	vector<vector<DMatch>> matches;
 
 	matcher.radiusMatch(pattern.descriptors, descriptors, matches, treshold);
@@ -118,10 +119,6 @@ void Scene::detect_corners(const Mat& img_object) {
 	obj_corners.push_back(cvPoint(img_object.cols, 0));
 	obj_corners.push_back(cvPoint(img_object.cols, img_object.rows));
 	obj_corners.push_back(cvPoint(0, img_object.rows));
-	/*for (unsigned int i = 0; i < obj_corners.size(); i++) {
-	 std::cout << "object corners [" << i << "] : " << obj_corners[i].x
-	 << "," << obj_corners[i].y << std::endl;
-	 }*/
 }
 
 
@@ -177,7 +174,7 @@ Scene::Scene(string location) {
 		patterns = std::vector<Composant>();
 		patternInitialised = false;
 		cv::equalizeHist(img, img);
-		SiftFeatureDetector detector(1500);
+		SiftFeatureDetector detector(10000);
 		detector.detect(img, keypoints);
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);

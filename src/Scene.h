@@ -25,8 +25,8 @@ public:
 	Scene(string location);
 	bool searchPattern(Mat& img_matches, Corners& corners,
 			const Pattern& pattern);
-	Mat init_an_image(Pattern& pattern);
-	void matche_scene(Pattern& pattern, const int treshold);
+	Mat init_an_image(const Pattern& pattern);
+	void matche_scene(const Pattern& pattern, const int treshold);
 	void init_before_search(Pattern& pattern, const int treshold);
 	void show_matches(const Pattern& pattern, Mat& img_matches);
 	virtual ~Scene();

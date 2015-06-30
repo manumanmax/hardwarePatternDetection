@@ -22,14 +22,17 @@ using namespace cv;
 class Pattern {
 public:
 	Pattern();
-	Pattern(string location);
+	Pattern(string location, const int minHessian);
 	string getFileName(const string& location);
+	void printPattern();
 	virtual ~Pattern();
 	Mat img;
 	vector<KeyPoint> keypoints;
 	Mat descriptors;
 	string name;
 private:
+	unsigned int minHessian;
+
 
 };
 
