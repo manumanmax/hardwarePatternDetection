@@ -12,7 +12,7 @@ Scene::Scene() {
 }
 
 
-bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pattern) {
+bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pattern, bool shifted) {
 	if (!patternInitialised){
 		std::cout << "pattern not initialised" << std::endl;
 		return false;
@@ -22,18 +22,20 @@ bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pat
 		return false;
 	}
 	//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
-	corners = find_object(img_matches, pattern);
+	corners = find_object(img_matches, pattern,shifted);
 	int numberOfPointRemoved = removePointsOfObjectFound(corners);
 	if (numberOfPointRemoved > 15){
+		std::cout << "pattern found (" << numberOfPointRemoved << ")" << std::endl;
 		add_component(pattern,corners);
 		return true;
 	}
+	std::cout << "less than 16 points removed (" << numberOfPointRemoved << ")" << std::endl;
 	return false;
 }
 
 
 
-Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
+Corners Scene::find_object(Mat& img_matches,const Pattern& pattern, bool shifted) {
 
 	//Homography
 	//print_points2f(obj);
@@ -45,16 +47,14 @@ Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
 	perspectiveTransform(obj_corners, scene_corners, H);
 
 	//-- Draw lines between the corners (the mapped object in the scene - image_2 )
-	Corners corners = draw_final_image(img_matches,pattern);
+	Corners corners = draw_final_image(img_matches,pattern, shifted);
 
 	return corners;
 }
 
 
 
-void Scene::init_before_search(Pattern& pattern, const int treshold) {
-	matche_scene(pattern, treshold);
-	pattern.printPattern();
+void Scene::init_before_search(Pattern& pattern) {
 //Initialisation
 	patternInitialised = true;
 //filling object and scene matrix
@@ -70,9 +70,9 @@ void Scene::init_before_search(Pattern& pattern, const int treshold) {
 
 Mat Scene::init_an_image(const Pattern& pattern) {
 	Mat img_matches;
-	Size size(pattern.img.cols + img.cols, img.rows);
+	Size size(img.cols, img.rows);
 	img_matches.create(size,
-			CV_MAKETYPE(pattern.img.depth(), pattern.img.channels()));
+			CV_MAKETYPE(img.depth(), img.channels()));
 	cv::Rect roi(cv::Point(img_matches.size().width - img.cols, 0), img.size());
 
 	img.copyTo(img_matches(roi));
@@ -82,12 +82,11 @@ Mat Scene::init_an_image(const Pattern& pattern) {
 
 
 
-void Scene::matche_scene(const Pattern& pattern, const int treshold) {
+void Scene::matche_scene(const Pattern& pattern) {
 	vector<vector<DMatch>> matches;
 
-	matcher.radiusMatch(pattern.descriptors, descriptors, matches, treshold);
+	matcher.radiusMatch(pattern.descriptors, descriptors, matches, pattern.treshold);
 	fulfil(good_matches, matches);
-	//print_matches(good_matches);
 }
 
 
@@ -122,9 +121,15 @@ void Scene::detect_corners(const Mat& img_object) {
 }
 
 
-Corners Scene::draw_final_image(Mat& img_matches, const Pattern& pattern) {
+Corners Scene::draw_final_image(Mat& img_matches, const Pattern& pattern, bool shifted) {
 	Corners corners(scene_corners[0],scene_corners[1],scene_corners[2],scene_corners[3]);
-	Point2f right_sift = Point2f(pattern.img.cols, 0);
+
+	Point2f right_sift;
+	if(shifted)
+		right_sift = Point2f(pattern.img.cols, 0);
+	else
+		right_sift = Point2f(0, 0);
+
 	line(img_matches, corners.top_left_shift(right_sift),
 			corners.top_right_shift(right_sift), Scalar(0, 0, 255), 4);
 	line(img_matches, corners.top_right_shift(right_sift),
@@ -174,7 +179,7 @@ Scene::Scene(string location) {
 		patterns = std::vector<Composant>();
 		patternInitialised = false;
 		cv::equalizeHist(img, img);
-		SiftFeatureDetector detector(10000);
+		SiftFeatureDetector detector(100000000);
 		detector.detect(img, keypoints);
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);

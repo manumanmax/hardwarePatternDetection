@@ -22,7 +22,8 @@ using namespace cv;
 class Pattern {
 public:
 	Pattern();
-	Pattern(string location, const int minHessian);
+	Pattern(string location, const int minHessian, const double treshold);
+	Pattern(string location);
 	string getFileName(const string& location);
 	void printPattern();
 	virtual ~Pattern();
@@ -30,8 +31,10 @@ public:
 	vector<KeyPoint> keypoints;
 	Mat descriptors;
 	string name;
+	double treshold;
 private:
 	unsigned int minHessian;
+
 
 
 };

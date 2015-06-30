@@ -32,7 +32,7 @@ string Pattern::getFileName(const string& s) {
 	return ("");
 }
 
-Pattern::Pattern(string location, const int minHessian) {
+Pattern::Pattern(string location, const int minHessian, const double treshold) {
 
 	img = imread(location, CV_LOAD_IMAGE_GRAYSCALE);
 	if (img.empty()) {
@@ -44,9 +44,25 @@ Pattern::Pattern(string location, const int minHessian) {
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);
 		name = getFileName(location);
+		this->treshold = treshold;
+		this->minHessian = minHessian;
 	}
 }
 
+Pattern::Pattern(string location) {
+
+	img = imread(location, CV_LOAD_IMAGE_GRAYSCALE);
+	if (img.empty()) {
+		std::cout << "can't read pattern image : " << location << std::endl;
+	} else {
+		cv::equalizeHist(img, img);
+		SiftFeatureDetector detector(10000000);
+		detector.detect(img, keypoints);
+		cv::SiftDescriptorExtractor extractor;
+		extractor.compute(img, keypoints, descriptors);
+		name = getFileName(location);
+	}
+}
 
 void Pattern::printPattern(){
 	std::cout << "Pattern : " << std::endl << name << std::endl;

@@ -24,10 +24,10 @@ public:
 	Scene();
 	Scene(string location);
 	bool searchPattern(Mat& img_matches, Corners& corners,
-			const Pattern& pattern);
+			const Pattern& pattern, bool shifted = 1);
 	Mat init_an_image(const Pattern& pattern);
-	void matche_scene(const Pattern& pattern, const int treshold);
-	void init_before_search(Pattern& pattern, const int treshold);
+	void matche_scene(const Pattern& pattern);
+	void init_before_search(Pattern& pattern);
 	void show_matches(const Pattern& pattern, Mat& img_matches);
 	virtual ~Scene();
 	void Scan();
@@ -36,9 +36,9 @@ private:
 	void fulfil(vector<DMatch>& matches,
 			const vector<vector<DMatch>>& matches_knnVector);
 	int removePointsOfObjectFound(Corners corners);
-	Corners find_object(Mat& img_matches, const Pattern& pattern);
+	Corners find_object(Mat& img_matches, const Pattern& pattern, bool shifted = 1);
 	void detect_corners(const Mat& img_object);
-	Corners draw_final_image(Mat& img_matches, const Pattern& pattern);
+	Corners draw_final_image(Mat& img_matches, const Pattern& pattern, bool shifted);
 	void print_matches(std::vector<DMatch> matches);
 	void add_component(const Pattern& pattern,const Corners& corners);
 

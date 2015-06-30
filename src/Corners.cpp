@@ -23,13 +23,59 @@ void Corners::print_corners() {
 			<< " - (" << bot_right.x << "," << bot_right.y << ")" << std::endl;
 }
 
-bool Corners::is_in(Point2d point) {
-	if (point.x < top_left.x || point.x > top_right.x)
-		return false;
-	if (point.y < top_left.y || point.y > bot_right.y)
-		return false;
+int max2(int v1, int v2) {
+	if (v1 > v2)
+		return v1;
+	return v2;
+}
 
-	return true;
+int max4(int v1, int v2, int v3, int v4) {
+	int max = max2(v1, v2);
+	max = max2(max, v3);
+	max = max2(max, v4);
+	return max;
+}
+
+int min2(int v1, int v2) {
+	if (v1 < v2)
+		return v1;
+	return v2;
+}
+
+int min4(int v1, int v2, int v3, int v4) {
+	int min = min2(v1, v2);
+	min = min2(min, v3);
+	min = min2(min, v4);
+	return min;
+}
+
+//bounding diamond
+bool Corners::is_in(Point2d point) {
+
+	int p1, p2, p3, p4, q1, q2, q3, q4;
+	p1 = top_left.x + top_left.y;
+	q1 = top_left.x - top_left.y;
+
+	p2 = top_right.x + top_right.y;
+	q2 = top_right.x - top_right.y;
+
+	p3 = bot_right.x + bot_right.y;
+	q3 = bot_right.x - bot_right.y;
+
+	p4 = bot_left.x + bot_left.y;
+	q4 = bot_left.x - bot_left.y;
+
+	int pmax = max4(p1, p2, p3, p4);
+	int qmax = max4(q1, q2, q3, q4);
+
+	int pmin = min4(p1, p2, p3, p4);
+	int qmin = min4(q1, q2, q3, q4);
+
+	if ((point.x + point.y > pmin && point.x + point.y < pmax) &&
+		(point.x - point.y > qmin && point.x - point.y < qmax)	){
+		return true;
+	}
+	return false;
 }
 
 Point2f Corners::top_left_shift(const Point2f& shift) {

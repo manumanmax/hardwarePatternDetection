@@ -32,20 +32,19 @@ using namespace cv;
 int main(int argc, char* argv[]) {
 
 	vector<Pattern> patterns;
-	int treshold = atoi(argv[1]);
-	patterns.push_back(Pattern("../Ressources/models/modelUC3.jpg",1000000));
-	patterns.push_back(Pattern("../Ressources/models/power.jpg",100));
+	patterns.push_back(Pattern("../Ressources/models/modelUC3.jpg",1500, 228));
+	patterns.push_back(Pattern("../Ressources/models/power_supply.jpg", 170, 228));
 	Scene scene1("../Ressources/views/launcher_test.jpg");
 	Corners corner;
-	Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/power_supply.jpg",0));
+	Mat final_img = scene1.init_an_image(Pattern("../Ressources/models/modelUC3.jpg"));
 
 	for (unsigned int i = 0; i < patterns.size(); i++) {
 
-		scene1.matche_scene(patterns[i], treshold);
-		scene1.show_matches(patterns[i], final_img);
-		scene1.init_before_search( patterns[i], treshold);
+		scene1.matche_scene(patterns[i]);
+		//scene1.show_matches(patterns[i], final_img);
+		scene1.init_before_search( patterns[i]);
 
-		while (scene1.searchPattern(final_img, corner, patterns[i]));
+		while (scene1.searchPattern(final_img, corner, patterns[i],0));
 	}
 	//imshow("final image",final_img);
 	std::cout << scene1.patterns.size() << std::endl;
