@@ -22,6 +22,7 @@ using namespace cv;
 class Pattern {
 public:
 	Pattern();
+	Pattern(string location, const double& minHessian);
 	Pattern(string location);
 	string getFileName(const string& location);
 	virtual ~Pattern();

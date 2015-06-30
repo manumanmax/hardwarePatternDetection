@@ -35,7 +35,7 @@ using namespace cv;
 int main(int argc, char* argv[]) {
 
 	vector<Pattern> patterns;
-	patterns.push_back(Pattern(argv[1]));
+	patterns.push_back(Pattern(argv[1],100));
 	Scene scene1(argv[2]);
 	Corners corner;
 	Mat final_img = scene1.init_an_image(patterns[0]);
