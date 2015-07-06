@@ -21,22 +21,31 @@
 #include <highgui.h>
 
 // local includes
-#include "Corners.h"
 #include "Scene.h"
-#include "Pattern.h"
 
 using namespace cv;
+
+//*************************************************TESTS****************************************************//
+void test_corners(int x, int y){
+
+	Point2d p1(221.121,226.269),p2(299.628,226.116),
+			p3(300.085,390.207),p4(220.862,390.559);
+	Corners corners(p1,p2,p3,p4);
+	std::cout << corners.is_in(Point2d(x,y)) << std::endl;
+}
 
 /************************************************************************************************************/
 // ----------------------------------------------- MAIN --------------------------------------------------- //
 int main(int argc, char* argv[]) {
+
+	//test_corners(atoi(argv[1]), atoi(argv[2]));
 
 	vector<Pattern> patterns;
 	patterns.push_back(Pattern("../Ressources/models/modelUC3.jpg",1500, 228));
 	patterns.push_back(Pattern("../Ressources/models/power_supply.jpg", 170, 228));
 	Scene scene1("../Ressources/views/launcher_test.jpg");
 	Corners corner;
-	Mat final_img = scene1.init_an_image(Pattern("../Ressources/models/modelUC3.jpg"));
+	Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/launcher_test.jpg"));
 
 	for (unsigned int i = 0; i < patterns.size(); i++) {
 

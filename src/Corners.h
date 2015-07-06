@@ -23,6 +23,7 @@ public:
 	virtual ~Corners();
 	void print_corners();
 	bool is_in(Point2d point);
+
 	Point2f top_left_shift(const Point2f& shift);
 	Point2f top_right_shift(const Point2f& shift);
 	Point2f bot_left_shift(const Point2f& shift);

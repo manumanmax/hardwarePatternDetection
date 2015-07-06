@@ -94,10 +94,12 @@ void Scene::matche_scene(const Pattern& pattern) {
 /* TODO: make a return value if less than a certain number of points are deleted */
 int Scene::removePointsOfObjectFound(Corners corners) {
 	// we have to remove both the scene and object indices because they are pushed back together
+	std::vector<Point2d> wrongPoints;
 	int index = 0;
 	int numberOfPointsRemoved = 0;
 	auto it_obj = obj.begin();
 	for (auto it_scene = scene.begin(); it_scene != scene.end();) {
+
 		if (corners.is_in(*it_scene)) {
 			numberOfPointsRemoved++;
 			it_scene = scene.erase(it_scene);
