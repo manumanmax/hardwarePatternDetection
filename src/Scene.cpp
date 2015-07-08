@@ -22,10 +22,11 @@ bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pat
 		return false;
 	}
 	//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
-	corners = find_object(img_matches, pattern,shifted);
+	corners = find_object(img_matches, pattern);
 	int numberOfPointRemoved = removePointsOfObjectFound(corners);
 	if (numberOfPointRemoved > 15){
 		std::cout << "pattern found (" << numberOfPointRemoved << ")" << std::endl;
+		draw_final_image(img_matches,pattern, shifted);
 		add_component(pattern,corners);
 		return true;
 	}
@@ -35,7 +36,7 @@ bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pat
 
 
 
-Corners Scene::find_object(Mat& img_matches,const Pattern& pattern, bool shifted) {
+Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
 
 	//Homography
 	//print_points2f(obj);
@@ -47,7 +48,7 @@ Corners Scene::find_object(Mat& img_matches,const Pattern& pattern, bool shifted
 	perspectiveTransform(obj_corners, scene_corners, H);
 
 	//-- Draw lines between the corners (the mapped object in the scene - image_2 )
-	Corners corners = draw_final_image(img_matches,pattern, shifted);
+	Corners corners = create_corners();
 
 	return corners;
 }
@@ -122,6 +123,11 @@ void Scene::detect_corners(const Mat& img_object) {
 	obj_corners.push_back(cvPoint(0, img_object.rows));
 }
 
+
+Corners Scene::create_corners(){
+	Corners corners(scene_corners[0],scene_corners[1],scene_corners[2],scene_corners[3]);
+	return corners;
+}
 
 Corners Scene::draw_final_image(Mat& img_matches, const Pattern& pattern, bool shifted) {
 	Corners corners(scene_corners[0],scene_corners[1],scene_corners[2],scene_corners[3]);

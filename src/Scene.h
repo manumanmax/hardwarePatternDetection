@@ -36,8 +36,9 @@ private:
 	void fulfil(vector<DMatch>& matches,
 			const vector<vector<DMatch>>& matches_knnVector);
 	int removePointsOfObjectFound(Corners corners);
-	Corners find_object(Mat& img_matches, const Pattern& pattern, bool shifted = 1);
+	Corners find_object(Mat& img_matches, const Pattern& pattern);
 	void detect_corners(const Mat& img_object);
+	Corners create_corners();
 	Corners draw_final_image(Mat& img_matches, const Pattern& pattern, bool shifted);
 	void print_matches(std::vector<DMatch> matches);
 	void add_component(const Pattern& pattern,const Corners& corners);
