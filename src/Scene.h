@@ -32,6 +32,7 @@ public:
 	virtual ~Scene();
 	void Scan();
 	vector<Composant> patterns;
+	vector<DMatch> good_matches;
 private:
 	void fulfil(vector<DMatch>& matches,
 			const vector<vector<DMatch>>& matches_knnVector);
@@ -49,7 +50,7 @@ private:
 	vector<KeyPoint> keypoints;
 	Mat descriptors;
 	FlannBasedMatcher matcher;
-	vector<DMatch> good_matches;
+
 
 	Mat H;
 	std::vector<Point2f> obj_corners_unit;

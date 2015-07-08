@@ -25,7 +25,7 @@ bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pat
 	corners = find_object(img_matches, pattern);
 	int numberOfPointRemoved = removePointsOfObjectFound(corners);
 	if (numberOfPointRemoved > 15){
-		std::cout << "pattern found (" << numberOfPointRemoved << ")" << std::endl;
+		//std::cout << "pattern found (" << numberOfPointRemoved << ")" << std::endl;
 		draw_final_image(img_matches,pattern, shifted);
 		add_component(pattern,corners);
 		return true;
@@ -58,6 +58,8 @@ Corners Scene::find_object(Mat& img_matches,const Pattern& pattern) {
 void Scene::init_before_search(Pattern& pattern) {
 //Initialisation
 	patternInitialised = true;
+	obj.clear();
+	scene.clear();
 //filling object and scene matrix
 	for (unsigned int j = 0; j < good_matches.size(); j++) {
 //-- Get the keypoints from the good matches
@@ -87,7 +89,10 @@ void Scene::matche_scene(const Pattern& pattern) {
 	vector<vector<DMatch>> matches;
 
 	matcher.radiusMatch(pattern.descriptors, descriptors, matches, pattern.treshold);
+	good_matches.clear();
 	fulfil(good_matches, matches);
+	std::cout << "number of matches : " << good_matches.size() << std::endl;
+
 }
 
 
@@ -117,6 +122,7 @@ int Scene::removePointsOfObjectFound(Corners corners) {
 
 
 void Scene::detect_corners(const Mat& img_object) {
+	obj_corners.clear();
 	obj_corners.push_back(cvPoint(0, 0));
 	obj_corners.push_back(cvPoint(img_object.cols, 0));
 	obj_corners.push_back(cvPoint(img_object.cols, img_object.rows));
@@ -146,7 +152,6 @@ Corners Scene::draw_final_image(Mat& img_matches, const Pattern& pattern, bool s
 			corners.bot_left_shift(right_sift), Scalar(0, 0, 255), 4);
 	line(img_matches, corners.bot_left_shift(right_sift),
 			corners.top_left_shift(right_sift), Scalar(0, 0, 255), 4);
-	imshow("final image ", img_matches);
 	return corners;
 }
 
@@ -187,7 +192,7 @@ Scene::Scene(string location) {
 		patterns = std::vector<Composant>();
 		patternInitialised = false;
 		cv::equalizeHist(img, img);
-		SiftFeatureDetector detector(100000000);
+		SiftFeatureDetector detector(10000);
 		detector.detect(img, keypoints);
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);
