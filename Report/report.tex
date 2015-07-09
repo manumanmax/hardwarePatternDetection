@@ -1,4 +1,4 @@
-\documentclass[francais,a4paper,11pt]{report}
+\documentclass[english,a4paper,11pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \PassOptionsToPackage{english}{babel}
@@ -6,7 +6,7 @@
 \usepackage{fullpage}
 \usepackage{eso-pic}
 
-\usepackage[french]{babel}
+\usepackage[english]{babel}
 \usepackage{fancyhdr}
 \usepackage[lastpage,user]{zref}
 \cfoot{\thepage\ of \zpageref{LastPage}}
@@ -77,12 +77,21 @@
 \newpage
 
 
-  \section{Introduction}
- The main idea of the system is to extract all the keypoints of the scene and all the keypoints of the pattern in the constructors. Like that you don't have to worry about it in the main program. 
-Then you compute the associated descriptors. Both of this containers are implemented in opencv and really easy to use. 
-The main loop consiste to match the descriptors of the patterns one by one. Comparing them to the scene image we obtain a vector of dmatches that contains the informations of each match. That's made by the radius matcher included in opencv. 
-Then you can perform an homography  that uses the descriptors of the matches found to extract an image that looks like the pattern we are looking for. The advantage of this method is the fact that it doesn't depends on the position and the scaling of the image. We also obtain the corners of the object found which allows us to remove the points of interest and descriptors associated from their respective vectors. That method avoids recomputing all the keypoints and descriptors which is very expensive in ressources. 
-To end the loop we have 2 options. First there is not enough match between the two images. Secondly the number of key values removes after finding a pattern is to low. In both cases the match is not drawn on the image and the next pattern to analyse is set.
+\chapter{Introduction}
+	This application is produced by the University of Salerno. It has been made during an internship and is part of a global pattern recognition application. The final goal is extract the documentation of materials on the field and in live from videos captured by a camera headset. The subject of this report concerns the extraction of multiple pattern in a single image.
 
+\chapter{Need}
+	On the field when people have to make maintenance on the material. They encounter a problem with the density of the maintenance manuals which can make around 700 pages. We try to ease the maintenance by recreate manuals that focuses on the material that the technician is looking at. To obtain this result we have to analyze the images of the camera and extract the type material. That is what this report deals with.
+
+
+\chapter{Solution}
+ The main idea of the system is to extract all the key points of the scene and all the key points of the pattern in the constructors. Like that you don't have to worry about it in the main program. 
+Then you compute the associated descriptors. Both of this containers are implemented in opencv and really easy to use. 
+The main loop consists to match the descriptors of the patterns one by one. Comparing them to the scene image we obtain a vector of dmatches that contains the informations of each match. That's made by the radius matcher included in opencv. 
+Then you can perform an homography  that uses the descriptors of the matches found to extract an image that looks like the pattern we are looking for. The advantage of this method is the fact that it doesn't depends on the position and the scaling of the image. We also obtain the corners of the object found which allows us to remove the points of interest and descriptors associated from their respective vectors. That method avoids recomputing all the key points and descriptors which is very expensive in resources. 
+To end the loop we have 2 options. First there is not enough match between the two images. Secondly the number of key values removes after finding a pattern is to low. In both cases the match is not drawn on the image and the next pattern to analyze is set.
+
+\chapter{Main functions}
+\section{}
 
 \end{document}

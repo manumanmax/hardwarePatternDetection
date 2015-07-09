@@ -1,22 +1,14 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.4.15)  8 JUL 2015 15:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.7.9)  9 JUL 2015 12:00
 entering extended mode
-**C:/Users/Emmanuel/Documents/GitHub/hardwarePatternDetection/Report/report.tex
-
-(C:/Users/Emmanuel/Documents/GitHub/hardwarePatternDetection/Report/report.tex
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**report.tex
+(./report.tex
 LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
- lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
-german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
-ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
-an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
-ishmax, welsh, loaded.
-(C:\Users\Emmanuel\latex\tex\latex\base\report.cls
+Babel <3.9g> and hyphenation patterns for 2 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-(C:\Users\Emmanuel\latex\tex\latex\base\size11.clo
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -32,19 +24,19 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(C:\Users\Emmanuel\latex\tex\latex\base\inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(C:\Users\Emmanuel\latex\tex\latex\base\utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-(C:\Users\Emmanuel\latex\tex\latex\base\t1enc.dfu
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -194,7 +186,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-(C:\Users\Emmanuel\latex\tex\latex\base\ot1enc.dfu
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -225,7 +217,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-(C:\Users\Emmanuel\latex\tex\latex\base\omsenc.dfu
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -249,38 +241,38 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(C:\Users\Emmanuel\latex\tex\latex\base\fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(C:\Users\Emmanuel\latex\tex\latex\base\t1enc.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-(C:\Users\Emmanuel\latex\tex\latex\graphics\graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(C:\Users\Emmanuel\latex\tex\latex\graphics\keyval.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-(C:\Users\Emmanuel\latex\tex\latex\graphics\graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(C:\Users\Emmanuel\latex\tex\latex\graphics\trig.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(C:\Users\Emmanuel\latex\tex\latex\00miktex\graphics.cfg
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(C:\Users\Emmanuel\latex\tex\latex\pdftex-def\pdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\infwarerr.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\ltxcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count88
@@ -288,75 +280,46 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(C:\Users\Emmanuel\latex\tex\latex\preprint\fullpage.sty
+(/usr/share/texlive/texmf-dist/tex/latex/preprint/fullpage.sty
 Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip43
 )
-(C:\Users\Emmanuel\latex\tex\latex\eso-pic\eso-pic.sty
-Package: eso-pic 2015/04/20 v2.0e eso-pic (RN)
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2013/10/06 v2.0d eso-pic (RN)
 
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\atbegshi.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/atbegshi.sty
 Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\ifpdf.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
 ))
-(C:\Users\Emmanuel\latex\tex\latex\xcolor\xcolor.sty
-Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(C:\Users\Emmanuel\latex\tex\latex\00miktex\color.cfg
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
-Package xcolor Info: Model `RGB' extended on input line 1353.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+Package color Info: Driver file: pdftex.def on input line 130.
 ))
-(C:\Users\Emmanuel\latex\tex\generic\babel\babel.sty
-Package: babel 2008/07/08 v3.8m The Babel package
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2013/10/10 3.9g The Babel package
 
-*************************************
-* Local config file bblopts.cfg used
-*
-(C:\Users\Emmanuel\latex\tex\latex\00miktex\bblopts.cfg
-File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
-)
-(C:\Users\Emmanuel\latex\tex\generic\babel\frenchb.ldf
-Language: frenchb 2009/03/16 v2.3d French support from the babel system
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2012/08/20 v3.3p English support from the babel system
 
-(C:\Users\Emmanuel\latex\tex\generic\babel\babel.def
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2013/10/10 3.9g Babel common definitions
 \babel@savecnt=\count89
 \U@D=\dimen105
 )
-Package babel Info: Making : an active character on input line 120.
-Package babel Info: Making ; an active character on input line 121.
-Package babel Info: Making ! an active character on input line 122.
-Package babel Info: Making ? an active character on input line 123.
-\FB@Mht=\dimen106
-\std@mcc=\count90
-\dec@mcc=\count91
-\parindentFFN=\dimen107
-
-*************************************
-* Local config file frenchb.cfg used
-*
-(C:\Users\Emmanuel\latex\tex\generic\babel\frenchb.cfg))
-(C:\Users\Emmanuel\latex\tex\generic\babel\english.ldf
-Language: english 2005/03/30 v3.3o English support from the babel system
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-(C:\Users\Emmanuel\latex\tex\latex\carlisle\scalefnt.sty)
-(C:\Users\Emmanuel\latex\tex\latex\fancyhdr\fancyhdr.sty
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 \fancy@headwidth=\skip44
 \f@ncyO@elh=\skip45
 \f@ncyO@erh=\skip46
@@ -367,19 +330,19 @@ Language: english 2005/03/30 v3.3o English support from the babel system
 \f@ncyO@olf=\skip51
 \f@ncyO@orf=\skip52
 )
-(C:\Users\Emmanuel\latex\tex\latex\oberdiek\zref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref.sty
 Package: zref 2012/04/04 v2.24 A new reference scheme for LaTeX (HO)
 
-(C:\Users\Emmanuel\latex\tex\latex\oberdiek\zref-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-base.sty
 Package: zref-base 2012/04/04 v2.24 Module base for zref (HO)
 
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\kvsetkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\etexcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\ifluatex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
@@ -388,10 +351,10 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 ))
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\kvdefinekeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
 )
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\pdftexcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -399,55 +362,55 @@ Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-(C:\Users\Emmanuel\latex\tex\latex\oberdiek\auxhook.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
 Package zref Info: New property list: main on input line 759.
 Package zref Info: New property: default on input line 760.
 Package zref Info: New property: page on input line 761.
 ))
-(C:\Users\Emmanuel\latex\tex\latex\oberdiek\zref-lastpage.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-lastpage.sty
 Package: zref-lastpage 2012/04/04 v2.24 Module lastpage for zref (HO)
 
-(C:\Users\Emmanuel\latex\tex\latex\oberdiek\zref-abspage.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-abspage.sty
 Package: zref-abspage 2012/04/04 v2.24 Module abspage for zref (HO)
-\c@abspage=\count92
+\c@abspage=\count90
 Package zref Info: New property: abspage on input line 62.
 )
-(C:\Users\Emmanuel\latex\tex\latex\oberdiek\atveryend.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/atveryend.sty
 Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
 )
 Package zref Info: New property list: LastPage on input line 55.
 )
-(C:\Users\Emmanuel\latex\tex\latex\oberdiek\zref-user.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-user.sty
 Package: zref-user 2012/04/04 v2.24 Module user for zref (HO)
 )
-(C:\Users\Emmanuel\latex\tex\latex\geometry\geometry.sty
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
-(C:\Users\Emmanuel\latex\tex\generic\oberdiek\ifvtex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-(C:\Users\Emmanuel\latex\tex\generic\ifxetex\ifxetex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count93
-\Gm@cntv=\count94
-\c@Gm@tempcnt=\count95
-\Gm@bindingoffset=\dimen108
-\Gm@wd@mp=\dimen109
-\Gm@odd@mp=\dimen110
-\Gm@even@mp=\dimen111
-\Gm@layoutwidth=\dimen112
-\Gm@layoutheight=\dimen113
-\Gm@layouthoffset=\dimen114
-\Gm@layoutvoffset=\dimen115
+\Gm@cnth=\count91
+\Gm@cntv=\count92
+\c@Gm@tempcnt=\count93
+\Gm@bindingoffset=\dimen106
+\Gm@wd@mp=\dimen107
+\Gm@odd@mp=\dimen108
+\Gm@even@mp=\dimen109
+\Gm@layoutwidth=\dimen110
+\Gm@layoutheight=\dimen111
+\Gm@layouthoffset=\dimen112
+\Gm@layoutvoffset=\dimen113
 \Gm@dimlist=\toks17
+) (./report.aux)
+\openout1 = `report.aux'.
 
-(C:\Users\Emmanuel\latex\tex\latex\geometry\geometry.cfg))
-(C:\Users\Emmanuel\Documents\GitHub\hardwarePatternDetection\Report\report.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
@@ -460,24 +423,38 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
-(C:\Users\Emmanuel\latex\tex\context\base\supp-pdf.mkii
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count96
-\scratchdimen=\dimen116
+\scratchcounter=\count94
+\scratchdimen=\dimen114
 \scratchbox=\box26
-\nofMPsegments=\count97
-\nofMParguments=\count98
+\nofMPsegments=\count95
+\nofMParguments=\count96
 \everyMPshowfont=\toks18
-\MPscratchCnt=\count99
-\MPscratchDim=\dimen117
-\MPnumerator=\count100
-\makeMPintoPDFobject=\count101
+\MPscratchCnt=\count97
+\MPscratchDim=\dimen115
+\MPnumerator=\count98
+\makeMPintoPDFobject=\count99
 \everyMPtoPDFconversion=\toks19
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 )
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 \AtBeginShipoutBox=\box27
-LaTeX Info: Redefining \degres on input line 47.
-LaTeX Info: Redefining \dots on input line 47.
-LaTeX Info: Redefining \up on input line 47.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -525,85 +502,4 @@ File: images_not_compressed/uneGrandeEcole.png Graphic file (type png)
 <use images_not_compressed/uneGrandeEcole.png>
 Package pdftex.def Info: images_not_compressed/uneGrandeEcole.png used on input
  line 70.
-(pdftex.def)             Requested size: 597.50787pt x 65.90799pt.
-
-<images_not_compressed/unisaLogo.jpg, id=2, 225.84375pt x 225.84375pt>
-File: images_not_compressed/unisaLogo.jpg Graphic file (type jpg)
-
-<use images_not_compressed/unisaLogo.jpg>
-Package pdftex.def Info: images_not_compressed/unisaLogo.jpg used on input line
- 73.
-(pdftex.def)             Requested size: 113.81102pt x 113.81412pt.
-
-<images_not_compressed/ensiLogo.jpg, id=3, 185.493pt x 115.8729pt>
-File: images_not_compressed/ensiLogo.jpg Graphic file (type jpg)
-
-<use images_not_compressed/ensiLogo.jpg>
-Package pdftex.def Info: images_not_compressed/ensiLogo.jpg used on input line 
-73.
-(pdftex.def)             Requested size: 184.9429pt x 115.53313pt.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 73.
- [1{C:/Users/Emmanuel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
-
- <C:/Users/Emmanuel/Documents/GitHub/hardwarePatternDetection/Report/images_not
-_compressed/unisaLogo.jpg> <C:/Users/Emmanuel/Documents/GitHub/hardwarePatternD
-etection/Report/images_not_compressed/ensiLogo.jpg> <C:/Users/Emmanuel/Document
-s/GitHub/hardwarePatternDetection/Report/images_not_compressed/uneGrandeEcole.p
-ng>]
-(C:\Users\Emmanuel\Documents\GitHub\hardwarePatternDetection\Report\report.toc)
-\tf@toc=\write3
-[1
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 88.
-File: images_not_compressed/ensiLogo.jpg Graphic file (type jpg)
- <use images_not_compressed/ensiLogo.jpg>
-Package pdftex.def Info: images_not_compressed/ensiLogo.jpg used on input line 
-88.
-(pdftex.def)             Requested size: 56.9055pt x 35.54715pt.
-File: images_not_compressed/unisaLogo.jpg Graphic file (type jpg)
-
-<use images_not_compressed/unisaLogo.jpg>
-Package pdftex.def Info: images_not_compressed/unisaLogo.jpg used on input line
- 88.
-(pdftex.def)             Requested size: 56.9055pt x 56.90533pt.
-
-
-Package Fancyhdr Warning: \headheight is too small (56.9055pt): 
- Make it at least 60.98537pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[2]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 88.
-
-(C:\Users\Emmanuel\Documents\GitHub\hardwarePatternDetection\Report\report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 88.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 88.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 88.
- ) 
-Here is how much of TeX's memory you used:
- 3985 strings out of 493921
- 53303 string characters out of 3148877
- 124551 words of memory out of 3000000
- 7191 multiletter control sequences out of 15000+200000
- 14703 words of font info for 36 fonts, out of 3000000 for 9000
- 841 hyphenation exceptions out of 8191
- 36i,15n,43p,601b,331s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Emmanuel\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
-00\ecbx1440.pk> <C:\Users\Emmanuel\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkn
-appen\ec\dpi600\eccc1095.pk> <C:\Users\Emmanuel\AppData\Local\MiKTeX\2.9\fonts\
-pk\ljfour\jknappen\ec\dpi600\ecbx2488.pk> <C:\Users\Emmanuel\AppData\Local\MiKT
-eX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0800.pk> <C:\Users\Emmanuel\AppDa
-ta\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\E
-mmanuel\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk
-> <C:\Users\Emmanuel\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi60
-0\eccc1728.pk> <C:\Users\Emmanuel\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkna
-ppen\ec\dpi600\ecrm1095.pk>
-Output written on report.pdf (3 pages, 564411 bytes).
-PDF statistics:
- 177 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+(pdftex.def)             Requested size: 597
