@@ -6,6 +6,7 @@
 \usepackage{fullpage}
 \usepackage{eso-pic}
 
+\usepackage{wrapfig}
 \usepackage[english]{babel}
 \usepackage{fancyhdr}
 \usepackage[lastpage,user]{zref}
@@ -85,13 +86,31 @@
 
 
 \chapter{Solution}
+\section{Introduction}
  The main idea of the system is to extract all the key points of the scene and all the key points of the pattern in the constructors. Like that you don't have to worry about it in the main program. 
 Then you compute the associated descriptors. Both of this containers are implemented in opencv and really easy to use. 
 The main loop consists to match the descriptors of the patterns one by one. Comparing them to the scene image we obtain a vector of dmatches that contains the informations of each match. That's made by the radius matcher included in opencv. 
 Then you can perform an homography  that uses the descriptors of the matches found to extract an image that looks like the pattern we are looking for. The advantage of this method is the fact that it doesn't depends on the position and the scaling of the image. We also obtain the corners of the object found which allows us to remove the points of interest and descriptors associated from their respective vectors. That method avoids recomputing all the key points and descriptors which is very expensive in resources. 
 To end the loop we have 2 options. First there is not enough match between the two images. Secondly the number of key values removes after finding a pattern is to low. In both cases the match is not drawn on the image and the next pattern to analyze is set.
+\section{Composants used}
+\newpage
+\subsection{OpenCV}
+\begin{wrapfigure}[5]{5}{2.5cm}
+\vspace{-7mm}
+\includegraphics[width=2cm]{images_not_compressed/opencv_logo.png}
+\end{wrapfigure}
+OpenCV is a image analysis and synthesis library that brings all the necessary for video and photo computations. Introducted in 2008, it is now used a lot in the fields that require image analysis.
+It is built around a module system that allows users to install the library in function of their needs.
+Except the non free module, the library is licensed BSD which means that we can reuse and modify all the composants freely.
+In this document I will talk more about precise modules of opencv like that base and the features2d modules. 
 
 \chapter{Main functions}
-\section{}
+\section{Constructors}
+\subsection{Scene}
+\par The scene represents the vision of the camera and the current position of its analysis. 
+It requires only the location of the image to be built. It sets the key points and computes the descriptors. 
+\par It uses a SiftFeatureDector from openCV with a minHessian (exigence of the detector) value of 10000. It is a very high value but the tests show me that more this value is high, better are the results\footnote{It also depends on the pattern minhessian value}.
+\subsection{Pattern}
+A pattern represent an object that you want to be recognized on the image
 
 \end{document}

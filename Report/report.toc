@@ -1,0 +1,11 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction}{2}
+\contentsline {chapter}{\numberline {2}Need}{3}
+\contentsline {chapter}{\numberline {3}Solution}{4}
+\contentsline {section}{\numberline {3.1}Introduction}{4}
+\contentsline {section}{\numberline {3.2}Composants used}{4}
+\contentsline {subsection}{\numberline {3.2.1}OpenCV}{5}
+\contentsline {chapter}{\numberline {4}Main functions}{6}
+\contentsline {section}{\numberline {4.1}Constructors}{6}
+\contentsline {subsection}{\numberline {4.1.1}Scene}{6}
+\contentsline {subsection}{\numberline {4.1.2}Pattern}{6}
