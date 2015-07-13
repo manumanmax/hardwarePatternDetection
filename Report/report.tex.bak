@@ -1,0 +1,134 @@
+\documentclass[english,a4paper,11pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\PassOptionsToPackage{english}{babel}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{eso-pic}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{url}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage[lastpage,user]{zref}
+\cfoot{\thepage\ of \zpageref{LastPage}}
+\pagestyle{fancy}
+\usepackage[headsep=1cm,headheight=61pt,footskip=3cm]{geometry}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+ \newcommand{\ts}{\textsuperscript}
+\newcommand{\blap}[1]{\vbox to 0pt{#1\vss}}
+\newcommand\AtUpperLeftCorner[3]{%
+  \put(\LenToUnit{#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{#3}}%
+}
+\newcommand\AtUpperRightCorner[3]{%
+  \put(\LenToUnit{\dimexpr\paperwidth-#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{\llap{#3}}}%
+}
+\newcommand\AtLowerRightCorner[3]{%
+  \put(\LenToUnit{\dimexpr\paperwidth-#1},\LenToUnit{#2}){#3}%
+}
+ 
+\title{\LARGE{Pattern recognition system}}
+\author{\textsc{Breton-Belz} Emmanuel - 2\ts{nd} Year Internship}
+\date{\today}
+\makeatletter
+
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[C]{\@author} 
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\includegraphics[width=2cm]{images_not_compressed/unisaLogo.jpg}}
+\fancyhead[L]{{\includegraphics[width=2cm]{images_not_compressed/ensiLogo.jpg}}}
+\addto\captionsenglish{
+  \renewcommand{\contentsname}
+    {Table of contents}
+}
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[R]{\leftmark}
+ 
+\begin{document}
+  \setcounter{tocdepth}{4}
+\begin{titlepage}
+    \AddToShipoutPicture{%
+      \AtUpperLeftCorner{1.5cm}{1cm}{\includegraphics[width=4cm]{images_not_compressed/unisaLogo.jpg}}
+      \AtUpperRightCorner{1.5cm}{1cm}{\includegraphics[width=6.5cm]{images_not_compressed/ensiLogo.jpg}}
+      \AtLowerRightCorner{8cm}{3.5cm}{\parbox{7cm}{ENSICAEN \\
+        6, boulevard Maréchal Juin 
+        \\CS  45 053 – F- 14050 Caen Cedex 4\\
+        Tél. +33 (0)2 31 45 27 50\\
+        Fax +33 (0)2 31 45 27 60}} 
+    }
+ 
+    \begin{center}
+        \vspace*{10cm}
+        \textsc{\@title}
+        \HRule
+        \vspace*{0.5cm}
+        \large{\@author} 
+    \end{center}
+ 
+    \vspace*{5cm}
+    \begin{center}
+      \makebox[\textwidth]{\includegraphics[width=\paperwidth]{images_not_compressed/uneGrandeEcole.png}}
+    \end{center}
+
+\end{titlepage}
+\ClearShipoutPicture
+
+\tableofcontents
+\newpage
+
+
+\chapter{Introduction}
+	This application is produced by the University of Salerno. It has been made during an internship and is part of a global pattern recognition application. The final goal is extract the documentation of materials on the field and in live from videos captured by a camera headset. The subject of this report concerns the extraction of multiple pattern in a single image.
+
+\chapter{Need}
+	On the field when people have to make maintenance on the material. They encounter a problem with the density of the maintenance manuals which can make around 700 pages. We try to ease the maintenance by recreate manuals that focuses on the material that the technician is looking at. To obtain this result we have to analyze the images of the camera and extract the type material. That is what this report deals with.
+
+
+\chapter{Solution}
+\section{Introduction}
+\par To resolve the problem I only worked on Linux LMDE. It should work on other unix based operating system. For windows it requires Qt3 to open the windows that show the images.
+First I will introduce openCV because all the application is based on it. I will talk more preciselly about the keypoints and the descriptors that are computed from them. I will also explain the homography system. All of this component are embedded in the OpenCV library.
+Then I will explain how I used them in the explication, how I tested it and what I added to obtain the informations about the patterns.
+
+\section{Composants used}
+
+\subsection{OpenCV}
+\begin{wrapfigure}[4]{l}{2cm}
+\vspace{-7mm}
+\includegraphics[width=2cm]{images_not_compressed/opencv_logo.png}
+\end{wrapfigure}
+\par OpenCV is a image analysis and synthesis library that brings all the necessary for video and photo computations. Introducted in 2008, it is now used a lot in the fields that require image analysis.
+It is built around a module system that allows users to install the library in function of their needs.
+Except the non free module, the library is licensed BSD which means that we can reuse and modify all the composants freely.
+In this document I will talk more about precise modules of opencv like that base and the features2d modules. 
+\subsection[SIFT points]{Scale-Invariant Feature Transform}
+\par SIFT points are points of interest in the image. They precise the position of an area where all the pixels have approximatly the same propreties. Using the laplacian of gaussian of the image, maximas and minimas which correspond to these areas can be extracted.
+\par The biggest advantage of these points is the invariance in transformation like rotation, scaling and transalation. Pattern detection algorithm based on this points are unsensitive in term of scale and rotation. That is mainly why it has been choosen for this application.
+\par As a result, by the time that the resolution of the pattern is over a accpetable threshold. We can move and rotate the object whithout alter the detection.
+
+\subsection[Descriptor]{SIFT Descriptor}
+\par Descriptors are computed from the keypoints. The area pointed by each keypoint is analysed \cite{AM}
+
+
+\chapter{Main functions}
+
+\section{Main}
+ The main idea of the system is to extract all the key points of the scene and all the key points of the pattern in the constructors. Like that you don't have to worry about it in the main program. 
+Then you compute the associated descriptors. Both of this containers are implemented in opencv and really easy to use. 
+The main loop consists to match the descriptors of the patterns one by one. Comparing them to the scene image we obtain a vector of dmatches that contains the informations of each match. That's made by the radius matcher included in opencv. 
+Then you can perform an homography  that uses the descriptors of the matches found to extract an image that looks like the pattern we are looking for. The advantage of this method is the fact that it doesn't depends on the position and the scaling of the image. We also obtain the corners of the object found which allows us to remove the points of interest and descriptors associated from their respective vectors. That method avoids recomputing all the key points and descriptors which is very expensive in resources. 
+To end the loop we have 2 options. First there is not enough match between the two images. Secondly the number of key values removes after finding a pattern is to low. In both cases the match is not drawn on the image and the next pattern to analyze is set.
+\section{Constructors}
+\subsection{Scene}
+\par The scene represents the vision of the camera and the current position of its analysis. 
+It requires only the location of the image to be built. It sets the key points and computes the descriptors. 
+\par It uses a SiftFeatureDector from openCV with a minHessian (exigence of the detector) value of 10000. It is a very high value but the tests show me that more this value is high, better are the results\footnote{It also depends on the pattern minhessian value}.
+\subsection{Pattern}
+A pattern represent an object that you want to be recognized on the image
+
+\bibliography{/home/manu/workspace/Scanner/Report/biblio}{}
+\bibliographystyle{plain}
+
+\end{document}
