@@ -4,8 +4,11 @@
 \contentsline {chapter}{\numberline {3}Solution}{4}
 \contentsline {section}{\numberline {3.1}Introduction}{4}
 \contentsline {section}{\numberline {3.2}Composants used}{4}
-\contentsline {subsection}{\numberline {3.2.1}OpenCV}{5}
+\contentsline {subsection}{\numberline {3.2.1}OpenCV}{4}
+\contentsline {subsection}{\numberline {3.2.2}SIFT points}{4}
+\contentsline {subsection}{\numberline {3.2.3}Descriptor}{5}
 \contentsline {chapter}{\numberline {4}Main functions}{6}
-\contentsline {section}{\numberline {4.1}Constructors}{6}
-\contentsline {subsection}{\numberline {4.1.1}Scene}{6}
-\contentsline {subsection}{\numberline {4.1.2}Pattern}{6}
+\contentsline {section}{\numberline {4.1}Main}{6}
+\contentsline {section}{\numberline {4.2}Constructors}{6}
+\contentsline {subsection}{\numberline {4.2.1}Scene}{6}
+\contentsline {subsection}{\numberline {4.2.2}Pattern}{7}
