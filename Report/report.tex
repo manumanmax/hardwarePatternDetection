@@ -81,10 +81,28 @@
 	
 	
 	\chapter{Introduction}
-		This application is produced by the University of Salerno. It has been made during an internship and is part of a global pattern recognition application. The final goal is extract the documentation of materials on the field and in live from videos captured by a camera headset. The subject of this report concerns the extraction of multiple pattern in a single image.
+		\par This application is produced by the University of Salerno. It has been made during an internship and is part of a global pattern recognition application. The final goal is extract the documentation of materials in live from videos captured by a camera headset. The subject of this report concerns the extraction of multiple pattern in a single image.
+		\par In this document you will find a description of why the project have been created. Then a presentiation of the composants used like openCV features. And finally the application itself and how it detects patterns.\\
+		
+		\begin{figure}[h]
+			\begin{center}
+				\includegraphics[scale=0.7]{images_not_compressed/intro.png}
+				\caption{Application finding 4 patterns from a single training pattern.}
+			\end{center}
+		\end{figure}
+		
+		
 	
 	\chapter{Need}
-		On the field when people have to make maintenance on the material. They encounter a problem with the density of the maintenance manuals which can make around 700 pages. We try to ease the maintenance by recreate manuals that focuses on the material that the technician is looking at. To obtain this result we have to analyze the images of the camera and extract the type material. That is what this report deals with.
+		\par At work, when people have to make maintenance on the material, they encounter a problem with the density of the maintenance manuals which can make around 700 pages. We try to ease the maintenance by recreate manuals that focuses on the material that the technician is looking at. To obtain this result we have to analyze the images of the camera and extract the type of material. That is what this report deals with.
+		\par This solution can be apply to a lot of other objects to find like monuments to extract show the description. \\
+		
+		\begin{figure}[h]
+			\begin{center}
+				\includegraphics[scale=0.41]{images_not_compressed/helmet.png}
+				\caption{type of helmet which the application could be used with}
+			\end{center}
+		\end{figure}
 	
 		
 	\chapter{Solution}
@@ -125,7 +143,7 @@
 	
 	\subsection{Homography}
 	\par  Just to give a simplified idea, the familiar Cartesian plane is composed by a set of points which have a one-to-one correlation to pairs of real numbers, i.e. X-Y on the two axis.\cite{Homography}
-	\par In our case, the points are the key points extracted. By extracting the homography matrice, we can transform the corners of our image to 4 other points representing the position of the object on the scene.
+	\par In our case, the points are the key points extracted. By extracting the homography matrice, we can transform the corners of our image to 4 other points representing the position of the object on the scene\cite{TutoHomography}.
 	
 	\begin{wrapfigure}[12]{r}{10cm}
 			\includegraphics[width=10cm]{images_not_compressed/showHomography.png}
@@ -133,22 +151,24 @@
 	\end{wrapfigure}
 	\par On the image behind we can see that the homography doesn't depend on the corners. All the key points can be a base to analyse the transformation. And using the perspective transform of openCV, the corners are multiplyed by the homography matrix. That gives us the position of the corners on the scene image.
 	
-	\chapter{Main functions}
+	\section{Main functions}
 	
-	\section{Main}
+	\subsection{Main}
 		 The main idea of the system is to extract all the key points of the scene and all the key points of the pattern in the constructors. Like that you don't have to worry about it in the main program. 
 		Then you compute the associated descriptors. Both of this containers are implemented in opencv and really easy to use. 
 	The main loop consists to match the descriptors of the patterns one by one. Comparing them to the scene image we obtain a vector of dmatches that contains the informations of each match. That's made by the radius matcher included in opencv. 
 	Then you can perform an homography  that uses the descriptors of the matches found to extract an image that looks like the pattern we are looking for. The advantage of this method is the fact that it doesn't depends on the position and the scaling of the image. We also obtain the corners of the object found which allows us to remove the points of interest and descriptors associated from their respective vectors. That method avoids recomputing all the key points and descriptors which is very expensive in resources. 
 	To end the loop we have 2 options. First there is not enough match between the two images. Secondly the number of key values removes after finding a pattern is to low. In both cases the match is not drawn on the image and the next pattern to analyze is set.
-	\section{Constructors}
+	\subsection{Constructors}
 	\label{constructors}
-	\subsection{Scene}
+	\subsubsection{Scene}
 	\par The scene represents the vision of the camera and the current position of its analysis. 
 	It requires only the location of the image to be built. It sets the key points and computes the descriptors. 
 	\par It uses a SiftFeatureDector from openCV with a minHessian (exigence of the detector) value of 10000. It is a very high value but the tests show me that more this value is high, better are the results\footnote{It also depends on the pattern minhessian value}.
-	\subsection{Pattern}
+	\subsubsection{Pattern}
 	A pattern represent an object that you want to be recognized on the image
+
+	\listoffigures
 
 	\bibliography{/home/manu/workspace/Scanner/Report/biblio}{}
 	\bibliographystyle{plain}

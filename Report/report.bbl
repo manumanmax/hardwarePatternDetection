@@ -6,6 +6,13 @@ CorrMap.
 \newblock \url{http://www.corrmap.com/features/homography_transformation.php},
   2013.
 
+\bibitem{TutoHomography}
+D.J. Fleet \& A.D.~Jepson M.~Brubaker, S.~Mathe.
+\newblock Tutorial: 2d homographies.
+\newblock
+  \url{http://www.cs.toronto.edu/~jepson/csc2503/tutorials/homography.pdf},
+  2004-2007.
+
 \bibitem{AM}
 Antoine Manzarena.
 \newblock Cours etasm.
