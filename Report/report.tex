@@ -164,9 +164,14 @@
 	\subsubsection{Scene}
 	\par The scene represents the vision of the camera and the current position of its analysis. 
 	It requires only the location of the image to be built. It sets the key points and computes the descriptors. 
-	\par It uses a SiftFeatureDector from openCV with a minHessian (exigence of the detector) value of 10000. It is a very high value but the tests show me that more this value is high, better are the results\footnote{It also depends on the pattern minhessian value}.
+	\par It uses a SiftFeatureDector from openCV with a minHessian (exigence of the detector) value of 10000. It is a very high value but the tests show me that more this value is high, better are the results\footnote{It also depends on the pattern minhessian value} and the quality of the image itself.
 	\subsubsection{Pattern}
-	A pattern represent an object that you want to be recognized on the image
+	\par A pattern represent an object that you want to be recognized on the image. It has simple attributs like a name and a matrix corresponding to the image it represents. But it also has more complexe attributs like the vector of keypoints that we extract in the constructor\footnote{It can also be stored in a file}, the matrix of descriptor that represents the propreties of each point and the thresholds. The thresholds are separeted in two different attributs, the minHessian that we told about just before in the scene and the threshold proprely spoken. The second one refers to the radius matching system, it is the maximum acceptable distance between to descriptor during the matching process. There is no universal value so we use values values between 150 to 300 that we have to test to see which one gives the best results.
+	\par The program contains a little part of code that brings the possibility to try differents values quickly.
+	
+	
+	
+	
 
 	\listoffigures
 
