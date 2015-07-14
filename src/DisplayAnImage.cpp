@@ -60,11 +60,12 @@ int main(int argc, char* argv[]) {
 	//value_tester();
 
 	 vector<Pattern> patterns;
-	 patterns.push_back(Pattern("../Ressources/models/dustBeanBlack.jpg", 1400, 140));
+	 //patterns.push_back(Pattern("../Ressources/models/dustBeanBlack.jpg", 1400, 140));
 	 //patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
-	 Scene scene1("../Ressources/views/beans2.jpg");
+	 patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
+	 Scene scene1("../Ressources/views/WithCookies.png");
 	 Corners corner;
-	 Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/beans2.jpg"));
+	 Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/WithCookies.png"));
 
 	 for (unsigned int i = 0; i < patterns.size(); i++) {
 	 //std::cout << "detection of pattern " << i << std::endl;

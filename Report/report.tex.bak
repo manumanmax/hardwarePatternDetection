@@ -124,8 +124,14 @@
 	
 	
 	\subsection{Homography}
-	\par 
-		
+	\par  Just to give a simplified idea, the familiar Cartesian plane is composed by a set of points which have a one-to-one correlation to pairs of real numbers, i.e. X-Y on the two axis.\cite{Homography}
+	\par In our case, the points are the key points extracted. By extracting the homography matrice, we can transform the corners of our image to 4 other points representing the position of the object on the scene.
+	
+	\begin{wrapfigure}[10]{r}{9cm}
+			\includegraphics[width=10cm]{images_not_compressed/showHomography.png}
+			\caption{Homography with a corner hidden}
+	\end{wrapfigure}
+	\par On the image behind we can see that the homography doesn't depend on the corners. All the key points can be a base to analyse the transformation. And using the perspective transform of openCV, the corners are multiplyed by the homography matrix. That gives us the position of the cor
 	
 	\chapter{Main functions}
 	

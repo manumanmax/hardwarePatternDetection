@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.7.9)  14 JUL 2015 11:06
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.7.9)  14 JUL 2015 11:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -666,24 +666,41 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 116.
-File: images_not_compressed/ensiLogo.jpg Graphic file (type jpg)
 
+<images_not_compressed/showHomography.png, id=114, 1144.275pt x 580.41844pt>
+File: images_not_compressed/showHomography.png Graphic file (type png)
+
+<use images_not_compressed/showHomography.png>
+Package pdftex.def Info: images_not_compressed/showHomography.png used on input
+ line 131.
+(pdftex.def)             Requested size: 284.52756pt x 144.32487pt.
+
+Underfull \hbox (badness 1152) in paragraph at lines 134--135
+\T1/cmr/m/n/10.95 to anal-yse the trans-for-
+ []
+
+
+Underfull \hbox (badness 1097) in paragraph at lines 134--135
+\T1/cmr/m/n/10.95 per-spec-tive trans-form of
+ []
+
+File: images_not_compressed/ensiLogo.jpg Graphic file (type jpg)
 <use images_not_compressed/ensiLogo.jpg>
 Package pdftex.def Info: images_not_compressed/ensiLogo.jpg used on input line 
-130.
+136.
 (pdftex.def)             Requested size: 56.9055pt x 35.54715pt.
 File: images_not_compressed/unisaLogo.jpg Graphic file (type jpg)
 
 <use images_not_compressed/unisaLogo.jpg>
 Package pdftex.def Info: images_not_compressed/unisaLogo.jpg used on input line
- 130.
+ 136.
 (pdftex.def)             Requested size: 56.9055pt x 56.90533pt.
- [5]
+ [5 <./images_not_compressed/showHomography.png>]
 Chapter 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 143.
+(Font)              <9> on input line 149.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 143.
+(Font)              <5> on input line 149.
 (./report.bbl [6
 
 ]
@@ -699,52 +716,52 @@ Package pdftex.def Info: images_not_compressed/unisaLogo.jpg used on input line
  1.
 (pdftex.def)             Requested size: 56.9055pt x 56.90533pt.
  [7]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 7.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 4--9
+Underfull \hbox (badness 10000) in paragraph at lines 10--15
 []\T1/cmr/m/n/10.95 Antoine Man-zarena.  Cours etasm.  []$\T1/cmtt/m/n/10.95 ht
 tp : / / www . google . it / url ? sa =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4--9
+Underfull \hbox (badness 10000) in paragraph at lines 10--15
 \T1/cmtt/m/n/10.95 t&rct = j&q = &esrc = s&source = web&cd = 1&ved = 0CCIQFjAA&
 url = http % 3A % 2F %
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4--9
+Underfull \hbox (badness 10000) in paragraph at lines 10--15
 \T1/cmtt/m/n/10.95 2Fwww . ensta-[]paristech . fr % 2F~manzaner % 2FDownload % 
 2FEPF _ Bucarest2006 %
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4--9
+Underfull \hbox (badness 10000) in paragraph at lines 10--15
 \T1/cmtt/m/n/10.95 2FCours _ EPF % 2FChapitre3 . ppt&ei = K4ujVdrjMcOssgHHg4bYD
 w&usg =
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 150.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 156.
  [8
 
 ]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 150.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 156.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 150.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 150.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 156.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 156.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: A94F61CC7CE9F30DBE3A5505A937C645;777.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 150.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 156.
  ) 
 Here is how much of TeX's memory you used:
- 7034 strings out of 495028
- 101252 string characters out of 6181498
- 189654 words of memory out of 5000000
- 10086 multiletter control sequences out of 15000+600000
+ 7043 strings out of 495028
+ 101497 string characters out of 6181498
+ 190686 words of memory out of 5000000
+ 10092 multiletter control sequences out of 15000+600000
  20569 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  36i,15n,43p,534b,366s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -764,10 +781,10 @@ are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on report.pdf (9 pages, 728611 bytes).
+Output written on report.pdf (9 pages, 1732629 bytes).
 PDF statistics:
- 527 PDF objects out of 1000 (max. 8388607)
- 191 compressed objects within 2 object streams
- 27 named destinations out of 1000 (max. 500000)
- 133 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 535 PDF objects out of 1000 (max. 8388607)
+ 196 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 138 words of extra memory for PDF output out of 10000 (max. 10000000)
 
