@@ -154,21 +154,33 @@
 	\section{Main functions}
 	
 	\subsection{Main}
-		 The main idea of the system is to extract all the key points of the scene and all the key points of the pattern in the constructors. Like that you don't have to worry about it in the main program. 
-		Then you compute the associated descriptors. Both of this containers are implemented in opencv and really easy to use. 
+	\par The main idea of the system is to extract all the key points of the scene and all the key points of the pattern in the constructors. Like that you don't have to worry about it in the main program. 
+	\par	Then you compute the associated descriptors. Both of this containers are implemented in opencv and really easy to use. 
 	The main loop consists to match the descriptors of the patterns one by one. Comparing them to the scene image we obtain a vector of dmatches that contains the informations of each match. That's made by the radius matcher included in opencv. 
-	Then you can perform an homography  that uses the descriptors of the matches found to extract an image that looks like the pattern we are looking for. The advantage of this method is the fact that it doesn't depends on the position and the scaling of the image. We also obtain the corners of the object found which allows us to remove the points of interest and descriptors associated from their respective vectors. That method avoids recomputing all the key points and descriptors which is very expensive in resources. 
-	To end the loop we have 2 options. First there is not enough match between the two images. Secondly the number of key values removes after finding a pattern is to low. In both cases the match is not drawn on the image and the next pattern to analyze is set.
+	\par Then you can perform an homography  that uses the descriptors of the matches found to extract an image that looks like the pattern we are looking for. The advantage of this method is the fact that it doesn't depends on the position and the scaling of the image. We also obtain the corners of the object found which allows us to remove the points of interest and descriptors associated from their respective vectors. That method avoids recomputing all the key points and descriptors which is very expensive in resources. 
+	\par To stop the loop there is 2 options. First there is not enough match between the two images. Secondly the number of key values removes after finding a pattern is to low. In both cases the match is not drawn on the image and the next pattern to analyze is set.
 	\subsection{Constructors}
 	\label{constructors}
 	\subsubsection{Scene}
 	\par The scene represents the vision of the camera and the current position of its analysis. 
 	It requires only the location of the image to be built. It sets the key points and computes the descriptors. 
 	\par It uses a SiftFeatureDector from openCV with a minHessian (exigence of the detector) value of 10000. It is a very high value but the tests show me that more this value is high, better are the results\footnote{It also depends on the pattern minhessian value} and the quality of the image itself.
+	
 	\subsubsection{Pattern}
-	\par A pattern represent an object that you want to be recognized on the image. It has simple attributs like a name and a matrix corresponding to the image it represents. But it also has more complexe attributs like the vector of keypoints that we extract in the constructor\footnote{It can also be stored in a file}, the matrix of descriptor that represents the propreties of each point and the thresholds. The thresholds are separeted in two different attributs, the minHessian that we told about just before in the scene and the threshold proprely spoken. The second one refers to the radius matching system, it is the maximum acceptable distance between to descriptor during the matching process. There is no universal value so we use values values between 150 to 300 that we have to test to see which one gives the best results.
+	\par A pattern represent an object that you want to be recognized on the image. It has simple attributs like a name and a matrix corresponding to the image it represents. But it also has more complexe attributs like the vector of keypoints that we extract in the constructor\footnote{It can also be stored in a file}, the matrix of descriptor that represents the propreties of each point and the thresholds. The thresholds are separeted in two different attributs, the minHessian that we told about just before in the scene and the threshold proprely spoken. The second one refers to the radius matching system, it is the maximum acceptable distance between to descriptor during the matching process. There is no universal value so we use values values between 150 to 300 that we have to test one by one to see which one gives the best results.
 	\par The program contains a little part of code that brings the possibility to try differents values quickly.
 	
+	
+	\subsubsection{Corners}
+	\par Corners is a simple classe containing 4 "point2d" (x,y points implementation from openCV).
+	It also contains a method that determins if the point is inside the polygon representated by the corners. It uses the fact that a point is inside a polyline if a line draw from the point to the infinity cross odd number of segments.
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[scale=0.7]{images_not_compressed/isIn.png}
+			\caption{Illustation of the method to determin if a point is inside a polyline}
+		\end{center}
+	\end{figure}
+		
 	
 	
 	
