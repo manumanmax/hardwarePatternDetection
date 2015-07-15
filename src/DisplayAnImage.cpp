@@ -24,34 +24,62 @@
 #include "Scene.h"
 
 using namespace cv;
+/*************************************************Values Tester**********************************************/
+
+void value_tester() {
+	vector<Pattern> patterns;
+	int baseValue = 1000;
+
+
+	//patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
+	Scene scene1("../Ressources/views/beans1.jpg");
+	Corners corner;
+	Mat final_img = scene1.init_an_image(
+			Pattern("../Ressources/views/beans1.jpg"));
+	while (scene1.patterns.size() < 2 && baseValue < 2500) {
+		scene1.patterns.clear();
+		baseValue += 25;
+		Pattern pattern("../Ressources/models/dustBeanBlack.jpg", baseValue, 140);
+		//pattern.treshold = baseValue;
+		scene1.matche_scene(pattern);
+		scene1.show_matches(pattern, final_img);
+		scene1.init_before_search(pattern);
+
+		while (scene1.searchPattern(final_img, corner, pattern, 1))
+			;
+	}
+	std::cout << "base value : " << baseValue << std::endl;
+	imshow("final image", final_img);
+
+}
 
 /************************************************************************************************************/
 // ----------------------------------------------- MAIN --------------------------------------------------- //
 int main(int argc, char* argv[]) {
 
-	//test_corners(, atoi(argv[2]));
+	//value_tester();
 
-	vector<Pattern> patterns;
-	patterns.push_back(Pattern("../Ressources/models/power_supply.jpg", 150, 200));
-	patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
-	Scene scene1("../Ressources/views/launcher_test.jpg");
-	Corners corner;
-	Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/launcher_test.jpg"));
+	 vector<Pattern> patterns;
+	 //patterns.push_back(Pattern("../Ressources/models/dustBeanBlack.jpg", 1400, 140));
+	 //patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
+	 patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
+	 Scene scene1("../Ressources/views/WithCookies.png");
+	 Corners corner;
+	 Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/WithCookies.png"));
 
-	for (unsigned int i = 0; i < patterns.size(); i++) {
-		//std::cout << "detection of pattern " << i << std::endl;
+	 for (unsigned int i = 0; i < patterns.size(); i++) {
+	 //std::cout << "detection of pattern " << i << std::endl;
 
-		scene1.matche_scene(patterns[i]);
-		//scene1.show_matches(patterns[i], final_img);
-		scene1.init_before_search(patterns[i]);
+	 scene1.matche_scene(patterns[i]);
+	 scene1.show_matches(patterns[i], final_img);
+	 scene1.init_before_search(patterns[i]);
 
-		while (scene1.searchPattern(final_img, corner, patterns[i],0));
-	}
-	imshow("final image",final_img);
-	std::cout << scene1.patterns.size() << std::endl;
-	for (unsigned int i = 0; i < scene1.patterns.size(); i++) {
-		scene1.patterns[i].printComponent();
-	}
+	 while (scene1.searchPattern(final_img, corner, patterns[i],1));
+	 }
+	 imshow("final image",final_img);
+	 for (unsigned int i = 0; i < scene1.patterns.size(); i++) {
+	 scene1.patterns[i].printComponent();
+	 }
 
 	waitKey(0);
 }

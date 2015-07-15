@@ -26,6 +26,28 @@
 *.exe
 *.out
 *.app
+
+
+# Debug
+
 /Debug/
+
+# Ressources
+
 /Ressources/trainingSets/
 /Ressources/views/
+/Ressources/tests/
+
+# Tex 
+
+*.aux
+*.bbl
+*.blg
+*.log
+*.synctex.gz
+*.tex.bak
+*.toc
+*.lof
+
+
+

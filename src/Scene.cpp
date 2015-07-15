@@ -192,7 +192,7 @@ Scene::Scene(string location) {
 		patterns = std::vector<Composant>();
 		patternInitialised = false;
 		cv::equalizeHist(img, img);
-		SiftFeatureDetector detector(10000);
+		SiftFeatureDetector detector(1500);
 		detector.detect(img, keypoints);
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);
