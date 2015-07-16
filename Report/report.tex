@@ -166,23 +166,20 @@ It requires only the location of the image to be built. It sets the key points a
 \par It uses a SiftFeatureDector from OpenCV with a minHessian (exigence of the detector) value of 10000 by default. It is a very high value but the tests shows that more this value is high, better are the results\footnote{It also depends on the pattern minhessian value} and the quality of the image itself.
 	
 	\subsubsection{Pattern}
-	\par A pattern represents an object that you want to be recognized in the image. It has simple attributes like a name and a matrix corresponding to the image it represents. But it also has more complex attributes like the vector of key points that we extract in the constructor\footnote{It can also be stored in a file}, the matrix of descriptor that represents the properties of each point and the thresholds. The thresholds are separated in two different attributes, the munition that we told about just before in the scene section and the threshold properly spoken. The second one refers to the radius matching system, it is the maximum acceptable distance between two descriptors during the matching process. There is no universal value so we use values between 150 to 300 that we have to test one by one to see which one gives the best results.
- \par The program contains a little part of code that brings the possibility to try different values quickly.
+	\par A pattern represents an object that you want to be recognized in the image. It has simple attributes like a name and a matrix corresponding to the image it represents. But it also has more complex attributes like the vector of key points that we extract in the constructor\footnote{It can also be stored in a file}, the matrix of descriptor that represents the properties of each point and the thresholds. The thresholds are separated in two different attributes, the minimum hessian that we told about just before in the scene section and the threshold properly spoken. The second one refers to the radius matching system, it is the maximum acceptable distance between two descriptors during the matching process. There is no universal value so we use numbers between 150 to 300 that we have to test one by one to see which one gives the best results.
+ \par The program contains a little algorithm that brings the possibility to try different values quickly.
 	
 	
 	\subsubsection{Corners}
-	\par Corners is a simple class containing 4 "point2d" (x, y point implementation from OpenCV).
-It also contains a method that determines if the point is inside the polygon represented by the corners. It uses the fact that a point is inside a polyline if a line drawn from the point to the infinity cross odd number of segments.
+	\par Corners is a simple class containing 4 "point2d" (x, y point implementation of OpenCV).
+It also contains a method that determines if the point is inside the polygon represented by the corners. It uses the fact that a point is inside a polyline if a line drawn from the point to the infinity cross odd number of segments. It is use when we delete from the list the matches of the last pattern found.
 	\begin{figure}[h]
 		\begin{center}
 			\includegraphics[scale=0.7]{images_not_compressed/isIn.png}
 			\caption{Illustation of the method to determin if a point is inside a polyline}
 		\end{center}
 	\end{figure}
-		
-	
-	
-	
+
 
 	\listoffigures
 
