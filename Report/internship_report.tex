@@ -1,0 +1,109 @@
+\documentclass[english,a4paper,11pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\PassOptionsToPackage{english}{babel}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{eso-pic}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{url}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[lastpage,user]{zref}
+\cfoot{\thepage\ of \zpageref{LastPage}}
+\pagestyle{fancy}
+\usepackage[headsep=1cm,headheight=61pt,footskip=3cm]{geometry}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+ \newcommand{\ts}{\textsuperscript}
+\newcommand{\blap}[1]{\vbox to 0pt{#1\vss}}
+\newcommand\AtUpperLeftCorner[3]{%
+  \put(\LenToUnit{#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{#3}}%
+}
+\newcommand\AtUpperRightCorner[3]{%
+  \put(\LenToUnit{\dimexpr\paperwidth-#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{\llap{#3}}}%
+}
+\newcommand\AtLowerRightCorner[3]{%
+  \put(\LenToUnit{\dimexpr\paperwidth-#1},\LenToUnit{#2}){#3}%
+}
+ 
+\title{\LARGE{Internship report pattern recognition UNISA Italy}}
+\author{\textsc{Breton-Belz} Emmanuel - 2\ts{nd} Year Internship}
+\date{\today}
+\makeatletter
+
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[C]{\@author} 
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\includegraphics[width=2cm]{images_not_compressed/unisaLogo.jpg}}
+\fancyhead[L]{{\includegraphics[width=2cm]{images_not_compressed/ensiLogo.jpg}}}
+\addto\captionsenglish{
+  \renewcommand{\contentsname}
+    {Table of contents}
+}
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[R]{\leftmark}
+		 
+\begin{document}
+	\setcounter{tocdepth}{4}
+	\begin{titlepage}
+	    \AddToShipoutPicture{%
+	      \AtUpperLeftCorner{1.5cm}{1cm}{\includegraphics[width=4cm]{images_not_compressed/unisaLogo.jpg}}
+	      \AtUpperRightCorner{1.5cm}{1cm}{\includegraphics[width=6.5cm]{images_not_compressed/ensiLogo.jpg}}
+	      \AtLowerRightCorner{8cm}{3.5cm}{\parbox{7cm}{ENSICAEN \\
+	        6, boulevard Maréchal Juin 
+	        \\CS  45 053 – F- 14050 Caen Cedex 4\\
+	        Tél. +33 (0)2 31 45 27 50\\
+	        Fax +33 (0)2 31 45 27 60}} 
+	    }
+	 
+	\begin{center}
+	        \vspace*{10cm}
+	        \textsc{\@title}
+	        \HRule
+	        \vspace*{0.5cm}
+	        \large{\@author} 
+	 \end{center}
+ 
+    \vspace*{5cm}
+    \begin{center}
+      \makebox[\textwidth]{\includegraphics[width=\paperwidth]{images_not_compressed/uneGrandeEcole.png}}
+    \end{center}
+	
+	\end{titlepage}
+	\ClearShipoutPicture
+	
+	\input{thanks}
+	
+	
+	
+	\tableofcontents
+	\newpage
+	
+	
+	\input{introduction}
+	
+	\input{MIVIA_Lab}
+	
+	
+	\input{work_to_do}
+	\input{study}
+	\input{work_done}
+	\input{conclusion}
+
+
+
+\bibliography{/home/manu/workspace/Scanner/Report/biblio}{}
+	\bibliographystyle{plain}
+
+
+	\listoffigures
+	
+	\input{summary}
+
+	
+	
+\end{document}
