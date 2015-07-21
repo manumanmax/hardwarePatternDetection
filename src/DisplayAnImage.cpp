@@ -28,28 +28,41 @@ using namespace cv;
 
 void value_tester() {
 	vector<Pattern> patterns;
-	int baseValue = 1000;
+	int baseValueT_init = 150;
+	int baseValueT = baseValueT_init;
+	int baseValueH = 100;
 
-
-	//patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
-	Scene scene1("../Ressources/views/beans1.jpg");
+	Pattern pattern("../Ressources/models/italien.jpg", baseValueH, baseValueT);
+	Scene scene1("../Ressources/views/italian30cm2.jpg");
 	Corners corner;
 	Mat final_img = scene1.init_an_image(
-			Pattern("../Ressources/views/beans1.jpg"));
-	while (scene1.patterns.size() < 2 && baseValue < 2500) {
-		scene1.patterns.clear();
-		baseValue += 25;
-		Pattern pattern("../Ressources/models/dustBeanBlack.jpg", baseValue, 140);
-		//pattern.treshold = baseValue;
-		scene1.matche_scene(pattern);
-		scene1.show_matches(pattern, final_img);
-		scene1.init_before_search(pattern);
+			Pattern("../Ressources/views/italian30cm2.jpg"));
 
-		while (scene1.searchPattern(final_img, corner, pattern, 1))
-			;
+	for (; baseValueH < 1600; baseValueH += 100) {
+		while (scene1.patterns.size() < 1 && baseValueT < 250) {
+			scene1.patterns.clear();
+			baseValueT += 1;
+			pattern.treshold = baseValueT;
+			scene1.matche_scene(pattern);
+			scene1.show_matches(pattern, final_img);
+			scene1.init_before_search(pattern);
+
+			while (scene1.searchPattern(final_img, corner, pattern, 1))
+				;
+		}
+		std::cout << "base value threshold : " << baseValueT << std::endl;
+		std::cout << "base value minHessian: " << baseValueH << std::endl;
+		string name = "found with ";
+		name += std::to_string(baseValueH);
+		name += " and ";
+		name += std::to_string(baseValueT);
+		imshow(name, final_img);
+		baseValueT = baseValueT_init;
+		pattern = Pattern("../Ressources/models/italien.jpg", baseValueH,
+				baseValueT);
+
 	}
-	std::cout << "base value : " << baseValue << std::endl;
-	imshow("final image", final_img);
+
 
 }
 
@@ -57,15 +70,17 @@ void value_tester() {
 // ----------------------------------------------- MAIN --------------------------------------------------- //
 int main(int argc, char* argv[]) {
 
-	//value_tester();
+	value_tester();
 
-	 vector<Pattern> patterns;
+	 /*vector<Pattern> patterns;
 	 //patterns.push_back(Pattern("../Ressources/models/dustBeanBlack.jpg", 1400, 140));
 	 //patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
-	 patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
-	 Scene scene1("../Ressources/views/WithCookies.png");
+	 //patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
+	 patterns.push_back(Pattern("../Ressources/models/italien.jpg",160, 298));
+
+	 Scene scene1("../Ressources/views/italian1m.jpg");
 	 Corners corner;
-	 Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/WithCookies.png"));
+	 Mat final_img = scene1.init_an_image(Pattern("../Ressources/views/italian1m.jpg"));
 
 	 for (unsigned int i = 0; i < patterns.size(); i++) {
 	 //std::cout << "detection of pattern " << i << std::endl;
@@ -80,6 +95,6 @@ int main(int argc, char* argv[]) {
 	 for (unsigned int i = 0; i < scene1.patterns.size(); i++) {
 	 scene1.patterns[i].printComponent();
 	 }
-
+*/
 	waitKey(0);
 }

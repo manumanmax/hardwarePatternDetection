@@ -17,20 +17,20 @@ bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pat
 		std::cout << "pattern not initialised" << std::endl;
 		return false;
 	}
-	if (good_matches.size() <= 15) {
-		std::cout << "too few matches" << std::endl;
+	if (good_matches.size() <= 6) {
+		//std::cout << "too few matches" << std::endl;
 		return false;
 	}
 	//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 	corners = find_object(img_matches, pattern);
 	int numberOfPointRemoved = removePointsOfObjectFound(corners);
-	if (numberOfPointRemoved > 15){
+	if (numberOfPointRemoved > 6){
 		//std::cout << "pattern found (" << numberOfPointRemoved << ")" << std::endl;
 		draw_final_image(img_matches,pattern, shifted);
 		add_component(pattern,corners);
 		return true;
 	}
-	std::cout << "less than 16 points removed (" << numberOfPointRemoved << ")" << std::endl;
+	//std::cout << "less than 8 points removed (" << numberOfPointRemoved << ")" << std::endl;
 	return false;
 }
 
@@ -91,7 +91,7 @@ void Scene::matche_scene(const Pattern& pattern) {
 	matcher.radiusMatch(pattern.descriptors, descriptors, matches, pattern.treshold);
 	good_matches.clear();
 	fulfil(good_matches, matches);
-	std::cout << "number of matches : " << good_matches.size() << std::endl;
+	//std::cout << "number of matches : " << good_matches.size() << std::endl;
 
 }
 
