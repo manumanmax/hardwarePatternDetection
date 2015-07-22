@@ -83,6 +83,7 @@
 	\tableofcontents
 	\newpage
 	
+	\setcounter{page}{1}
 	
 	\input{introduction}
 	\input{MIVIA_Lab}
@@ -91,10 +92,17 @@
 
 	Once again this part will be splitted in 2 because the subjects are totally differents. I am going to talk first about the helmet, that required 1 month of test and studies. I will explain the procedures in the next chapter. 
 	
-	\section{Helmet study}
+	\section{Helmet study}	
 	\subsection{Helmet itself}
+	\par I began my study by acquire some knowledges about the helmet itself. It has been release in the end of 2013, build for harsh condition, its price makes it unaccessible for the public. The army and building companies sow a good opportunity in this technologie to ease the work by bringing communication into the field.
+	\par The helmet is equiped with a batterie, Wi-Fi and blutooth connections, a camera and it can be wear under the work helmet. Everything is voice commanded and very responsive thanks to Motorola's work. Windows CE 6.0 is used on the last release of the helmet image. It is good for the next section to understand that the booting system and the update system of windows CE are related. That means that you can change the file system for an update but it is windows itself that validate and copy the files on the intern memory from the SD card.
 	\subsection{Embedded systems}
+	\par I learned a lot about embbeded system, mainly on the boards and all the materials related to it. In our case, the materials inside the helmet are not know and not published on the Internet. Pierluigi contacted the company that brought us the helmet but they couldn't tell us which board was used in the helmet. I must have guessed which TI technology it was because the datasheet reference a TI OMAP 3 microprocessor. 
+	\par That is mainly why I put my effort on the "ISEE – IGEP COM MODULE" built in with a TI OMAP 3 processor. It was at the top of the art when the helmet released and the smallest board with this processor. It corresponds well with the size of the hardware slot. In any case, if the linux kernel is compatible with the processor a cross compiled file system should boot and at least it should show an image on the screen.
+	
 	\subsection{Cross-compilation}
+	\subsubsection{Description}
+	\par The cross-compilation is a compilation for a different achitecture than the architecture that makes the computations.
 	\section{Pattern recognition study}
 	\subsection{OpenCV}
 	\subsection{Existing code}
@@ -102,7 +110,7 @@
 	\input{work_done}
 	\input{conclusion}
 
-
+	\clearpage
 
 \bibliography{/home/manu/workspace/Scanner/Report/biblio}{}
 	\bibliographystyle{plain}
