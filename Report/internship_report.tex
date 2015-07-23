@@ -102,7 +102,31 @@
 	
 	\subsection{Cross-compilation}
 	\subsubsection{Description}
-	\par The cross-compilation is a compilation for a different achitecture than the architecture that makes the computations.
+	\par The cross-compilation is compilation for a different achitecture than the architecture that makes the computations. In the figure~\ref{cross} you can see that the source code can be compiled for different architectures. The aim here was to compile a Linux kernel compatible with TI OMAP 3 processors from an Intel x86 machine.
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[scale=0.5]{images_not_compressed/cross-compile.png}
+			\label{cross}
+			\caption{Cross compilation and compilation difference}
+		\end{center}
+	\end{figure}
+
+	\subsubsection{Process}
+	\par The cross tool chain is capable of compile a Linux kernel for a lot of achitectures. Of course it requires a long time to compile the toolchain and then cross compile the kernel to get the binaries but it is cost effective. The time necessere to compile the toolchain and the kernel on the TI OMAP 3 would be longer.
+	
+	\subsubsection{Toolchain}
+	
+	\par A toolchain is a set of distinct software development tools that are linked (or chained) together by specific stages such as GCC, binutils and glibc (a portion of the GNU Toolchain)\cite{Toolchain}.
+	\par A toolchain requires binutils such as assembler and linker, that produces the binaries. Also compilers for deferent languages like C, C++, Java etc, that transforms any language into another. A C library to gain access to kernel calls and a debugger that can be used or not during the compilation. We can see well on the diagram \ref{compchain} from (avrfreaks.net's forum)  where each composant is located :
+	\begin{figure}[ht]
+		\begin{center}
+			\includegraphics[scale=0.5]{images_not_compressed/compchain.png}
+			\label{compchain}
+			\caption{Cross compilation and compilation difference}
+		\end{center}
+	\end{figure}
+
+	
 	\section{Pattern recognition study}
 	\subsection{OpenCV}
 	\subsection{Existing code}
@@ -112,7 +136,7 @@
 
 	\clearpage
 
-\bibliography{/home/manu/workspace/Scanner/Report/biblio}{}
+\bibliography{/home/manu/workspace/Scanner/Report/biblio_internship}{}
 	\bibliographystyle{plain}
 
 
