@@ -26,17 +26,17 @@
 using namespace cv;
 /*************************************************Values Tester**********************************************/
 
-void value_tester() {
+void value_tester(string sceneName) {
 	vector<Pattern> patterns;
 	int baseValueT_init = 150;
 	int baseValueT = baseValueT_init;
 	int baseValueH = 100;
 
 	Pattern pattern("../Ressources/models/italien.jpg", baseValueH, baseValueT);
-	Scene scene1("../Ressources/views/italian30cm.jpg");
+	Scene scene1(sceneName);
 	Corners corner;
 	Mat final_img = scene1.init_an_image(
-			Pattern("../Ressources/views/italian30cm.jpg"));
+			Pattern(sceneName));
 
 	for (; baseValueH < 1600; baseValueH += 100) {
 		while (scene1.patterns.size() < 1 && baseValueT < 250) {
@@ -68,37 +68,40 @@ void value_tester() {
 /************************************************************************************************************/
 // ----------------------------------------------- MAIN --------------------------------------------------- //
 int main(int argc, char* argv[]) {
+	if (argc > 1) {
+		string substring = string(argv[1]);
+		string sceneName = "../Ressources/views/italian" + substring + ".jpg";
+		if (argc == 3 && string(argv[2]) == "test") {
+			value_tester(sceneName);
+		} else if (argc == 2) {
 
-	if (argc == 2 && string(argv[1]) == "test") {
-		value_tester();
-	} else{
+			vector<Pattern> patterns;
+			//patterns.push_back(Pattern("../Ressources/models/dustBeanBlack.jpg", 1400, 140));
+			//patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
+			//patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
+			patterns.push_back(
+					Pattern("../Ressources/models/italien.jpg", 400, 150));
 
-		vector<Pattern> patterns;
-		//patterns.push_back(Pattern("../Ressources/models/dustBeanBlack.jpg", 1400, 140));
-		//patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
-		//patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
-		patterns.push_back(
-				Pattern("../Ressources/models/italien.jpg", 400, 150));
+			Scene scene1(sceneName);
+			Corners corner;
+			Mat final_img = scene1.init_an_image(Pattern(sceneName));
 
-		Scene scene1("../Ressources/views/italian1m.jpg");
-		Corners corner;
-		Mat final_img = scene1.init_an_image(
-				Pattern("../Ressources/views/italian1m.jpg"));
+			for (unsigned int i = 0; i < patterns.size(); i++) {
+				//std::cout << "detection of pattern " << i << std::endl;
 
-		for (unsigned int i = 0; i < patterns.size(); i++) {
-			//std::cout << "detection of pattern " << i << std::endl;
+				scene1.matche_scene(patterns[i]);
+				scene1.show_matches(patterns[i], final_img);
+				scene1.init_before_search(patterns[i]);
 
-			scene1.matche_scene(patterns[i]);
-			scene1.show_matches(patterns[i], final_img);
-			scene1.init_before_search(patterns[i]);
-
-			while (scene1.searchPattern(final_img, corner, patterns[i], 1))
-				;
+				while (scene1.searchPattern(final_img, corner, patterns[i], 1))
+					;
+			}
+			imshow("final image", final_img);
+			for (unsigned int i = 0; i < scene1.patterns.size(); i++) {
+				scene1.patterns[i].printComponent();
+			}
 		}
-		imshow("final image", final_img);
-		for (unsigned int i = 0; i < scene1.patterns.size(); i++) {
-			scene1.patterns[i].printComponent();
-		}
+
+		waitKey(0);
 	}
-	waitKey(0);
 }
