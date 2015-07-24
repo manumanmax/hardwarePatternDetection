@@ -90,50 +90,12 @@
 	\input{MIVIA_Lab}
 	\input{work_to_do}
 	\input{study}
-	
-	\section{Pattern recognition study}
-	\subsection{OpenCV}
-	
-		\begin{wrapfigure}[4]{l}{2cm}
-	\vspace{-7mm}
-	\includegraphics[width=2cm]{images_not_compressed/opencv_logo.png}
-	\end{wrapfigure}
-	\par OpenCV is an image analysis and synthesis library that brings all the necessary for video and photo analysis. Introduced in 2000, it is now used a lot in the fields that require image analysis.
- It is built around a modular system that allows users to install the library depending on their needs.
- Except the non free module, the library is licensed BSD which means that we can reuse and modify all the components freely.
- In this document I will talk more about precise modules of OpenCV as a base and features2d modules.
-	
-	\subsection{Existing code}
-	
-	\par To get some examples of code and see how it works I simply looked at the OpenCV tutorials that are available on the internet. For example check~\hyperlink{opencv}{here}. It brings a simple way to extract a pattern and make the homography to draw the corners with lign OpenCV function.
-	
-	\subsubsection{Key points}
-	\par SIFT points are points of interest in the image. They give the position of an area where all the pixels have approximately the same properties. Using the Laplacian of Gaussian of the image, maxima and minima which correspond to these areas can be extracted.
-	\par The biggest advantage of these points is the invariance in transformation like rotation, scaling and translation. Pattern detection algorithm based on this point is insensitive in term of scale and rotation. That is mainly why it has been chosen for this application.
-	\par As a result, by the time that the resolution of the pattern is over an acceptable threshold. We can move and rotate the object without altering the detection.
-	
-	\subsubsection[Descriptor]{SIFT Descriptor}
-	\par The descriptors are computed from the key points. The descriptors associated with the SIFT key points are locally oriented histograms around a SIFT key point \cite{AM}:
-	
-	\begin{itemize}
-			\item We divide space around each key point (x, y) in N\ts{2} squares of 4 by 4 \item We compute the gradient \begin{math}G_{x}(a,b,\sigma)\end{math}, \begin{math}G_{y}(a,b,\sigma)\end{math} for the 4 by 4 by N\ts{2} points (a, b)
-
-		\item For each 4 by 4 square, we compute a histogram of the orientations in 8 directions, multiplying by: (1) the module of the gradient (2) the inverse of the distance to the key point (x, y).
- \item To be invariant in rotation: the local orientation of the key point \begin{math} \theta(x,y) \end{math} is used as the origin (null orientation) of the histograms.		
-	\end{itemize}
-	
-	
-	\subsubsection{Homography}
-	\par  Just to give a simplified idea, the familiar Cartesian plane is composed by a set of points which have a one-to-one correlation to pairs of real numbers, i.e. X-Y on the two axis\cite{Homography}.
-	\par In our case, the points are the key points extracted. By extracting the homography matrix, we can transform the corners of our image to 4 other points representing the position of the object on the scene\cite{TutoHomography}.
-	
-	\begin{wrapfigure}[12]{r}{10cm}
-			\includegraphics[width=10cm]{images_not_compressed/showHomography.png}
-			\caption{Homography with a corner hidden with openCV}
-	\end{wrapfigure}
-	\par On the image behind we can see that the homography doesn't depend on the corners. All the key points can be a base to analyze the transformation. And using the perspective transform of OpenCV that multiplies the corners by the homography matrix. We obtain the position of the corners on the captured image.
-
 	\input{work_done}
+	
+	\par This part will a melting pot of issues and success and how I found out how to correct them if I could. I will gather the installations for OpenCV and the cross toolchain because the main idea is the same. Then I will spit the technical part in two as usual otherwise it will not be clear enough.	
+	
+	\section{Installation and tests}
+	
 	\input{conclusion}
 
 	\clearpage

@@ -17,7 +17,7 @@ Composant::~Composant() {
 }
 
 void Composant::printComponent(){
-	std::cout << "composant : " << name << std::endl;
+	std::cout << "component : " << name << std::endl;
 	corners.print_corners();
 }
 
