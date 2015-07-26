@@ -35,8 +35,7 @@ void value_tester(string sceneName) {
 	Pattern pattern("../Ressources/models/italien.jpg", baseValueH, baseValueT);
 	Scene scene1(sceneName);
 	Corners corner;
-	Mat final_img = scene1.init_an_image(
-			Pattern(sceneName));
+	Mat final_img = scene1.init_an_image(Pattern(sceneName));
 
 	for (; baseValueH < 1600; baseValueH += 100) {
 		while (scene1.patterns.size() < 1 && baseValueT < 250) {
@@ -70,38 +69,42 @@ void value_tester(string sceneName) {
 int main(int argc, char* argv[]) {
 	if (argc > 1) {
 		string substring = string(argv[1]);
-		string sceneName = "../Ressources/views/italian" + substring + ".jpg";
+		string sceneName = "../Ressources/views/" + substring + ".jpg";
 		if (argc == 3 && string(argv[2]) == "test") {
 			value_tester(sceneName);
-		} else if (argc == 2) {
+		} else if (argc > 1) {
 
 			vector<Pattern> patterns;
 			//patterns.push_back(Pattern("../Ressources/models/dustBeanBlack.jpg", 1400, 140));
-			//patterns.push_back(Pattern("../Ressources/models/modelUC2.jpg",1500, 235));
-			//patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
-			patterns.push_back(
-					Pattern("../Ressources/models/italien.jpg", 400, 150));
-
-			Scene scene1(sceneName);
-			Corners corner;
-			Mat final_img = scene1.init_an_image(Pattern(sceneName));
-
-			for (unsigned int i = 0; i < patterns.size(); i++) {
-				//std::cout << "detection of pattern " << i << std::endl;
-
-				scene1.matche_scene(patterns[i]);
-				scene1.show_matches(patterns[i], final_img);
-				scene1.init_before_search(patterns[i]);
-
-				while (scene1.searchPattern(final_img, corner, patterns[i], 1))
-					;
-			}
-			imshow("final image", final_img);
-			for (unsigned int i = 0; i < scene1.patterns.size(); i++) {
-				scene1.patterns[i].printComponent();
-			}
+			for (int i = 2; i < argc; i = i + 2) {
+				string patternName = "../Ressources/models/" + string(argv[i]) + ".jpg";
+				patterns.push_back(
+						Pattern(patternName, 1500, atoi(argv[i+1])));
+				//Pattern("../Ressources/models/MIU.jpg", 1500, 235)
 		}
+		//patterns.push_back(Pattern("../Ressources/models/fullRacClear.jpg",400, 150));
+		//patterns.push_back(Pattern("../Ressources/models/italien.jpg", 400, 150));
 
-		waitKey(0);
+		Scene scene1(sceneName);
+		Corners corner;
+		Mat final_img = scene1.init_an_image(Pattern(sceneName));
+
+		for (unsigned int i = 0; i < patterns.size(); i++) {
+			//std::cout << "detection of pattern " << i << std::endl;
+
+			scene1.matche_scene(patterns[i]);
+			scene1.show_matches(patterns[i], final_img);
+			scene1.init_before_search(patterns[i]);
+
+			while (scene1.searchPattern(final_img, corner, patterns[i], 1))
+				;
+		}
+		imshow("final image", final_img);
+		for (unsigned int i = 0; i < scene1.patterns.size(); i++) {
+			scene1.patterns[i].printComponent();
+		}
 	}
+
+	waitKey(0);
+}
 }
