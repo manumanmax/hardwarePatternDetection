@@ -17,14 +17,14 @@ bool Scene::searchPattern(Mat& img_matches, Corners& corners, const Pattern& pat
 		std::cout << "pattern not initialised" << std::endl;
 		return false;
 	}
-	if (good_matches.size() <= 6) {
+	if (good_matches.size() <= MAX_NUMBER_OF_PATTERN) {
 		//std::cout << "too few matches" << std::endl;
 		return false;
 	}
 	//draw(img1, img2, keypoints1, keypoints2, good_matches, img_matches);
 	corners = find_object(img_matches, pattern);
 	int numberOfPointRemoved = removePointsOfObjectFound(corners);
-	if (numberOfPointRemoved > 6){
+	if (numberOfPointRemoved > MAX_NUMBER_OF_PATTERN){
 		//std::cout << "pattern found (" << numberOfPointRemoved << ")" << std::endl;
 		draw_final_image(img_matches,pattern, shifted);
 		add_component(pattern,corners);
@@ -192,7 +192,7 @@ Scene::Scene(string location) {
 		patterns = std::vector<Composant>();
 		patternInitialised = false;
 		cv::equalizeHist(img, img);
-		SiftFeatureDetector detector(1500);
+		SiftFeatureDetector detector(10000000);
 		detector.detect(img, keypoints);
 		cv::SiftDescriptorExtractor extractor;
 		extractor.compute(img, keypoints, descriptors);

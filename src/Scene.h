@@ -7,7 +7,7 @@
 
 #ifndef SRC_SCENE_H_
 #define SRC_SCENE_H_
-#define MAX_NUMBER_OF_PATTERN 10
+#define MAX_NUMBER_OF_PATTERN 8
 
 #include <vector>
 #include "Composant.h"
