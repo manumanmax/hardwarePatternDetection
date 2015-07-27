@@ -145,13 +145,13 @@ Corners Scene::draw_final_image(Mat& img_matches, const Pattern& pattern, bool s
 		right_sift = Point2f(0, 0);
 
 	line(img_matches, corners.top_left_shift(right_sift),
-			corners.top_right_shift(right_sift), Scalar(0, 0, 255), 4);
+			corners.top_right_shift(right_sift), Scalar(0,0,0), 4);
 	line(img_matches, corners.top_right_shift(right_sift),
-			corners.bot_right_shift(right_sift), Scalar(0, 0, 255), 4);
+			corners.bot_right_shift(right_sift), Scalar(0,0,0), 4);
 	line(img_matches, corners.bot_right_shift(right_sift),
-			corners.bot_left_shift(right_sift), Scalar(0, 0, 255), 4);
+			corners.bot_left_shift(right_sift), Scalar(0,0,0), 4);
 	line(img_matches, corners.bot_left_shift(right_sift),
-			corners.top_left_shift(right_sift), Scalar(0, 0, 255), 4);
+			corners.top_left_shift(right_sift), Scalar(0,0,0), 4);
 	return corners;
 }
 

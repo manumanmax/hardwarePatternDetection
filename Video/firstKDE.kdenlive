@@ -10,29 +10,38 @@
   <property name="mlt_service">colour</property>
  </producer>
  <playlist id="black_track">
-  <entry in="0" out="1988" producer="black"/>
+  <entry in="0" out="3338" producer="black"/>
  </playlist>
  <playlist id="playlist1"/>
  <playlist id="playlist2"/>
  <playlist id="playlist3"/>
- <producer in="0" out="2531" id="1">
+ <producer in="0" out="3826" id="3">
   <property name="mlt_type">producer</property>
-  <property name="length">2532</property>
+  <property name="length">3827</property>
   <property name="eof">pause</property>
-  <property name="resource">workspace/Scanner/Video/record01</property>
+  <property name="resource">workspace/Scanner/Video/record02.mp4</property>
   <property name="meta.media.nb_streams">1</property>
   <property name="meta.media.0.stream.type">video</property>
-  <property name="meta.media.0.stream.frame_rate">2</property>
+  <property name="meta.media.0.stream.frame_rate">12,0038</property>
   <property name="meta.media.0.stream.sample_aspect_ratio">0</property>
   <property name="meta.media.0.codec.width">1366</property>
   <property name="meta.media.0.codec.height">768</property>
-  <property name="meta.media.0.codec.frame_rate">2</property>
+  <property name="meta.media.0.codec.frame_rate">12</property>
   <property name="meta.media.0.codec.pix_fmt">yuv420p</property>
   <property name="meta.media.0.codec.sample_aspect_ratio">1</property>
   <property name="meta.media.0.codec.colorspace">709</property>
   <property name="meta.media.0.codec.name">h264</property>
   <property name="meta.media.0.codec.long_name">H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10</property>
-  <property name="meta.media.0.codec.bit_rate">0</property>
+  <property name="meta.media.0.codec.bit_rate">168578</property>
+  <property name="meta.attr.0.stream.creation_time.markup">2015-07-27 08:53:21</property>
+  <property name="meta.attr.0.stream.language.markup">eng</property>
+  <property name="meta.attr.0.stream.handler_name.markup">VideoHandler</property>
+  <property name="meta.attr.major_brand.markup">isom</property>
+  <property name="meta.attr.minor_version.markup">0</property>
+  <property name="meta.attr.compatible_brands.markup">mp41avc1qt  </property>
+  <property name="meta.attr.creation_time.markup">2015-07-27 08:53:21</property>
+  <property name="meta.attr.encoder.markup">vlc 2.1.1 stream output</property>
+  <property name="meta.attr.encoder-eng.markup">vlc 2.1.1 stream output</property>
   <property name="seekable">1</property>
   <property name="meta.media.sample_aspect_num">1</property>
   <property name="meta.media.sample_aspect_den">1</property>
@@ -40,8 +49,8 @@
   <property name="audio_index">-1</property>
   <property name="video_index">0</property>
   <property name="mlt_service">avformat</property>
-  <property name="meta.media.frame_rate_num">2</property>
-  <property name="meta.media.frame_rate_den">1</property>
+  <property name="meta.media.frame_rate_num">919500000</property>
+  <property name="meta.media.frame_rate_den">76601057</property>
   <property name="meta.media.colorspace">709</property>
   <property name="meta.media.width">1366</property>
   <property name="meta.media.height">768</property>
@@ -49,8 +58,8 @@
   <property name="meta.media.progressive">1</property>
  </producer>
  <playlist id="playlist4">
-  <blank length="119"/>
-  <entry in="145" out="2014" producer="1"/>
+  <blank length="55"/>
+  <entry in="235" out="3404" producer="3"/>
  </playlist>
  <producer in="0" out="485" id="2">
   <property name="mlt_type">producer</property>
@@ -85,10 +94,45 @@
 </property>
   <property name="force_reload">0</property>
  </producer>
+ <producer in="0" out="174" id="4">
+  <property name="mlt_type">producer</property>
+  <property name="length">175</property>
+  <property name="eof">pause</property>
+  <property name="resource"/>
+  <property name="progressive">1</property>
+  <property name="mlt_service">kdenlivetitle</property>
+  <property name="xmldata">&lt;kdenlivetitle width="1920" duration="175" height="1080" LC_NUMERIC="fr_FR.UTF-8">
+ &lt;item z-index="3" type="QGraphicsTextItem">
+  &lt;position x="466,6666666666669" y="560,7575757575755">
+   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
+  &lt;/position>
+  &lt;content font-color="48,48,48,255" font-outline-color="0,0,0,255" font-pixel-size="30" font-italic="0" font-underline="0" font-weight="63" font="DejaVu Sans" font-outline="0,2">https://github.com/manumanmax/hardwarePatternDetection&lt;/content>
+ &lt;/item>
+ &lt;item z-index="2" type="QGraphicsTextItem">
+  &lt;position x="557,5757575757576" y="351,1515151515151">
+   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
+  &lt;/position>
+  &lt;content font-color="48,48,48,255" font-outline-color="0,0,0,255" font-pixel-size="70" font-italic="0" font-underline="0" font-weight="63" font="DejaVu Sans" font-outline="0,2">For more information&lt;/content>
+ &lt;/item>
+ &lt;item z-index="0" type="QGraphicsTextItem">
+  &lt;position x="395,4545454545455" y="491,4848484848484">
+   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
+  &lt;/position>
+  &lt;content font-color="48,48,48,255" font-outline-color="0,0,0,255" font-pixel-size="30" font-italic="0" alignment="4" font-underline="0" font-weight="63" font="DejaVu Sans" font-outline="0,2">Emmanuel Breton--Belz : emmanuel.breton-belz@ecole.ensicaen.fr&lt;/content>
+ &lt;/item>
+ &lt;startviewport rect="0,0,1920,1080"/>
+ &lt;endviewport rect="0,0,1920,1080"/>
+ &lt;background color="0,0,0,0"/>
+&lt;/kdenlivetitle>
+</property>
+  <property name="force_reload">0</property>
+ </producer>
  <playlist id="playlist5">
   <entry in="0" out="119" producer="2"/>
+  <blank length="3044"/>
+  <entry in="0" out="174" producer="4"/>
  </playlist>
- <tractor title="Anonymous Submission" global_feed="1" in="0" out="1988" id="maintractor">
+ <tractor title="Anonymous Submission" global_feed="1" in="0" out="3338" id="maintractor">
   <property name="meta.volume">1</property>
   <track producer="black_track"/>
   <track hide="video" producer="playlist1"/>
@@ -141,12 +185,23 @@
    <property name="automatic">1</property>
    <property name="kdenlive_id">dissolve</property>
    <property name="force_track">0</property>
+   <property name="reverse">1</property>
+  </transition>
+  <transition in="3164" out="3224" id="transition5">
+   <property name="a_track">4</property>
+   <property name="b_track">5</property>
+   <property name="factory">loader</property>
+   <property name="mlt_type">transition</property>
+   <property name="mlt_service">luma</property>
+   <property name="automatic">1</property>
+   <property name="kdenlive_id">dissolve</property>
+   <property name="force_track">0</property>
    <property name="reverse">0</property>
   </transition>
  </tractor>
  <kdenlivedoc profile="hdv_1080_50i" kdenliveversion="0.9.6" version="0,88" projectfolder="/home/manu/kdenlive">
   <customeffects/>
-  <documentproperties documentid="1437729437636" renderdestination="" renderrescalewidth="320" proxyextension="ts" generateproxy="0" proxyimageminsize="2000" rendertctype="0" verticalzoom="1" renderprofile="MPEG-4/MP3" renderrescaleheight="240" zonein="0" renderrescale="0" renderscanning="0" renderurl="/home/manu/workspace/Scanner/Video/video.mp4" rendertwopass="0" renderplay="0" position="0" proxyminsize="1000" renderstartguide="-1" zoom="7" renderratio="0" rendercategory="MPEG-4" zoneout="66" renderzone="0" renderendguide="-1" renderexportaudio="0" proxyparams="-f mpegts -acodec libmp3lame -ac 2 -ab 128k -ar 48000 -vcodec mpeg2video -g 5 -deinterlace -s 480x270 -vb 400k" enableproxy="0" generateimageproxy="0" renderguide="0" rendertcoverlay="0"/>
+  <documentproperties documentid="1437729437636" renderdestination="" renderrescalewidth="320" proxyextension="ts" generateproxy="0" proxyimageminsize="2000" rendertctype="0" verticalzoom="1" renderprofile="MPEG-4/MP3" renderrescaleheight="240" zonein="0" renderrescale="0" renderscanning="0" renderurl="/home/manu/workspace/Scanner/Video/video.mp4" rendertwopass="0" renderplay="0" position="3338" proxyminsize="1000" renderstartguide="-1" zoom="7" renderratio="0" rendercategory="MPEG-4" zoneout="66" renderzone="0" renderendguide="-1" renderexportaudio="0" proxyparams="-f mpegts -acodec libmp3lame -ac 2 -ab 128k -ar 48000 -vcodec mpeg2video -g 5 -deinterlace -s 480x270 -vb 400k" enableproxy="0" generateimageproxy="0" renderguide="0" rendertcoverlay="0"/>
   <documentmetadata/>
   <documentnotes>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
@@ -161,8 +216,19 @@ p, li { white-space: pre-wrap; }
    <trackinfo blind="0" mute="0" locked="0" trackname="Video 2"/>
    <trackinfo blind="0" mute="0" locked="0" trackname="Video 1"/>
   </tracksinfo>
-  <kdenlive_producer audio_max="0" id="1" pix_fmt="yuv420p" default_video="0" fps="2" analysisdata="" name="record01" videocodecid="h264" zone_out="2015" colorspace="709" videocodec="H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10" resource="/home/manu/workspace/Scanner/Video/record01" default_audio="-1" duration="2532" file_hash="b26be7a6f09eec14fc8d8d56dbe9e59f" aspect_ratio="1" video_max="0" progressive="1" type="2" zone_in="145" frame_size="1366x768" file_size="4323060"/>
   <kdenlive_producer duration="125" transparency="1" frame_size="1440x1080" thumbnail="100" in="0" analysisdata="" aspect_ratio="0" out="124" xmldata="&lt;kdenlivetitle width=&quot;1920&quot; duration=&quot;125&quot; height=&quot;1080&quot; LC_NUMERIC=&quot;fr_FR.UTF-8&quot;>&#xa; &lt;item z-index=&quot;5&quot; type=&quot;QGraphicsTextItem&quot;>&#xa;  &lt;position x=&quot;638&quot; y=&quot;438&quot;>&#xa;   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>&#xa;  &lt;/position>&#xa;  &lt;content font-color=&quot;48,48,48,255&quot; font-outline-color=&quot;0,0,0,255&quot; font-pixel-size=&quot;70&quot; font-italic=&quot;0&quot; font-underline=&quot;0&quot; font-weight=&quot;50&quot; font=&quot;DejaVu Sans&quot; font-outline=&quot;0&quot;>UNISA SALERNO&lt;/content>&#xa; &lt;/item>&#xa; &lt;item z-index=&quot;5&quot; type=&quot;QGraphicsRectItem&quot;>&#xa;  &lt;position x=&quot;1490,909090909091&quot; y=&quot;742,4242424242424&quot;>&#xa;   &lt;transform zoom=&quot;100&quot;>1,0,0,0,1,0,0,0,1&lt;/transform>&#xa;  &lt;/position>&#xa;  &lt;content pencolor=&quot;0,0,0,255&quot; rect=&quot;0,-3.0303,3.0303,3.0303&quot; penwidth=&quot;0&quot; brushcolor=&quot;0,0,0,255&quot;/>&#xa; &lt;/item>&#xa; &lt;item z-index=&quot;4&quot; type=&quot;QGraphicsTextItem&quot;>&#xa;  &lt;position x=&quot;225&quot; y=&quot;266&quot;>&#xa;   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>&#xa;  &lt;/position>&#xa;  &lt;content font-color=&quot;48,48,48,255&quot; font-pixel-size=&quot;70&quot; font-italic=&quot;0&quot; font-underline=&quot;0&quot; font-weight=&quot;50&quot; font=&quot;DejaVu Sans&quot;>Projet pattern recognition MIVIA Lab 2015&lt;/content>&#xa; &lt;/item>&#xa; &lt;startviewport rect=&quot;0,0,1920,1080&quot;/>&#xa; &lt;endviewport rect=&quot;0,0,1920,1080&quot;/>&#xa; &lt;background color=&quot;0,0,0,0&quot;/>&#xa;&lt;/kdenlivetitle>&#xa;" type="6" id="2" name="Clip titre"/>
+  <kdenlive_producer audio_max="0" id="3" pix_fmt="yuv420p" default_video="0" fps="12,0038" analysisdata="" name="record02.mp4" videocodecid="h264" zone_out="3405" colorspace="709" videocodec="H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10" resource="/home/manu/workspace/Scanner/Video/record02.mp4" default_audio="-1" duration="3827" file_hash="dd75c64abab858f5c02ffa42c7cb81e4" aspect_ratio="1" video_max="0" progressive="1" type="2" zone_in="235" frame_size="1366x768" file_size="3251182">
+   <metaproperty tool="" name="meta.attr.0.stream.creation_time">2015-07-27 08:53:21</metaproperty>
+   <metaproperty tool="" name="meta.attr.0.stream.handler_name">VideoHandler</metaproperty>
+   <metaproperty tool="" name="meta.attr.0.stream.language">eng</metaproperty>
+   <metaproperty tool="" name="meta.attr.compatible_brands">mp41avc1qt  </metaproperty>
+   <metaproperty tool="" name="meta.attr.creation_time">2015-07-27 08:53:21</metaproperty>
+   <metaproperty tool="" name="meta.attr.encoder">vlc 2.1.1 stream output</metaproperty>
+   <metaproperty tool="" name="meta.attr.encoder-eng">vlc 2.1.1 stream output</metaproperty>
+   <metaproperty tool="" name="meta.attr.major_brand">isom</metaproperty>
+   <metaproperty tool="" name="meta.attr.minor_version">0</metaproperty>
+  </kdenlive_producer>
+  <kdenlive_producer duration="175" transparency="1" frame_size="1440x1080" thumbnail="100" in="0" analysisdata="" aspect_ratio="0" out="174" xmldata="&lt;kdenlivetitle width=&quot;1920&quot; duration=&quot;175&quot; height=&quot;1080&quot; LC_NUMERIC=&quot;fr_FR.UTF-8&quot;>&#xa; &lt;item z-index=&quot;3&quot; type=&quot;QGraphicsTextItem&quot;>&#xa;  &lt;position x=&quot;466,6666666666669&quot; y=&quot;560,7575757575755&quot;>&#xa;   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>&#xa;  &lt;/position>&#xa;  &lt;content font-color=&quot;48,48,48,255&quot; font-outline-color=&quot;0,0,0,255&quot; font-pixel-size=&quot;30&quot; font-italic=&quot;0&quot; font-underline=&quot;0&quot; font-weight=&quot;63&quot; font=&quot;DejaVu Sans&quot; font-outline=&quot;0,2&quot;>https://github.com/manumanmax/hardwarePatternDetection&lt;/content>&#xa; &lt;/item>&#xa; &lt;item z-index=&quot;2&quot; type=&quot;QGraphicsTextItem&quot;>&#xa;  &lt;position x=&quot;557,5757575757576&quot; y=&quot;351,1515151515151&quot;>&#xa;   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>&#xa;  &lt;/position>&#xa;  &lt;content font-color=&quot;48,48,48,255&quot; font-outline-color=&quot;0,0,0,255&quot; font-pixel-size=&quot;70&quot; font-italic=&quot;0&quot; font-underline=&quot;0&quot; font-weight=&quot;63&quot; font=&quot;DejaVu Sans&quot; font-outline=&quot;0,2&quot;>For more information&lt;/content>&#xa; &lt;/item>&#xa; &lt;item z-index=&quot;0&quot; type=&quot;QGraphicsTextItem&quot;>&#xa;  &lt;position x=&quot;395,4545454545455&quot; y=&quot;491,4848484848484&quot;>&#xa;   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>&#xa;  &lt;/position>&#xa;  &lt;content font-color=&quot;48,48,48,255&quot; font-outline-color=&quot;0,0,0,255&quot; font-pixel-size=&quot;30&quot; font-italic=&quot;0&quot; alignment=&quot;4&quot; font-underline=&quot;0&quot; font-weight=&quot;63&quot; font=&quot;DejaVu Sans&quot; font-outline=&quot;0,2&quot;>Emmanuel Breton--Belz : emmanuel.breton-belz@ecole.ensicaen.fr&lt;/content>&#xa; &lt;/item>&#xa; &lt;startviewport rect=&quot;0,0,1920,1080&quot;/>&#xa; &lt;endviewport rect=&quot;0,0,1920,1080&quot;/>&#xa; &lt;background color=&quot;0,0,0,0&quot;/>&#xa;&lt;/kdenlivetitle>&#xa;" type="6" id="4" name="Clip titre"/>
   <markers/>
   <groups/>
  </kdenlivedoc>
