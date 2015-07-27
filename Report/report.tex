@@ -188,12 +188,12 @@ It also contains a method that determines if the point is inside the polygon rep
 	Pay attention to the quality of the image. RBG is enough because the images don't have to be to heavy but the global quality have to be really good. Four time the size of the image you want to recognize on the scene is good, I will explain later. 
 	
 
-	\par Try the test algorithm on each pattern with : "./Scanner <location of the image> test". It will automaticly run the most efficants values and print 10 images. If you have good results everywhere put 400 minHessian and 150 as threshold they are the most commun values.
-	Otherwise pick the best values. Pay attention that you can change the number of pattern you have to find in the code. %TODO : modifie that 
+	\par Try the test algorithm on each pattern with : "./Scanner <scene name> <pattern name> <number of time in the image> test". It will automaticly run the most efficants values and print the result. If you have good results everywhere put 400 minHessian and 150 as threshold they are the most commun values.
+	Otherwise pick the best values. Pay attention that you can change the number of pattern for better results. %TODO : modifie that 
 
 	\section{Launch the program}
 
-	\par When you obtain the values, add to the pattern vector all the patterns you want to be analyse in the program. Create the scene and initiate the final image within the code.
+	\par When you obtain the values for each pattern, add to the pattern vector all the patterns you want to be analyse in the program. Tape the command "./Scanner <scene name> <pattern 1> <threshold 1> <pattern 2> <threshold 2> ...".
 	
 	\par If your not satified there is 2 possibility. The pattern can be out range, meaning that the SIFT points found on the scene don't exist in the pattern image and the homography is impossible to compute. Or one of the thresholds is bad, meaning that there is to many or to few matches. In both case the homography is impossible. That is why test the values before running the application is important. The success of the recognition depends on the the number of pattern you want to find\footnote{More there are several times the same pattern one the scene more the values have to be precise}.
 	
