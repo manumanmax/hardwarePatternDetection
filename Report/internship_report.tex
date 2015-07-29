@@ -145,9 +145,17 @@
 	
 	\par I first thought I could get easily the points that gave me the corners after the homography. In fact I needed to remove the points that concern the pattern that has been recognized by the homography. There was no other way but to extract all the indexes of the points inside the corners I just found and remove them from the vectors. By chance, the homography take to vectors of points describing the positions of the descriptors (and the key points by the way). 
 	\par On the first version of this algorithm I was looking if the point was in the bounds represented by the 4 segments of the rectangle of the pattern found. I found out when I was rotating the image that the points was removed the wrong way because the shape of the pattern was a lozenge. A lot of points was concidered out of the bounds and other that had nothing to do with the pattern was removed.
-	\par 
-	
+	\par I found on the internet a method~\cite{InOut} that provides the answer of my problem in O(n). This method find the number of edges that ligne from a point cross to the infinite with a polygon. If it is odd then the point is inside the polygon otherwise it is outside. The picture~\ref{OutIn} illustrate the idea.
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=10cm]{images_not_compressed/isIn.png}
+			\caption{Illustration of the algorithm that tell if a point is inside a polygon}
+			\label{OutIn}	
+		\end{center}
+	\end{figure}
 	\subsubsection{Corners}
+
+	\par The corners correspond to the vertices of the polygone that represents the pattern	
 	
 	\subsubsection{Others}
 	
