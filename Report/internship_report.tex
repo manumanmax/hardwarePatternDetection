@@ -141,7 +141,11 @@
 
 	\par On this part we extract two possible methods with Pierluigi. The easy one was to draw in black the image and than make the homography another time. The hardest one was to look for the key points and descriptor inside the corners and earase them of their containers. Than do the homography again. I began by the second one that sounded more relevent. 
 	
-	\par To be clear I have to present the DMatch structure.
+	\par To be clear I have to present the DMatch structure that is detailed in the \hyperlink{structDMatch}{annexes}. The important attributs are the train index and the query index. They represent the fact that a descriptor has been found on the two images. But only the index of the descriptor is stored.
+	
+	\par I first thought I could get easily the points that gave me the corners after the homography. In fact I needed to remove the points that concern the pattern that has been recognized by the homography. There was no other way but to extract all the indexes of the points inside the corners I just found and remove them from the vectors. By chance, the homography take to vectors of points describing the positions of the descriptors (and the key points by the way). 
+	\par On the first version of this algorithm I was looking if the point was in the bounds represented by the 4 segments of the rectangle of the pattern found. I found out when I was rotating the image that the points was removed the wrong way because the shape of the pattern was a lozenge. A lot of points was concidered out of the bounds and other that had nothing to do with the pattern was removed.
+	\par 
 	
 	\subsubsection{Corners}
 	
