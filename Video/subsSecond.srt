@@ -8,7 +8,7 @@ Test the MI unit with the tester
 
 3
 00:00:22,500 --> 00:00:26,500
-precise the number of patterns to find
+Precise the number of patterns to find
 
 4
 00:00:26,750 --> 00:00:31,750
@@ -19,46 +19,70 @@ Then it computes a range of threshold values
 The 4 patterns are found in black
 
 6
-00:00:49,050 --> 00:00:53,050
-You can see the threshold value (193) on top
+00:00:49,050 --> 00:00:51,050
+Each line is a match
 
 7
-00:00:53,300 --> 00:00:56,300
-Now we do the same for the power_supply
+00:00:50,800 --> 00:00:52,800
+between the pattern
 
 8
-00:00:57,950 --> 00:01:00,950
-There is only one in the image
+00:00:52,550 --> 00:00:54,550
+in left and the scene
 
 9
-00:01:09,200 --> 00:01:12,200
-The power supply is isolated
+00:00:54,300 --> 00:00:56,300
+8 match is the minimum
 
 10
-00:01:12,450 --> 00:01:14,450
-with a threshold of 118
+00:00:56,050 --> 00:00:57,550
+to detect a pattern
 
 11
-00:01:21,700 --> 00:01:24,700
-Now we can run the program
+00:01:03,150 --> 00:01:07,150
+You can see the threshold value (193) on top
 
 12
-00:01:24,950 --> 00:01:27,950
-With the good values
+00:01:07,300 --> 00:01:10,300
+Now we do the same for the power_supply
 
 13
-00:01:48,200 --> 00:01:50,200
-And we have
+00:01:12,650 --> 00:01:15,650
+There is only one in the image
 
 14
-00:01:50,450 --> 00:01:51,950
-both the power supply
+00:01:24,000 --> 00:01:27,000
+The power supply is isolated
 
 15
-00:01:52,200 --> 00:01:53,700
-and the MI units
+00:01:26,450 --> 00:01:29,450
+with a threshold of 118
 
 16
+00:01:35,700 --> 00:01:38,700
+Now we can run the program
+
+17
+00:01:38,950 --> 00:01:41,950
+With the good values
+
+18
+00:02:02,000 --> 00:02:04,000
+Then we have
+
+19
+00:02:04,050 --> 00:02:07,050
+both the power supply
+
+20
+00:02:06,200 --> 00:02:09,200
+and the MI units
+
+21
+00:02:10,750 --> 00:02:14,750
+And here all the corners and names
+
+22
 00:00:32,000 --> 00:00:36,000
 To help you to find an appropriated threshold
 
