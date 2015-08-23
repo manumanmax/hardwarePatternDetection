@@ -80,7 +80,8 @@
 	
 	\input{thanks}
 	
-	
+	\setcounter{secnumdepth}{2}
+	\setcounter{tocdepth}{2}
 	
 	\tableofcontents
 	\newpage
@@ -88,55 +89,17 @@
 	\setcounter{page}{1}
 	
 	\input{introduction}
+	
+	
+	
 	\input{MIVIA_Lab}
+	
 	\input{work_to_do}
 	\input{study}
+	
 	\input{work_done}
 	
-	\par This part will a melting pot of issues and success and how I found out how to correct them if I could. I will gather the installations for OpenCV and the cross toolchain because the main idea is the same. Then I will spit the technical part in two as usual otherwise it will not be clear enough.	
-	
-	\section{Installation and tests}
-	
-	\subsection{Helmet}
-	\subsubsection{Cross GCC}
-	
-	\par It is pretty easy to install, you have to get the archieve and compile the cross compiler for your architecture. First of all I saw in the tutorial that I was trying that a Ubuntu 10.04LTS\footnote{Long Lime Support} was required. I used virtual box to get a virtual machin\footnote{Software to emulate operating systems} of this distribution on my windows OS.	
-	
-	\subsubsection{Kernel compilation}
-	\subsubsection{Test}
-	
-	\subsection{Pattern scanner}
-	\subsubsection{OpenCV installation}
-
-	\par I installed OpenCV 3.0 which is the last version and tried it. It has a base for basic image applications and modules that you can install by adding them to the module folder and compile them. Unfortunatly one module required to perform the test was not working with the 3.0 version. It is the non free module. I tryed several times but I finally decided to switch back to a previous version. After uninstall everything and install the 2.4.9 version. The module was functionnal. I tryed the code of the tutorial ~\hyperlink{opencv}{I quote earlier} and I had the first pattern recognition result. That took me 4 day in totall including the eclipse configuration that require adding all the libraries in the configuration of the compiler.
-	
-	\subsubsection{First build on eclipse}	
-	
-	\par As I just said, to make it work on eclipse I had to set the configuration for OpenCV project. Otherwise I does not compile. Right click on the project, propreties, than	go to the settings of my compiler (GCC  C++) and select includes. There I added the path to the local install folder where the OpenCV's includes are located. After that I had to set the libraries to link one by one. In the same window I went in libraries section and add their names like opencv\_core... And I added the search path of my local lib folder. Then I saved the setting and compilation was working.
-	
-	
-	\section{Main problems}	
-	\subsection{Related to the helmet}
-	\subsubsection{Hardware}
-	\subsubsection{Emulator}
-	\subsubsection{•}
-	
-	\subsection{Related to the software}
-	
-	\subsubsection{The matcher}
-	
-	\par After 3 days of stagnation making some tests and learing about the matching system. Allessia, the thesis companion of Mario Vento made me realise that was on the wrong way using the match function of OpenCV. In fact I couldn't find multiple pattern with that method because it selects the nearest descriptors\footnote{Those which have a minimum hamming distance likeness}. The result was that I had to launch serval time the algorithm to get new matches again and again. I found the knnmatcher that perform a full matching and keeps the N best matches. That was not enough so I switched to the radius matcher that need a threshold parameter. That it finally how I introduce the threshold in the program. This value depends on the object, the distance and the conditions of the scene. In an other way the matcher keeps the matches which differ between the scene and the pattern less than the threshold.
-	\par The algorithm return a vector of vector of DMatches\footnote{DMatch : A structure representing each match} so I put it in a simple vector of DMatches and it gave me very good results. The algorithm was able to find multiple time the same match on the scene. In the figure \ref{matches} we can see the fact that every time the pattern is represented it has matches in it. Not just the best ones which here corresponds to those of the first on the left.
-	
-	
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=10cm]{images_not_compressed/matches.jpg}
-			\caption{Simple draw of radius match with 3 times the same match surround in red}
-			\label{matches}	
-		\end{center}
-	\end{figure}
-	
+<<<<<<< HEAD
 	\subsubsection[Multiple pattern]{Get many time the same pattern}
 
 	\par On this part we extract two possible methods with Pierluigi. The easy one was to draw in black the image and than make the homography another time. The hardest one was to look for the key points and descriptor inside the corners and earase them of their containers. Than do the homography again. I began by the second one that sounded more relevent. 
@@ -172,6 +135,8 @@
 	
 	\par We can see here that four units has been found with, for each, the positions of the corners. The treshold and minimum hessian values used are printed on top of the image. This values are generally good, but they can be higher if it needs to be less specific.
 
+=======
+>>>>>>> da32cb58e77b0fbb34fe755b5f45d09f64c636a0
 	
 	\input{conclusion}
 
@@ -222,6 +187,14 @@ struct DMatch
 	
 	\input{summary}
 
+
+	\par My internship took place in Fisciano, a little city at 15km of Salerno and 35km South of Napoli in Italia. I was working in the MIVIA laboratory: Macchine Intelligenti per il riconoscimento di Video, Immagini e Media. Which means intelligent machines for video, images and media recognition. They currently work for multinational companies to startups, they are specialized in computer vision and automatism. That is why they often work with drones and robots.
+	\par My first project consisted in gathering information about the Motorola HC1 Helmet which is used by companies to provide hands free communication on the field. Then I had to replace the Windows CE operating system for a Linux. I tried a lot of things, but without the references of the components and the skills to erase Windows CE. I could not achieve this task.
+	\par After three weeks working on the helmet, I finally switched to another project. A project that fitted more with my skills because I had to implement an image analysis algorithm based on OpenCV. I had to extract patterns on images. The main difficulty of this project was that the pattern could appear several times on the image and they were several patterns to be found each time. This project is a step of a bigger project that pretend to simplify the maintenance manuals by simply scan the machine you want to repair. Because the manuals are often big and a little part of the information concern your machine. The result of the analysis should pop a manual in pdf gathering only the information you need.
+	\par I learned about OpenCV and tested code before I really worked on the project. The first version of the algorithm was not satisfying the need so I restarted from zero. Using what I have already done, I easily surpassed the previous algorithm with a new matching system and a strictness in organization. I made a github: \url{https://github.com/manumanmax/hardwarePatternDetection} and I often reported with my superior Pierluigi.
+	\par I finally succeed in my task of suppressing the points representing each pattern when I found one, threshold the matcher and gathering the in a structure. Then Pierluigi asked me to create a video to showcase how the algorithm works.
+	
+	\par I acquired lots of skills in computer sciences, but also in embedded system, English and I learned a little bit of Italian. At school, I made 3 internships and this one was the most interesting and relevant. I really enjoyed it because both the place and the work were great.
 	
 	
 	
