@@ -99,44 +99,6 @@
 	
 	\input{work_done}
 	
-<<<<<<< HEAD
-	\subsubsection[Multiple pattern]{Get many time the same pattern}
-
-	\par On this part we extract two possible methods with Pierluigi. The easy one was to draw in black the image and than make the homography another time. The hardest one was to look for the key points and descriptor inside the corners and earase them of their containers. Than do the homography again. I began by the second one that sounded more relevent. 
-	
-	\par To be clear I have to present the DMatch structure that is detailed in the \hyperlink{structDMatch}{annexes}. The important attributs are the train index and the query index. They represent the fact that a descriptor has been found on the two images. But only the index of the descriptor is stored.
-	
-	\par I first thought I could get easily the points that gave me the corners after the homography. In fact I needed to remove the points that concern the pattern that has been recognized by the homography. There was no other way but to extract all the indexes of the points inside the corners I just found and remove them from the vectors. By chance, the homography take to vectors of points describing the positions of the descriptors (and the key points by the way). 
-	\par On the first version of this algorithm I was looking if the point was in the bounds represented by the 4 segments of the rectangle of the pattern found. I found out when I was rotating the image that the points was removed the wrong way because the shape of the pattern was a lozenge. A lot of points was concidered out of the bounds and other that had nothing to do with the pattern was removed.
-	\par I found on the internet a method~\cite{InOut} that provides the answer of my problem in O(n). This method find the number of edges that ligne from a point cross to the infinite with a polygon. If it is odd then the point is inside the polygon otherwise it is outside. The picture~\ref{OutIn} illustrate the idea.
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=10cm]{images_not_compressed/isIn.png}
-			\caption{Illustration of the algorithm that tell if a point is inside a polygon}
-			\label{OutIn}	
-		\end{center}
-	\end{figure}
-	\subsubsection{Corners}
-	\par OpenCV does not implement a structure for the corners. The corners correspond to the vertices of the polygone that represents the pattern. I isolated them in the first place beaucoup that is a good proof of the fact that the algorithm found efficiantly a pattern. It also helped me to find out that the first version of the removing point algorithm was not working perfectly.
-	\par I let the structure as it is because I told myself that, in the future, the application could need the corners of the pattern to compute move analysis for exemple. 	
-	
-	\subsubsection{Others}
-	
-	\par My biggest parallel achivement is an algorithm that helps the user of the application to find the best threshold for his patterns. It depends of the number of pattern you want to recognize because often the threshold must be higher for certain conditions and more there is pattern in the image, more there is different conditions. 
-	\par The algorithm take a scene and a pattern in input plus the number of time the pattern is represented in the image. The result of the algorithm is the first threshold that got all the patterns in the image. It computes a range of 150 values, that is why I can take 2 or 3 secondes sometimes.
-	\newpage
-	\begin{figure}[t]
-		\begin{center}
-			\includegraphics[width=10cm]{images_not_compressed/tester.png}
-			\caption{Screenshot of the algorithm finding four times the MI unit pattern}
-			\label{OutIn}	
-		\end{center}
-	\end{figure}	
-	
-	\par We can see here that four units has been found with, for each, the positions of the corners. The treshold and minimum hessian values used are printed on top of the image. This values are generally good, but they can be higher if it needs to be less specific.
-
-=======
->>>>>>> da32cb58e77b0fbb34fe755b5f45d09f64c636a0
 	
 	\input{conclusion}
 
