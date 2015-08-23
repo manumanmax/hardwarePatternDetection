@@ -161,8 +161,8 @@
 	
 	\par My biggest parallel achivement is an algorithm that helps the user of the application to find the best threshold for his patterns. It depends of the number of pattern you want to recognize because often the threshold must be higher for certain conditions and more there is pattern in the image, more there is different conditions. 
 	\par The algorithm take a scene and a pattern in input plus the number of time the pattern is represented in the image. The result of the algorithm is the first threshold that got all the patterns in the image. It computes a range of 150 values, that is why I can take 2 or 3 secondes sometimes.
-	
-	\begin{figure}[h]
+	\newpage
+	\begin{figure}[t]
 		\begin{center}
 			\includegraphics[width=10cm]{images_not_compressed/tester.png}
 			\caption{Screenshot of the algorithm finding four times the MI unit pattern}
@@ -170,7 +170,7 @@
 		\end{center}
 	\end{figure}	
 	
-	\par We can see here that for units has been found with the positions of there corners
+	\par We can see here that four units has been found with, for each, the positions of the corners. The treshold and minimum hessian values used are printed on top of the image. This values are generally good, but they can be higher if it needs to be less specific.
 
 	
 	\input{conclusion}
