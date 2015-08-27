@@ -6,7 +6,7 @@
 	\par I began my study by acquiring some knowledges about the helmet itself. It has been released at the end of 2013, build for harsh condition, its price makes it inaccessible for the public. The army and building companies saw a good opportunity in this technology to ease the work by bringing communication in the field.
 	\par The helmet is equipped with a battery, Wi-Fi and Bluetooth connections, a camera and it can be worn under the work helmet. Everything is voice commanded, and very responsive thanks to Motorola's work. Windows CE 6.0 is used in the last release of the helmet image. It is good for the next section to understand that the starting system and the update system of Windows CE are related. That means that you can change the file system for an update, but it is windows itself that validate and copy the files on the intern memory from the SD card.
 	\subsection{Embedded systems}
-	\par I learned a lot about embedded system, mainly on the boards and all the peripherals. In our case, the components inside the helmet are not known and not published on the Internet. Pierluigi contacted the company that brought us the helmet, but they couldn't tell us which board was used in the helmet. I guessed which TI technology, it was because the datasheet reference a TI OMAP 3 microprocessor. 
+	\par I learned a lot about embedded system, mainly on the boards and all the peripherals. In our case, the components inside the helmet are not known and not published on the Internet. Pierluigi contacted the company that brought us the helmet, but they couldn't tell us which board was used in the helmet. I guessed which TI technology, it was because the datasheet reference a TI OMAP 3, a dual core ARM \footnote{Acorn Risc Machine} cortex A8 microprocessor.
 	\par That is mainly why I put my effort on the "ISEE – IGEP COM MODULE" built in with a TI OMAP 3 processor. It was in the state of the art when the helmet released and the smallest board with this processor. It corresponds well with the size of the hardware slot. In any case, if the Linux kernel is compatible with the processor a cross compiled file system should boot and at least it should show an image on the screen.
 	
 	\subsection{Cross-compilation}
@@ -24,12 +24,13 @@
 \subsubsection{Toolchain}
 	
 	\par A toolchain is a set of distinct software development tools that are linked (or chained) together by specific stages such as GCC, binutils and glibc (a portion of the GNU Toolchain)\cite{Toolchain}.
-	\par A toolchain requires binutils such as assembler and linker, that produces the binaries. Also compilers for different languages like C, C++, Java, etc, that transforms any language into another. A C library to gain access to kernel calls and a debugger that can be used or not during the compilation. We can see well on the diagram \ref{compchain} (from avrfreaks.net's forum)  where each component is located :
-	\begin{figure}[ht]
+	\par A toolchain requires binutils such as assembler and linker, that produces the binaries. Also compilers for different languages like C, C++, Java, etc, that transforms any language into another. A C library to gain access to kernel calls and a debugger that can be used or not during the compilation. We can see well on the diagram 
+~\ref{compilechain} (from avrfreaks.net's forum)  where each component is located.
+	\begin{figure}[h]
 		\begin{center}
 			\includegraphics[scale=0.5]{images_not_compressed/compchain.png}
-			\label{compchain}
 			\caption{Compiler process and files}
+			\label{compilechain}
 		\end{center}
 	\end{figure}
 	
@@ -48,7 +49,7 @@
 	\par OpenCV is an image analysis and synthesis library that brings all the necessary for video and photo analysis. Introduced in 2000, it is now used a lot in the fields that require image analysis.
  It is built around a modular system that allows users to install the library depending on their needs.
  Except the non free module, the library is licensed BSD which means that we can reuse and modify all the components freely.
- In this document I will talk more about precise modules of OpenCV as a base and features2d modules.
+ In this document I will talk more about specific modules of OpenCV as a base and features2d modules.
 	
 	\subsection{Existing code}
 	
@@ -56,7 +57,7 @@
 	
 	\subsubsection{Key points}
 	\par SIFT points are points of interest in the image. They give the position of an area where all the pixels have approximately the same properties. Using the Laplacian of Gaussian of the image, maxima and minima which corresponding to these areas can be extracted.
-	\par The biggest advantage of these areas is the invariance in transformation like rotation, scaling and translation. Pattern detection algorithms based on SIFT points are insensitive in term of scale and rotation. That is mainly why it has been chosen for this application. By the time that the resolution of the pattern must be over an acceptable threshold. We can move and rotate the object without altering the detection.
+	\par The biggest advantage of these areas is the invariance in transformation like rotation, scaling and translation. Pattern detection algorithms based on SIFT points are insensitive in term of scale and rotation. That is mainly why it has been chosen for this application. By the way, the resolution of the pattern must be over an acceptable threshold. We can move and rotate the object without altering the detection.
 	
 	\subsubsection[Descriptor]{SIFT Descriptor}
 	\par The descriptors are computed from the key points. The descriptors associated with the SIFT key points are locally oriented histograms around a SIFT key point \cite{AM}:
@@ -75,6 +76,6 @@
 	
 	\begin{wrapfigure}[12]{r}{10cm}
 			\includegraphics[width=10cm]{images_not_compressed/showHomography.png}
-			\caption{Homography with a corner hidden with openCV}
+			\caption{Homography with a corner hidden with OpenCV}
 	\end{wrapfigure}
 	\par On the image behind we can see that the homography doesn't depend on the corners. All the key points can be a base for analyze. And using the perspective transform of OpenCV that multiplies the corners by the homography matrix. We obtain the position of the corners on the captured image.
